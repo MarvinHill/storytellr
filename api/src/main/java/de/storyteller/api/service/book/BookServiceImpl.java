@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDTO updateBook(EditBookRequest book)  {
         if (!bookRepository.existsById(book.getId())) {
-            throw new RuntimeException("Event with id: " + book.getId() + " doesn't exist");
+            throw new RuntimeException("Book with id: " + book.getId() + " doesn't exist");
         }
         return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
     }

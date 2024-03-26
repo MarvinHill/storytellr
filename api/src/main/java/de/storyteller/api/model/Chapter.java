@@ -1,6 +1,7 @@
 package de.storyteller.api.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
