@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,8 +17,8 @@ import java.util.Set;
 public class AddBookRequest {
     @NotBlank(message = "Title should not be blank")
     private String title;
-    @NotNull(message = "A genre must be set")
-    private Genre genre;
+
+    private UUID genreId;
     @NotBlank(message = "Author should not be blank")
     private String author;
     @NotBlank(message = "Description should not be blank")
