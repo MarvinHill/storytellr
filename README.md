@@ -7,11 +7,11 @@
 - chore/
 
 ## Commits
-Commits use the [Conventional Commit Strukture](https://www.conventionalcommits.org/en/v1.0.0/) naming pattern.
+Commits use the [Conventional Commit Structure](https://www.conventionalcommits.org/en/v1.0.0/) naming pattern.
 
 A helper tool can be found at [link](https://commit-creator.netlify.app/).
 ### Scope Naming
-Current existing Scopes in Storysteller
+Current existing Scopes in Storyteller
 - api
 - webapp
 
