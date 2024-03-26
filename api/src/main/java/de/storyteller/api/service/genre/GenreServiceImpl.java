@@ -21,8 +21,6 @@ public class GenreServiceImpl implements GenreService{
 
     @Override
     public GenreDTO createGenre(AddGenreRequest genre) {
-        System.out.println("Test" + genre);
-        System.out.println(genreMapper.toGenre(genre));
         return genreMapper.toGenreDTO(genreRepository.save(genreMapper.toGenre(genre)));
     }
 

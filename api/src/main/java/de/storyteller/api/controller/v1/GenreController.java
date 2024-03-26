@@ -22,7 +22,6 @@ public class GenreController {
 
     @PostMapping("/add")
     public ResponseEntity<GenreDTO> addGenre(@Valid @RequestBody AddGenreRequest genre) {
-        System.out.println("Test1" + genre);
         return ResponseEntity.ok(genreService.createGenre(genre));
     }
     @DeleteMapping("/delete/{id}")
