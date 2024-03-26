@@ -1,8 +1,7 @@
 package de.storyteller.api.controller.v1;
 
-import de.storyteller.api.dto.book.AddBookRequest;
 import de.storyteller.api.dto.chapter.AddChapterRequest;
-import de.storyteller.api.dto.chapter.ChapterDTO;
+import de.storyteller.api.dto.chapter.EditChapterRequest;
 import de.storyteller.api.service.chapter.ChapterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +22,10 @@ public class ChapterController {
     @PostMapping("/add")
     public ResponseEntity<?> addChapter(@Valid @RequestBody AddChapterRequest chapter){
         return ResponseEntity.ok(chapterService.createChapter(chapter));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateChapter(@Valid @RequestBody EditChapterRequest chapter){
+        return ResponseEntity.ok(chapterService.updateChapter(chapter));
     }
 }
