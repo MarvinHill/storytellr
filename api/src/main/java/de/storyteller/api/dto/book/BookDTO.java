@@ -19,7 +19,5 @@ public class BookDTO {
     private String author;
     private String description;
     private String catchphrase;
-    private Set<Long> chapterIds;
-    // Datatype?
     private String cover;
 }

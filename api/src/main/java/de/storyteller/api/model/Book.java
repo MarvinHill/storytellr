@@ -29,10 +29,6 @@ public class Book {
     @Column(length=75)
     private String catchphrase;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private Set<Chapter> chapters;
-
-    // Datatype?
     private String cover;
 
 

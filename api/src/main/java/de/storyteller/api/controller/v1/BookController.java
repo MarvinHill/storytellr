@@ -35,4 +35,9 @@ public class BookController {
     public ResponseEntity<BookDTO> getBookById(@PathVariable Long id){
         return ResponseEntity.ok(bookService.getBookById(id));
     }
+
+    @GetMapping("/{id}/chapters")
+    public ResponseEntity<?> getBookChapters(@PathVariable Long id){
+        return ResponseEntity.ok(bookService.getAllChapters(id));
+    }
 }
