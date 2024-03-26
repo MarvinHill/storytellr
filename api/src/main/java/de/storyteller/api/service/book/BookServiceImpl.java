@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO getBookById(Long id) {
+    public BookDTO getBookById(UUID id) {
         return bookMapper.toBookDTO(bookRepository.findById(id).orElseThrow());
     }
 
@@ -50,7 +51,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<ChapterDTO> getAllChapters(Long bookId) {
+    public List<ChapterDTO> getAllChapters(UUID bookId) {
         List<Chapter> chapters = chapterRepository.findAllByBookId(bookId);
         return chapters.stream()
                 .map(chapterMapper::toChapterDTO)

@@ -7,19 +7,19 @@ import de.storyteller.api.dto.chapter.ChapterDTO;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-
+import java.util.UUID;
 
 
 public interface BookService {
     @Transactional
     List<BookDTO> getAllBooks();
     @Transactional
-    BookDTO getBookById(Long id);
+    BookDTO getBookById(UUID id);
     @Transactional
     BookDTO createBook(AddBookRequest book);
     @Transactional
     BookDTO updateBook(EditBookRequest book);
     @Transactional
-    List<ChapterDTO> getAllChapters(Long bookId);
+    List<ChapterDTO> getAllChapters(UUID bookId);
 
 }

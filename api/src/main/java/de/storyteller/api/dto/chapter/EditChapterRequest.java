@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -14,9 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class EditChapterRequest {
     @NotNull(message = "Chapter ID is required")
-    private Long id;
+    private UUID id;
     @NotNull(message = "Book ID is required")
-    private Long bookId;
+    private UUID bookId;
     @NotNull(message = "Chapter title is required")
     private String chapterTitle;
     private String content;

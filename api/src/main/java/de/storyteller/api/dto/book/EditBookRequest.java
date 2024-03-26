@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class EditBookRequest {
     @NotNull(message = "An id must be set")
-    private Long id;
+    private UUID id;
     @NotBlank(message = "Title should not be blank")
     private String title;
     @NotNull(message = "A genre must be set")
@@ -26,6 +27,5 @@ public class EditBookRequest {
     @NotBlank(message = "Description should not be blank")
     private String description;
     private String catchphrase;
-    private Set<Long> chapterIds;
     private String cover;
 }

@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/books")
@@ -32,12 +34,12 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookDTO> getBookById(@PathVariable Long id){
+    public ResponseEntity<BookDTO> getBookById(@PathVariable UUID id){
         return ResponseEntity.ok(bookService.getBookById(id));
     }
 
     @GetMapping("/{id}/chapters")
-    public ResponseEntity<?> getBookChapters(@PathVariable Long id){
+    public ResponseEntity<?> getBookChapters(@PathVariable UUID id){
         return ResponseEntity.ok(bookService.getAllChapters(id));
     }
 }

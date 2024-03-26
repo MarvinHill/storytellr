@@ -13,6 +13,8 @@ import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @Mapper(componentModel = "spring")
 public abstract class ChapterMapper {
@@ -27,7 +29,7 @@ public abstract class ChapterMapper {
     @Mapping(target = "book", source = "bookId")
     public abstract Chapter toChapter(AddChapterRequest chapter);
     public abstract Chapter toChapter(EditChapterRequest chapter);
-    protected Book mapBookIdToBook(Long bookId) {
+    protected Book mapBookIdToBook(UUID bookId) {
         return bookRepository.findById(bookId).orElse(null);
     }
 

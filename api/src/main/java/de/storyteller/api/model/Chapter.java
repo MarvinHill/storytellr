@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;

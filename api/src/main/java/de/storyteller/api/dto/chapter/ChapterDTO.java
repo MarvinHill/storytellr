@@ -6,14 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChapterDTO {
-    private Long id;
-    private Long bookId;
+    private UUID id;
+    private UUID bookId;
     private String chapterTitle;
     private String content;
     private LocalDateTime lastModified;
