@@ -1,7 +1,9 @@
 package de.storyteller.api.service;
 
-import de.storyteller.api.dto.BookDTO;
-import de.storyteller.api.dto.ChapterDTO;
+import de.storyteller.api.dto.book.AddBookRequest;
+import de.storyteller.api.dto.book.BookDTO;
+import de.storyteller.api.dto.book.EditBookRequest;
+import de.storyteller.api.dto.chapter.ChapterDTO;
 import de.storyteller.api.mapper.BookMapper;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.repository.BookRepository;
@@ -20,7 +22,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> getAllBooks() {
         List<Book> books = bookRepository.findAll();
         return books.stream()
-                .map(bookMapper::bookToBookDTO)
+                .map(bookMapper::toBookDTO)
                 .collect(Collectors.toList());
     }
 
@@ -30,12 +32,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO createBook(BookDTO bookDTO) {
-        return null;
+    public BookDTO createBook(AddBookRequest book) {
+        return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
     }
 
     @Override
-    public BookDTO updateBook(BookDTO bookDTO) {
+    public BookDTO updateBook(EditBookRequest book) {
+//        if (!bookRepository.existsById(book.getId())) {
+//            throw new Exception("Event with id: " + book.getId() + " doesn't exist");
+//        }
+//        return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
         return null;
     }
 

@@ -1,4 +1,4 @@
-package de.storyteller.api.dto;
+package de.storyteller.api.dto.book;
 
 import de.storyteller.api.model.Genre;
 import lombok.AllArgsConstructor;
