@@ -19,7 +19,7 @@ public class Book {
 
     private String title;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private Genre genre;
 
     private String author;
