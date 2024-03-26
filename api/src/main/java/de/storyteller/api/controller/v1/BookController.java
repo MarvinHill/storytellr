@@ -3,7 +3,7 @@ package de.storyteller.api.controller.v1;
 import de.storyteller.api.dto.book.AddBookRequest;
 import de.storyteller.api.dto.book.BookDTO;
 import de.storyteller.api.dto.book.EditBookRequest;
-import de.storyteller.api.service.BookService;
+import de.storyteller.api.service.book.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,5 +29,10 @@ public class BookController {
     @PutMapping("/update")
     public ResponseEntity<BookDTO> updateEvent(@Valid @RequestBody EditBookRequest book) {
         return ResponseEntity.ok(bookService.updateBook(book));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookDTO> getBookById(@PathVariable Long id){
+        return ResponseEntity.ok(bookService.getBookById(id));
     }
 }

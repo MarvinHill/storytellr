@@ -1,5 +1,6 @@
-package de.storyteller.api.dto;
+package de.storyteller.api.dto.chapter;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +12,12 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChapterDTO {
-    private Long id;
+public class AddChapterRequest {
+    @NotNull(message = "Book ID is required")
     private Long bookId;
+    @NotNull(message = "Chapter title is required")
     private String chapterTitle;
     private String content;
+    @NotNull(message = "Last modified is required")
     private LocalDateTime lastModified;
 }

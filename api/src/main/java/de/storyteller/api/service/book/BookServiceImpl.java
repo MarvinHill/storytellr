@@ -1,4 +1,4 @@
-package de.storyteller.api.service;
+package de.storyteller.api.service.book;
 
 import de.storyteller.api.dto.book.AddBookRequest;
 import de.storyteller.api.dto.book.BookDTO;
@@ -7,6 +7,7 @@ import de.storyteller.api.dto.chapter.ChapterDTO;
 import de.storyteller.api.mapper.BookMapper;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.repository.BookRepository;
+import de.storyteller.api.service.book.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO getBookById(Long id) {
-        return null;
+        return bookMapper.toBookDTO(bookRepository.findById(id).orElseThrow());
     }
 
     @Override
@@ -45,12 +46,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(Long id) {
-
-    }
-
-    @Override
     public List<ChapterDTO> getAllChapters(Long bookId) {
-        return null;
+        Book book = bookRepository.findById(bookId).orElseThrow();
+        return bookMapper.mapChaptersToDTOs(book.getChapters());
     }
+
 }
