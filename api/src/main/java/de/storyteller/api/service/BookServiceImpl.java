@@ -37,12 +37,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO updateBook(EditBookRequest book) {
-//        if (!bookRepository.existsById(book.getId())) {
-//            throw new Exception("Event with id: " + book.getId() + " doesn't exist");
-//        }
-//        return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
-        return null;
+    public BookDTO updateBook(EditBookRequest book)  {
+        if (!bookRepository.existsById(book.getId())) {
+            throw new RuntimeException("Event with id: " + book.getId() + " doesn't exist");
+        }
+        return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
     }
 
     @Override

@@ -2,6 +2,7 @@ package de.storyteller.api.mapper;
 
 import de.storyteller.api.dto.book.AddBookRequest;
 import de.storyteller.api.dto.book.BookDTO;
+import de.storyteller.api.dto.book.EditBookRequest;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
@@ -24,6 +25,7 @@ public abstract class BookMapper {
     public abstract Book toBook(BookDTO bookDTO);
 
     public abstract Book toBook(AddBookRequest addBookRequest);
+    public abstract Book toBook(EditBookRequest editBookRequest);
 
     protected Set<Long> mapChaptersToIds(Set<Chapter> chapters) {
         return chapters.stream()

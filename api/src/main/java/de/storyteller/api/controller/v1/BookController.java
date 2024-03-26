@@ -2,6 +2,7 @@ package de.storyteller.api.controller.v1;
 
 import de.storyteller.api.dto.book.AddBookRequest;
 import de.storyteller.api.dto.book.BookDTO;
+import de.storyteller.api.dto.book.EditBookRequest;
 import de.storyteller.api.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,10 @@ public class BookController {
     @PostMapping("/add")
     public ResponseEntity<BookDTO> addEvent(@Valid @RequestBody AddBookRequest book) {
         return new ResponseEntity<>(bookService.createBook(book), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<BookDTO> updateEvent(@Valid @RequestBody EditBookRequest book) {
+        return ResponseEntity.ok(bookService.updateBook(book));
     }
 }
