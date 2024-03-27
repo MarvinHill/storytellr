@@ -14,6 +14,7 @@ A helper tool can be found at [link](https://commit-creator.netlify.app/).
 Current existing Scopes in Storyteller
 - api
 - webapp
+- proxy
 
 ## Project Structure
 
