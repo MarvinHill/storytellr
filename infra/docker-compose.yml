@@ -3,17 +3,13 @@ services:
 
   proxy:
     container_name: proxy
-    image: traefik:v3.0
-    # Enables the web UI and tells Traefik to listen to docker
+    image: nginx:1.25.4
     restart: unless-stopped
-    command: --api.insecure=true --providers.docker
     ports:
-      # The HTTP port
+      - "8080:80"
       - "80:80"
-      # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ../proxy/nginx.conf:/etc/nginx/nginx.conf
 
   api:
     container_name: api
@@ -50,14 +46,18 @@ services:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:24.0
     restart: unless-stopped
-    command: start-dev
-    ports:
-      - 8092:8080
+    command: start-dev --proxy-headers xforwarded
     environment:
       KC_DB: ${KEYCLOAK_DATABASE_VENDOR}
       KC_DB_URL_DATABASE: ${KEYCLOAK_DATABASE_NAME}
       KC_DB_SCHEMA: ${KEYCLOAK_DB_SCHEMA}
       KC_DB_URL: ${KEYCLOAK_DB_URL}
+
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
+
+      KC_PROXY: edge
 
       KC_DB_USERNAME: ${KEYCLOAK_DATABASE_USER}
       KC_DB_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}      
@@ -66,9 +66,9 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
 
       KC_HTTP_RELATIVE_PATH: ${KEYCLOAK_HTTP_RELATIVE_PATH}
-   #volumes:
-   #   - ./keycloak/themes:/opt/bitnami/keycloak/themes
 
 volumes:
   keycloakdb:
   apidb:
+  caddy_data:
+  caddy_config:
