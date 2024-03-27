@@ -15,6 +15,14 @@ services:
     container_name: api
     build: ../api
     restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://apidb:5432/${API_DATABASE_NAME}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: ${API_DATABASE_DRIVER_CLASS_NAME}
+      SPRING_DATASOURCE_USERNAME: ${API_DATABASE_USER}
+      SPRING_DATASOURCE_PASSWORD: ${API_DATABASE_PASSWORD}
+      SPRING_JPA_DATABASE_PLATFORM:  ${API_JPA_DATABASE_PLATFORM}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${API_HIBERNATE_MODE}
+      SPRING_JPA_SHOW_SQL: ${API_JPA_SHOW_SQL}
 
   webapp:
     container_name: webapp
