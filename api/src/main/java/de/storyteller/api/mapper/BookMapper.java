@@ -30,6 +30,7 @@ public abstract class BookMapper {
 
     @Autowired
     protected GenreRepository genreRepository;
+    private final String ID_PLACEHOLDER = "550e8400-e29b-41d4-a716-446655440000";
 
     @Mapping(target = "genreId", source = "genre.id")
     public abstract BookDTO toBookDTO(Book book);
@@ -37,7 +38,7 @@ public abstract class BookMapper {
     @Mapping(target = "genre", source = "genreId")
     public abstract Book toBook(BookDTO bookDTO);
 
-    @Mapping(target = "id", constant = "550e8400-e29b-41d4-a716-446655440000")
+    @Mapping(target = "id", constant = ID_PLACEHOLDER)
     @Mapping(target = "genre", source = "genreId")
     public abstract Book toBook(AddBookRequest addBookRequest);
     @Mapping(target = "genre", source = "genreId")

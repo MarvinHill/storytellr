@@ -24,13 +24,15 @@ public abstract class ChapterMapper {
     @Autowired
     protected BookRepository bookRepository;
 
+    private final String ID_PLACEHOLDER = "550e8400-e29b-41d4-a716-446655440000";
+
     @Mapping(target = "bookId", source = "book.id")
     public abstract ChapterDTO toChapterDTO(Chapter chapter);
     @Mapping(target = "book", source = "bookId")
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(ChapterDTO chapterDTO);
     @Mapping(target = "book", source = "bookId")
-    @Mapping(target = "id", constant = "550e8400-e29b-41d4-a716-446655440000")
+    @Mapping(target = "id", constant = ID_PLACEHOLDER)
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(AddChapterRequest chapter);
     @Mapping(target = "book", source = "bookId")
