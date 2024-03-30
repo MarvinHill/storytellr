@@ -30,7 +30,6 @@ public class BookController {
 
     @PutMapping("/update")
     public ResponseEntity<BookDTO> updateEvent(@Valid @RequestBody EditBookRequest book) {
-        System.out.println("Book: " + book);
         return ResponseEntity.ok(bookService.updateBook(book));
     }
 
