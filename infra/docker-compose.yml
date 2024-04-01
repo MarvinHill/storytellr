@@ -54,7 +54,7 @@ services:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:24.0
     restart: unless-stopped
-    command: start-dev --proxy-headers xforwarded
+    command: start-dev --import-realm --proxy-headers xforwarded
     environment:
       KC_DB: ${KEYCLOAK_DATABASE_VENDOR}
       KC_DB_URL_DATABASE: ${KEYCLOAK_DATABASE_NAME}
@@ -64,7 +64,6 @@ services:
       KC_HOSTNAME_STRICT: false
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_HTTP_ENABLED: true
-
       KC_PROXY: edge
 
       KC_DB_USERNAME: ${KEYCLOAK_DATABASE_USER}
@@ -72,8 +71,10 @@ services:
 
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-
       KC_HTTP_RELATIVE_PATH: ${KEYCLOAK_HTTP_RELATIVE_PATH}
+    volumes:
+      - ../keycloak/providers:/opt/keycloak/providers
+      - ../keycloak/import:/opt/keycloak/data/import
 
 volumes:
   keycloakdb:
