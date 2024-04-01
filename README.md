@@ -15,6 +15,8 @@ Current existing Scopes in Storyteller
 - api
 - webapp
 - proxy
+- docker-compose
+- keycloak
 
 ## Project Structure
 
