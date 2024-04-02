@@ -1,6 +1,6 @@
 {
   "id": "0906aa62-75e3-49b9-8e3f-91992ced7c99",
-  "realm": "storyteller",
+  "realm": "storytellr",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
@@ -46,7 +46,7 @@
   "failureFactor": 30,
   "defaultRole": {
     "id": "a7421949-2431-440e-a2e7-1d596465c8a6",
-    "name": "default-roles-storyteller",
+    "name": "default-roles-storytellr",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
