@@ -18,6 +18,7 @@ public class AddBookRequest {
     @NotBlank(message = "Title should not be blank")
     private String title;
 
+    @NotNull(message = "A genre must be set")
     private UUID genreId;
     @NotBlank(message = "Author should not be blank")
     private String author;
