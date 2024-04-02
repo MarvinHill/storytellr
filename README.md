@@ -1,4 +1,4 @@
-# Storyteller
+# Storytellr
 
 ## Branches
 ### Prefixes
@@ -11,7 +11,7 @@ Commits use the [Conventional Commit Structure](https://www.conventionalcommits.
 
 A helper tool can be found at [link](https://commit-creator.netlify.app/).
 ### Scope Naming
-Current existing Scopes in Storyteller
+Current existing Scopes in Storytellr
 - api
 - webapp
 - proxy
