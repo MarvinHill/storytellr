@@ -16,7 +16,7 @@ public class BookDTO {
     private UUID id;
     private String title;
     private UUID genreId;
-    private String author;
+    private UUID author;
     private String description;
     private String catchphrase;
     private String cover;

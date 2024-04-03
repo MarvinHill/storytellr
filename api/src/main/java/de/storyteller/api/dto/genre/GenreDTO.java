@@ -1,7 +1,7 @@
 package de.storyteller.api.dto.genre;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenreDTO {
-    private String id;
+    private UUID id;
     private String name;
 
 }
