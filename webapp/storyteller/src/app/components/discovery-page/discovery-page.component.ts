@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-discovery-page',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './discovery-page.component.scss'
 })
 export class DiscoveryPageComponent {
+  private bookId : string = '1234567890';
 
+  constructor(private router: Router) {}
+
+  navigateToBookDetail() {
+    this.router.navigate(['/book-details'], { queryParams: { bookId: this.bookId } })
+  }
 }
