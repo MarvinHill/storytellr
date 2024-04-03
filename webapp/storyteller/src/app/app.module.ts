@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { DiscoveryPageComponent } from './components/discovery-page/discovery-page.component';
 import {NgOptimizedImage} from "@angular/common";
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
-    DiscoveryPageComponent
+    DiscoveryPageComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,
