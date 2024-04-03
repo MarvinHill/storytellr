@@ -1,4 +1,4 @@
-interface Book {
+export interface Book {
   id: string;
   title: string;
   genreId: string;
@@ -8,7 +8,7 @@ interface Book {
   cover?: string;
 }
 
-interface AddBookRequest {
+export interface AddBookRequest {
   title: string;
   genreId: string;
   author: string;
@@ -17,7 +17,7 @@ interface AddBookRequest {
   cover?: string;
 }
 
-interface EditBookRequest {
+export interface EditBookRequest {
   id: string;
   title: string;
   genreId: string;
