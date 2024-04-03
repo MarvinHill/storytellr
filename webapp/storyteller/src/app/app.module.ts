@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { DiscoveryPageComponent } from './components/discovery-page/discovery-page.component';
+import {NgOptimizedImage} from "@angular/common";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -23,7 +26,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TopBarComponent,
+    DiscoveryPageComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
       useFactory: initializeKeycloak,
       multi: true,
       deps: [KeycloakService]
-    }
+    },
+    AppRoutingModule,
+    NgOptimizedImage
   ],
   bootstrap: [AppComponent]
 })
