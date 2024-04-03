@@ -19,7 +19,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       initOptions: {
         onLoad: 'check-sso',
         silentCheckSsoRedirectUri:
-          window.location.origin
+          "http://localhost:8080/"
       }
     });
 }

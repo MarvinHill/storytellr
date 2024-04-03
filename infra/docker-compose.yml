@@ -32,8 +32,13 @@ services:
   webapp:
     container_name: webapp
     build: ../webapp
+    restart: unless-stopped
+    ports:
+      - "8081:80"
     environment: 
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+    volumes:
+      - ../webapp/nginx.conf:/etc/nginx/nginx.conf
 
   apidb:
     container_name: apidb
