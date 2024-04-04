@@ -14,6 +14,8 @@ services:
   api:
     container_name: api
     build: ../api
+    depends_on:
+      - apidb
     restart: unless-stopped
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://apidb:5432/${API_DATABASE_NAME}
@@ -28,6 +30,8 @@ services:
       KEYCLOAK_BACKEND_CLIENT_ID: ${KEYCLOAK_BACKEND_CLIENT_ID}
       KEYCLOAK_BACKEND_CLIENT_SECRET: ${KEYCLOAK_BACKEND_CLIENT_SECRET}
       KEYCLOAK_FRONTEND_CLIENT_ID: ${KEYCLOAK_FRONTEND_CLIENT_ID}
+
+      API_DEBUG_LEVEL: ${API_DEBUG_LEVEL}
 
   webapp:
     container_name: webapp

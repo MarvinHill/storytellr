@@ -15,7 +15,7 @@ Current existing Scopes in Storytellr
 - api
 - webapp
 - proxy
-- docker-compose
+- infra
 - keycloak
 
 ## Project Structure
