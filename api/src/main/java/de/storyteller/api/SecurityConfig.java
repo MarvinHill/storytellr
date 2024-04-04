@@ -2,7 +2,13 @@ package de.storyteller.api;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import de.storyteller.api.model.Genre;
+import de.storyteller.api.repository.BookRepository;
+import de.storyteller.api.repository.GenreRepository;
+import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -21,6 +27,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
+        .csrf().disable()
         .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
     return http.build();
   }
@@ -29,4 +36,5 @@ public class SecurityConfig {
   JwtDecoder jwtDecoder() {
     return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
   }
+
 }
