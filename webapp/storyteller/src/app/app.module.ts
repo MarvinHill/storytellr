@@ -9,6 +9,8 @@ import { DiscoveryPageComponent } from './components/discovery-page/discovery-pa
 import {NgOptimizedImage} from "@angular/common";
 import { ApiTestComponent } from './components/api-test/api-test.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
+
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -24,12 +26,15 @@ function initializeKeycloak(keycloak: KeycloakService) {
     });
 }
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
     DiscoveryPageComponent,
-    ApiTestComponent
+    ApiTestComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +50,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
       deps: [KeycloakService]
     },
     AppRoutingModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })
