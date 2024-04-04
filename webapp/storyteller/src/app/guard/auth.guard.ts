@@ -21,15 +21,14 @@ export class AuthGuard extends KeycloakAuthGuard {
 
     console.warn("auth guard ran");  
     if (!this.authenticated) {
-      console.warn("keycloak is authenticated")
-      /*
+      
       await this.keycloak.login({
         redirectUri: window.location.origin + state.url,
       }).finally(()=>{
         console.warn("login request ran")
       });
-      */
     }
+    console.warn("keycloak is authentcated", this.authenticated)
     return this.authenticated;
   }
 }

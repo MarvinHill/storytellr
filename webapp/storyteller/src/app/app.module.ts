@@ -7,6 +7,8 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { DiscoveryPageComponent } from './components/discovery-page/discovery-page.component';
 import {NgOptimizedImage} from "@angular/common";
+import { ApiTestComponent } from './components/api-test/api-test.component';
+import { HttpClientModule } from '@angular/common/http';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -17,9 +19,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         clientId: 'storytellr-frontend'
       },
       initOptions: {
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri:
-          "http://localhost:8080/"
+        onLoad:'login-required',
       }
     });
 }
@@ -28,12 +28,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
   declarations: [
     AppComponent,
     TopBarComponent,
-    DiscoveryPageComponent
+    DiscoveryPageComponent,
+    ApiTestComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    HttpClientModule
   ],
   providers: [
     {
