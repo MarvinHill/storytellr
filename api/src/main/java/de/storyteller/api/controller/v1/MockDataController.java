@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MockDataController {
   @Autowired
   ExampleDataGenerator exampleDataGenerator;
-
-  @PreAuthorize("isAuthenticated()")
+  
   @GetMapping("/gen")
   public ResponseEntity<HttpStatusCode> generateMockData(){
     exampleDataGenerator.generate();
