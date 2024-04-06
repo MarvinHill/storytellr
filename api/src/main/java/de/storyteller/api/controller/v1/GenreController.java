@@ -23,12 +23,12 @@ public class GenreController {
     public ResponseEntity<List<GenreDTO>> getAllGenres() {
         return ResponseEntity.ok(genreService.getAllGenres());
     }
-    @PreAuthorize("hasRole('GENRE_ADMIN')") // Permitted user with role:  ROLE_GENRE_ADMIN
+    @PreAuthorize("isAuthenticated() && hasAuthority('GENRE_ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<GenreDTO> addGenre(@Valid @RequestBody AddGenreRequest genre) {
         return ResponseEntity.ok(genreService.createGenre(genre));
     }
-    @PreAuthorize("hasRole('GENRE_ADMIN')")
+    @PreAuthorize("isAuthenticated() && hasAuthority('GENRE_ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteGenre(@PathVariable String id) {
         genreService.deleteGenre(id);

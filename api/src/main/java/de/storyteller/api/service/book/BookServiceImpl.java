@@ -10,6 +10,7 @@ import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO getBookById(UUID id) {
-        return bookMapper.toBookDTO(bookRepository.findById(id).orElseThrow());
+    public Optional<BookDTO> getBookById(UUID id) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        return bookOptional.isPresent() ? Optional.of(bookMapper.toBookDTO(bookOptional.get())) : Optional.empty();
+
     }
 
     @Override

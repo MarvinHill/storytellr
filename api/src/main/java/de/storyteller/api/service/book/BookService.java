@@ -7,6 +7,7 @@ import de.storyteller.api.dto.chapter.ChapterDTO;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -14,7 +15,7 @@ public interface BookService {
     @Transactional
     List<BookDTO> getAllBooks();
     @Transactional
-    BookDTO getBookById(UUID id);
+    Optional<BookDTO> getBookById(UUID id);
     @Transactional
     BookDTO createBook(AddBookRequest book);
     @Transactional
