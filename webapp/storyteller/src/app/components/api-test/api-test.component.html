@@ -3,3 +3,8 @@
 @for(book of this.books | async; track book.id) {
     <div>{{book.title}}</div>
 }
+
+<input type="file" class="file-upload mb-2 mt-10" (change)="getPreview($event)">
+@if((this.file | async) != null) {
+    <img src="{{this.file | async}}" alt="">
+}
