@@ -21,12 +21,12 @@ public class ChapterController {
         return ResponseEntity.ok(chapterService.getAllChapters());
     }
 
-    @PreAuthorize("isAuthenticated() || @sAuthService.userOwnsBook(#chapter.bookId)")
+    @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#chapter.bookId)")
     @PostMapping("/add")
     public ResponseEntity<?> addChapter(@Valid @RequestBody AddChapterRequest chapter){
         return ResponseEntity.ok(chapterService.createChapter(chapter));
     }
-    @PreAuthorize("isAuthenticated() || @sAuthService.userOwnsBook(#chapter.bookId)")
+    @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#chapter.bookId)")
     @PutMapping("/update")
     public ResponseEntity<?> updateChapter(@Valid @RequestBody EditChapterRequest chapter){
         return ResponseEntity.ok(chapterService.updateChapter(chapter));

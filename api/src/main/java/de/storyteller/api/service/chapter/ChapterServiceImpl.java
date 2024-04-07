@@ -8,6 +8,8 @@ import de.storyteller.api.mapper.ChapterMapper;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,12 @@ public class ChapterServiceImpl implements ChapterService{
             throw new RuntimeException("Book with id: " + chapter.getBookId() + " doesn't exist");
         }
         return chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
+    }
+
+    @Override
+    public Optional<ChapterDTO> getChapterById(UUID chapterId) {
+        Optional<Chapter> chapterOptional = chapterRepository.findById(chapterId);
+        return chapterOptional.isPresent() ? Optional.of(chapterMapper.toChapterDTO(chapterOptional.get())) : Optional.empty();
     }
 
     @Override
