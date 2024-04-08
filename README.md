@@ -26,7 +26,7 @@ Current existing Scopes in Storytellr
 
 ### Local Development
 - create a ```.env``` file in the same folder as the ```docker-compose.yml``` file
-- run ```docker compose up```.
+- run ```docker compose --profile dev up -d```.
 
 **.env File Content**
 ```
@@ -37,10 +37,11 @@ KEYCLOAK_DATABASE_USER
 KEYCLOAK_DATABASE_NAME
 KEYCLOAK_DATABASE_PASSWORD
 KEYCLOAK_HTTP_RELATIVE_PATH
-
 KEYCLOAK_ADMIN_USER
 KEYCLOAK_ADMIN_PASSWORD
-
+KEYCLOAK_REALM
+KEYCLOAK_ISSUER_URI
+KEYCLOAK_FRONTEND_CLIENT_ID
 API_DATABASE_USER
 API_DATABASE_PASSWORD
 API_DATABASE_NAME
@@ -48,4 +49,9 @@ API_DATABASE_DRIVER_CLASS_NAME
 API_JPA_DATABASE_PLATFORM
 API_HIBERNATE_MODE
 API_JPA_SHOW_SQL
+API_DEBUG_LEVEL
 ```
+
+### Production Deployment
+- create a env file like in dev mode
+- run ```docker compose --profile prod up -d```
