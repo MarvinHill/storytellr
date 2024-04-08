@@ -3,10 +3,13 @@
   <div class="mx-auto my-12">
     <div class="flex flex-col lg:flex-row gap-7">
       <div class="mx-auto">
-        <img ngSrc="/assets/images/book-cover.png" alt="Book Cover" width="329" height="449" priority="true">
-        <div class="w-72 mx-auto bg-gray-200">
-          <div class="bg-black text-white px-4" [style.width.%]="23">
-            23%
+        <div class="mx-8 xl:mx-0">
+          <img ngSrc="/assets/images/book-cover.png" alt="Book Cover" width="329" height="449"
+               priority="true">
+          <div class="w-72 mx-auto bg-gray-200">
+            <div class="bg-black text-white px-4" [style.width.%]="23">
+              23%
+            </div>
           </div>
         </div>
       </div>
@@ -33,7 +36,8 @@
 
             <div class="flex items-center mt-14">
 
-              <img class="hidden lg:block -ml-28 -mt-28" ngSrc="assets/images/add_library.svg" alt="Add to Library" width="156"
+              <img class="hidden lg:block -ml-28 -mt-28" ngSrc="assets/images/add_library.svg" alt="Add to Library"
+                   width="156"
                    height="86" priority="true">
 
               <div class="flex flex-col absolute">
@@ -49,25 +53,26 @@
           </div>
 
           <div class="flex flex-col items-end">
-            <p class="text-md xl:mx-12 xl:w-80 lg:w-72 w-72">Lorem ipsum dolor sit amet, consetetur
+            <p class="text-md xl:mx-12 xl:w-80 lg:w-72 w-72 text-center lg:text-right">Lorem ipsum dolor sit amet,
+              consetetur
               sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
               voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
               takimata sanctus est Lorem ipsum dolor sit amet.</p>
-            <div class="my-7 flex">
+            <div class="my-7 flex xl:mx-12">
               <div class="flex flex-col items-end">
-                <div class="flex flex-row">
-                  <!--                Should be replaces with an ngFor loop later-->
-                  <p>tag1</p>
-                  <p>tag1</p>
-                  <p>tag1</p>
-                  <p>tag1</p>
-                  <p>tag1</p>
+                <div class="flex flex-row flex-wrap w-56 text-right">
+                  @for (tag of tags; track tag;){
+                    <p> {{ tag }} </p>
+                    @if (!$last){
+                      <p class="mx-1"> - </p>
+                    }
+                  }
+
                 </div>
                 <button class="bg-[#E14237] rounded-3xl w-28 h-16 -rotate-45 my-7">
                   <p class="text-white text-lg rotate-45">Lesen</p>
                 </button>
               </div>
-
 
 
             </div>

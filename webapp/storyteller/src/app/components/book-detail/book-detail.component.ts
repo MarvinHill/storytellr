@@ -11,6 +11,7 @@ import {Book} from "../../model/book";
 export class BookDetailComponent implements OnInit{
   private bookId!: string;
   private book!: Book;
+  tags: string[] = ["fantasy", "enemies to lovers", "scifi", "romance", "fantasy", "enemies to lovers", "scifi", "romance"]
 
   constructor(private route: ActivatedRoute, private bookService: BookService) {}
   ngOnInit() {
