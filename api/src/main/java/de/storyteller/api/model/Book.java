@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -32,8 +33,9 @@ public class Book {
     @Column(length=75)
     private String catchphrase;
 
-    @OneToMany
-    private List<String> tags;
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "book_tags", joinColumns = @JoinColumn(name = "book_id"))
+    private List<String> tags = new ArrayList<>();
     private String cover;
 
 
