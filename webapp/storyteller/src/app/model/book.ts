@@ -5,6 +5,7 @@ export interface Book {
   author: string;
   description: string;
   catchphrase?: string;
+  tags: string[];
   cover?: string;
 }
 
@@ -14,6 +15,7 @@ export interface AddBookRequest {
   author: string;
   description: string;
   catchphrase?: string;
+  tags: string[];
   cover?: string;
 }
 
@@ -24,5 +26,6 @@ export interface EditBookRequest {
   author: string;
   description: string;
   catchphrase?: string;
+  tags: string[];
   cover?: string;
 }
