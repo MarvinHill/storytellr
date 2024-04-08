@@ -9,8 +9,8 @@ import {Book} from "../../model/book";
   styleUrl: './book-detail.component.scss'
 })
 export class BookDetailComponent implements OnInit{
-  private bookId!: string;
-  private book!: Book;
+  bookId!: string;
+  book?: Book;
   tags: string[] = ["fantasy", "enemies to lovers", "scifi", "romance", "fantasy", "enemies to lovers", "scifi", "romance"]
 
   constructor(private route: ActivatedRoute, private bookService: BookService) {}
