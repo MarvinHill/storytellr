@@ -4,8 +4,9 @@ import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Genre;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.GenreRepository;
+
+import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class ExampleDataGenerator {
           UUID.randomUUID().toString(),
           "description " + i,
           "catch " + i,
+              List.of("tag " + i, "tag " + (i + 1)),
           "no cover " + i
       ));
     }
