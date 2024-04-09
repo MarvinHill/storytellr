@@ -49,16 +49,17 @@ public class CoverController {
       return ResponseEntity.ok(Map.of("path", responsePath.get()));
    }
 
-   @PostMapping(value ="/{bookId}/commitImage", produces = MediaType.APPLICATION_JSON_VALUE)
-   ResponseEntity<?> commitImage(@RequestParam("image") MultipartFile file, @PathVariable String bookId){
-      if (file.isEmpty() || bookId.isEmpty()){
-         return ResponseEntity.badRequest().build();
-      }
-      Optional<String> responsePath = coverService.save(file, bookId);
-      if (responsePath.isEmpty()){
-         return ResponseEntity.internalServerError().build();
-      }
-      return ResponseEntity.ok(Map.of("path", responsePath.get()));
+   @PostMapping(value ="/commitImage", produces = MediaType.APPLICATION_JSON_VALUE)
+   ResponseEntity<?> commitImage(@RequestParam("file") MultipartFile file, @RequestParam("bookId") String bookId){
+         if (file.isEmpty() || bookId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+         }
+         Optional<String> responsePath = coverService.save(file, bookId);
+         if (responsePath.isEmpty()) {
+            return ResponseEntity.internalServerError().build();
+         }
+         return ResponseEntity.ok(Map.of("path", responsePath.get()));
+
    }
 
 }

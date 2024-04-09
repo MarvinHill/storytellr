@@ -12,12 +12,13 @@ import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BookServiceImpl implements BookService {
@@ -42,7 +43,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO createBook(AddBookRequest book) {
-        return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
+        BookDTO dto = bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
+        log.info("Create book with id: {}", dto.getId());
+        return dto;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class BookServiceImpl implements BookService {
         if (!bookRepository.existsById(book.getId())) {
             throw new RuntimeException("Book with id: " + book.getId() + " doesn't exist");
         }
+        log.info("Update book with id: {}", book.getId());
         return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
     }
 
@@ -59,6 +63,16 @@ public class BookServiceImpl implements BookService {
         return chapters.stream()
                 .map(chapterMapper::toChapterDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateBookCover(UUID bookId, String cover) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if(bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            book.setCover(cover);
+            bookRepository.save(book);
+        }
     }
 
 }

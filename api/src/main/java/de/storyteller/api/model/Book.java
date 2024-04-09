@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import lombok.Setter;
 
 
 @Entity
@@ -37,10 +38,6 @@ public class Book {
     @CollectionTable(name = "book_tags", joinColumns = @JoinColumn(name = "book_id"))
     private List<String> tags = new ArrayList<>();
     private String cover;
-
-
-
-
 
 
 }

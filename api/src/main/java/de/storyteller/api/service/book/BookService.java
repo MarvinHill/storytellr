@@ -22,5 +22,6 @@ public interface BookService {
     BookDTO updateBook(EditBookRequest book);
     @Transactional
     List<ChapterDTO> getAllChapters(UUID bookId);
-
+    @Transactional
+    void updateBookCover(UUID bookId, String cover);
 }

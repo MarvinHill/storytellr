@@ -34,11 +34,7 @@ public class SimpleCoverServiceImpl implements CoverService {
     if (optionalBookDTO.isEmpty() || responseDTO.isEmpty()) return Optional.empty();
 
     BookDTO bookDTO = optionalBookDTO.get();
-    bookDTO.setCover(responseDTO.get());
-    EditBookRequest editBookRequest = bookMapper.toEditBookRequest(bookDTO);
-    BookDTO updatedBook = bookService.updateBook(editBookRequest);
-    if (updatedBook == null) return Optional.empty();
-
+    bookService.updateBookCover(bookDTO.getId(), responseDTO.get());
     return responseDTO;
   }
 
