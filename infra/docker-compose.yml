@@ -31,6 +31,8 @@ services:
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
 
       API_DEBUG_LEVEL: ${API_DEBUG_LEVEL}
+    volumes:
+      - public_data:/www/html
 
   webapp-prod:
     container_name: webapp
@@ -109,8 +111,19 @@ services:
       - ../keycloak/providers:/opt/keycloak/providers
       - ../keycloak/import:/opt/keycloak/data/import
 
+  publicdata:
+    image: nginx:1.25.4
+    container_name: publicdata
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    volumes:
+      - ../publicdata/nginx.conf:/etc/nginx/nginx.conf
+      - public_data:/www/html
+
 volumes:
   keycloakdb:
   apidb:
   caddy_data:
   caddy_config:
+  public_data:
