@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { CoverUploadComponent } from './components/cover-upload/cover-upload.component';
 
-
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
