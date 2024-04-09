@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Book } from './Book';
+import { Book } from '../../model/book';
 
 @Component({
   selector: 'app-api-test',
