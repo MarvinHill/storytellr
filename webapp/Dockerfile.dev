@@ -1,4 +1,4 @@
-FROM node:21.7.2-bookworm
+FROM node:lts-bookworm-slim
 
 COPY ./build.sh /var/scripts/build.sh
 

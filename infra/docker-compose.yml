@@ -51,6 +51,7 @@ services:
   
   webapp-dev:
     container_name: webapp
+    restart: unless-stopped
     profiles:
       - "dev"
     build: 
