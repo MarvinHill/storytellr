@@ -1,21 +1,27 @@
-<div class="flex flex-row items-center border border-b-2 border-l-0 border-r-0 border-t-0 z-10 font-playfair">
+<div class="flex flex-row items-center border border-b-2 border-l-0 border-r-0 border-t-0 z-10 font-playfair sticky">
   <div class="flex-none mr-4">
     <img ngSrc="favicon.ico" alt="logo" width="40" height="40" class="ml-3">
   </div>
-  <div class="flex">
+  <div class="block lg:hidden">
+    <button id="burgerMenuButton" class="focus:outline-none z-10 relative" (click)="toggleMenu()">
+      <svg class="h-6 w-6 text-gray-800" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="hidden lg:flex">
     <button class="my-5 mx-7 z-10" [routerLink]="'/discovery'">Discover</button>
-    <button class="my-5 mx-7">Create</button>
     <button class="my-5 mx-7">Library</button>
   </div>
   <div class="flex absolute w-full z-0">
     <input type="text" placeholder="Search" class="h-10 mx-auto p-4 border border-gray-300 rounded-lg placeholder-padded">
   </div>
   <div class="flex flex-row items-center ml-auto p-3 z-10">
-    <button class="mx-3 px-4 py-1 shadow-[0_3px_6px_rgb(0,0,0,0.2)] rounded">
+    <button class="mx-3 px-4 py-1 shadow-[0_3px_6px_rgb(0,0,0,0.2)] rounded  hidden lg:flex">
       <span class="material-symbols-outlined text-base">
         edit
       </span>
-      write
+      <p>write</p>
     </button>
     <div class="flex items-center justify-center h-12 w-12 mx-2 bg-gray-200 rounded-full">
       <div class="text-2xl">A</div>
@@ -23,3 +29,19 @@
 
   </div>
 </div>
+
+
+<div id="burgerMenu" class="lg:hidden hidden sticky bg-white">
+  <ul class="text-center">
+    <li class="border-b border-gray-300 hover:bg-gray-200">
+      <button class="my-5 mx-7" [routerLink]="'/discovery'">Discover</button>
+    </li>
+    <li class="border-b border-gray-300  hover:bg-gray-200">
+      <button class="my-5 mx-7">Library</button>
+    </li>
+    <li class="border-b border-gray-300 hover:bg-gray-200">
+      <button class="my-5 mx-7">Write</button>
+    </li>
+  </ul>
+</div>
+

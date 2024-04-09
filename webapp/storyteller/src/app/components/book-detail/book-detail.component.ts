@@ -9,8 +9,9 @@ import {Book} from "../../model/book";
   styleUrl: './book-detail.component.scss'
 })
 export class BookDetailComponent implements OnInit{
-  private bookId!: string;
-  private book!: Book;
+  bookId!: string;
+  book?: Book;
+
 
   constructor(private route: ActivatedRoute, private bookService: BookService) {}
   ngOnInit() {

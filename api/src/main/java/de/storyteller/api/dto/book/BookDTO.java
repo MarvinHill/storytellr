@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,5 +20,6 @@ public class BookDTO {
     private UUID author;
     private String description;
     private String catchphrase;
+    private List<String> tags;
     private String cover;
 }
