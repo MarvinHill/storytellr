@@ -1,0 +1,7 @@
+FROM node:21.7.2-bookworm
+
+COPY ./build.sh /var/scripts/build.sh
+
+WORKDIR /var/scripts
+
+CMD sh build.sh
