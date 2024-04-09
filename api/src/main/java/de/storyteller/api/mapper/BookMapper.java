@@ -41,6 +41,9 @@ public abstract class BookMapper {
     @Mapping(target = "id", constant = ID_PLACEHOLDER)
     @Mapping(target = "genre", source = "genreId")
     public abstract Book toBook(AddBookRequest addBookRequest);
+
+    public abstract EditBookRequest toEditBookRequest( BookDTO bookDTO);
+
     @Mapping(target = "genre", source = "genreId")
     public abstract Book toBook(EditBookRequest editBookRequest);
     protected Genre mapGenreIdToGenre(UUID genreId) {
