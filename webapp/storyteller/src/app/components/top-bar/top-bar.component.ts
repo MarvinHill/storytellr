@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class TopBarComponent {
 
+  toggleMenu() {
+    const burgerMenu = document.getElementById("burgerMenu");
+    console.log(burgerMenu);
+    if(burgerMenu){
+      burgerMenu.classList.toggle("hidden");
+      console.log(burgerMenu.classList)
+    }
+
+  }
 }

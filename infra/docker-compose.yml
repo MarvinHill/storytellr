@@ -48,21 +48,6 @@ services:
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
     volumes:
       - ../webapp/nginx.conf:/etc/nginx/nginx.conf
-  
-  webapp-dev:
-    container_name: webapp
-    restart: unless-stopped
-    profiles:
-      - "dev"
-    build: 
-      context: ../webapp
-      dockerfile: Dockerfile.dev
-    ports:
-      - "8081:80"
-    environment: 
-      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
-    volumes:
-      - ../webapp/storyteller:/var/source
 
   apidb:
     container_name: apidb

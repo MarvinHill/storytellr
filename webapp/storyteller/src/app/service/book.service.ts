@@ -12,6 +12,10 @@ export class BookService {
   constructor( private http: HttpClient) { }
 
   getBookById(bookId: string): Observable<Book> {
-    return this.http.get<Book>(`${environment.apiUrl}/book/${bookId}`);
+    return this.http.get<Book>(`${environment.apiUrl}/books/${bookId}`);
+  }
+
+  getBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${environment.apiUrl}/books`);
   }
 }

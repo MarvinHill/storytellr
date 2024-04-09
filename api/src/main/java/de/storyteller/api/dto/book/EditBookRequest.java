@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,5 +27,6 @@ public class EditBookRequest {
     @NotBlank(message = "Description should not be blank")
     private String description;
     private String catchphrase;
+    private List<String> tags;
     private String cover;
 }
