@@ -14,4 +14,8 @@ export class DiscoveryPageComponent {
   navigateToBookDetail() {
     this.router.navigate(['/book-details'], { queryParams: { bookId: this.bookId } })
   }
+
+  navigateToEditDetail() {
+    this.router.navigate(['/edit-details'])
+  }
 }
