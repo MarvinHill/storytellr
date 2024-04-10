@@ -16,6 +16,14 @@ export class BookService {
   }
 
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${environment.apiUrl}/books`);
+    return this.http.get<Book[]>(`${environment.apiUrl}/books/all`);
+  }
+
+  addBook(book: Book): Observable<Book> {
+    return this.http.post<Book>(`${environment.apiUrl}/books/add`, book);
+  }
+
+  generateData(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/mock/gen`);
   }
 }
