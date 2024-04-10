@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
-    "jsonwebtoken": "^9.0.2",
+    "jose": "^5.2.4",
     "keycloak-angular": "^15.2.1",
     "keycloak-js": "^24.0.2",
     "primeng": "^17.12.0",
