@@ -10,6 +10,7 @@ import {NgOptimizedImage} from "@angular/common";
 import { ApiTestComponent } from './components/api-test/api-test.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
+import { EditDetailsComponent } from './components/edit-details/edit-details.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -34,7 +35,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     TopBarComponent,
     DiscoveryPageComponent,
     ApiTestComponent,
-    BookDetailComponent
+    BookDetailComponent,
+    EditDetailsComponent
   ],
   imports: [
     BrowserModule,
