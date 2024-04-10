@@ -18,28 +18,34 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
+
     private final BookService bookService;
+
     @PreAuthorize("permitAll()")
     @GetMapping("/all")
     public ResponseEntity<?> getAllBooks(){
         return ResponseEntity.ok(bookService.getAllBooks());
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/add")
-    public ResponseEntity<BookDTO> addEvent(@Valid @RequestBody AddBookRequest book) {
+    public ResponseEntity<BookDTO> addBook(@Valid @RequestBody AddBookRequest book) {
         return new ResponseEntity<>(bookService.createBook(book), HttpStatus.CREATED);
     }
+
     @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#book.id)")
     @PutMapping("/update")
-    public ResponseEntity<BookDTO> updateEvent(@Valid @RequestBody EditBookRequest book) {
+    public ResponseEntity<BookDTO> updateBook(@Valid @RequestBody EditBookRequest book) {
         return ResponseEntity.ok(bookService.updateBook(book));
     }
+
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}")
     public ResponseEntity<?> getBookById(@PathVariable UUID id){
         Optional<BookDTO> bookDTO = bookService.getBookById(id);
         return bookDTO.isPresent() ? ResponseEntity.ok(bookDTO.get()) : ResponseEntity.notFound().build();
     }
+
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}/chapters")
     public ResponseEntity<?> getBookChapters(@PathVariable UUID id){

@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,9 +35,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1/cover")
 public class CoverController {
 
-   @Autowired
    CoverService coverService;
 
+   @PreAuthorize("permitAll()")
    @PostMapping(value = "/previewImage", produces = MediaType.APPLICATION_JSON_VALUE)
    ResponseEntity<?> generatePreview(@RequestParam("file") MultipartFile file) {
       if (file.isEmpty()){
@@ -49,6 +50,7 @@ public class CoverController {
       return ResponseEntity.ok(Map.of("path", responsePath.get()));
    }
 
+   @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#bookId)")
    @PostMapping(value ="/commitImage", produces = MediaType.APPLICATION_JSON_VALUE)
    ResponseEntity<?> commitImage(@RequestParam("file") MultipartFile file, @RequestParam("bookId") String bookId){
          if (file.isEmpty() || bookId.isEmpty()) {

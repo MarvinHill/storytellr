@@ -32,6 +32,10 @@ public class CustomAuthorizationService {
       return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
     }
 
+    public boolean userOwnsBook(String bookId){
+        return userOwnsBook(UUID.fromString(bookId));
+    }
+
     public boolean userIsAuthorOfChapter(UUID chapterId){
       Optional<ChapterDTO> chapterDTO = chapterService.getChapterById(chapterId);
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

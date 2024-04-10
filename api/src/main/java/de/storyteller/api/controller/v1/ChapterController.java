@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/chapters")
 public class ChapterController {
+
     private final ChapterService chapterService;
 
     @PreAuthorize("permitAll()")

@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/genres")
 public class GenreController {
+
     private final GenreService genreService;
 
     @PreAuthorize("permitAll()")
