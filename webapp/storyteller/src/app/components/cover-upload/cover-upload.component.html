@@ -8,19 +8,18 @@
         </div>
       }
       @else {
-        @defer(on immediate){
-          <div class="w-full flex flex-col justify-center items-center p-5">
-            <img [src]="previewImageUrl" class="w-48 h-64  object-cover">
+        
+          <div [class.hidden]="!previewLoaded" class="w-full flex flex-col justify-center items-center p-5">
+            <img [src]="previewImageUrl" (load)="previewLoadedEvent()" class="w-48 h-64  object-cover">
             <p class="text-gray-300">(cover preview)</p>  
           </div>
-          
-        }
-        @loading {
-          <div class="w-full flex flex-col justify-center items-center p-5">
-            <div class="w-48 h-64 bg-gray-300 rounded animate-pulse"></div>
-            <p class="text-gray-300">(cover preview)</p>  
-          </div>
-        }
+
+          @if(!previewLoaded){
+            <div class="w-full flex flex-col justify-center items-center p-5">
+              <div class="w-48 h-64 bg-gray-300 rounded animate-pulse"></div>
+              <p class="text-gray-300">(cover preview)</p>  
+            </div>
+          }
         
       }
       

@@ -12,6 +12,7 @@ export class CoverUploadComponent implements OnInit {
 
   public file : File | null = null;
   public previewImageUrl : string | null = null;
+  previewLoaded : boolean = false;
   public error : boolean = false;
   
   protected coverService : CoverService = inject(CoverService);
@@ -24,6 +25,7 @@ export class CoverUploadComponent implements OnInit {
   public onFileSelected(event: any) {
     this.file = event.target.files[0];
     if(this.file == null) return;
+    this.previewLoaded = false;
     this.coverService.previewCover(this.file).subscribe(
       result => {
         this.previewImageUrl = result.path;
@@ -33,6 +35,10 @@ export class CoverUploadComponent implements OnInit {
         this.error = true;
       },
     )
+  }
+
+  public previewLoadedEvent() {
+    this.previewLoaded = true;
   }
 
   public closeDialog() {
