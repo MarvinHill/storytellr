@@ -1,5 +1,6 @@
 package de.storyteller.api.controller.v1;
 
+import de.storyteller.api.dto.cover.CoverUriDTO;
 import de.storyteller.api.service.cover.CoverService;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1/cover")
 public class CoverController {
 
-   CoverService coverService;
+   private final CoverService coverService;
 
    @PreAuthorize("permitAll()")
    @PostMapping(value = "/previewImage", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,11 +44,11 @@ public class CoverController {
       if (file.isEmpty()){
          return ResponseEntity.badRequest().build();
       }
-      Optional<String> responsePath = coverService.savePreview(file);
+      Optional<CoverUriDTO> responsePath = coverService.savePreview(file);
       if (responsePath.isEmpty()){
          return ResponseEntity.internalServerError().build();
       }
-      return ResponseEntity.ok(Map.of("path", responsePath.get()));
+      return ResponseEntity.ok(responsePath.get());
    }
 
    @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#bookId)")
@@ -56,11 +57,11 @@ public class CoverController {
          if (file.isEmpty() || bookId.isEmpty()) {
             return ResponseEntity.badRequest().build();
          }
-         Optional<String> responsePath = coverService.save(file, bookId);
+         Optional<CoverUriDTO> responsePath = coverService.save(file, bookId);
          if (responsePath.isEmpty()) {
             return ResponseEntity.internalServerError().build();
          }
-         return ResponseEntity.ok(Map.of("path", responsePath.get()));
+         return ResponseEntity.ok(responsePath);
 
    }
 

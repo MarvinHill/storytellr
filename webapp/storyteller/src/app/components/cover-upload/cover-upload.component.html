@@ -31,10 +31,10 @@
     <div class="flex w-full">
       <button (click)="closeDialog()" class="mr-auto p-2 mt-3 btn bg-red-500 text-white rounded-lg">cancle</button>
       @if(file != null) {
-        <button class="ml-auto p-2 mt-3 btn bg-blue-500 text-white rounded-lg" (click)="commitImage()">commit</button>
+        <button class="ml-auto p-2 mt-3 btn bg-blue-500 text-white rounded-lg" (click)="commitImage()">save</button>
       }
       @else {
-        <button class="ml-auto p-2 mt-3 btn bg-blue-500 text-white rounded-lg opacity-25 pointer-events-none select-none">commit</button>
+        <button class="ml-auto p-2 mt-3 btn bg-blue-500 text-white rounded-lg opacity-25 pointer-events-none select-none">save</button>
       }
     </div>
   </div>

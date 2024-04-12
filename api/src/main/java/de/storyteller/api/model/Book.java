@@ -1,6 +1,9 @@
 package de.storyteller.api.model;
 
+import de.storyteller.api.converter.CoverUriConverterJson;
+import de.storyteller.api.dto.cover.CoverUriDTO;
 import jakarta.persistence.*;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +40,7 @@ public class Book {
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "book_tags", joinColumns = @JoinColumn(name = "book_id"))
     private List<String> tags = new ArrayList<>();
-    private String cover;
 
-
+    @Convert(converter = CoverUriConverterJson.class)
+    private CoverUriDTO cover;
 }

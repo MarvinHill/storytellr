@@ -28,7 +28,7 @@ export class CoverUploadComponent implements OnInit {
     this.previewLoaded = false;
     this.coverService.previewCover(this.file).subscribe(
       result => {
-        this.previewImageUrl = result.path;
+        this.previewImageUrl = result.smImageUri;
         console.debug("result, preview cover", result)
       },
       error => {

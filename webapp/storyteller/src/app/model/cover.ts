@@ -1,3 +1,5 @@
 export interface CoverURI {
-    path: string;
+    originalImageUri: string;
+    smImageUri: string;
+    lgImageUri: string;
 }

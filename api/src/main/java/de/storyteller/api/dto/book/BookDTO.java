@@ -1,6 +1,8 @@
 package de.storyteller.api.dto.book;
 
+import de.storyteller.api.dto.cover.CoverUriDTO;
 import de.storyteller.api.model.Genre;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +23,5 @@ public class BookDTO {
     private String description;
     private String catchphrase;
     private List<String> tags;
-    private String cover;
+    private CoverUriDTO cover;
 }

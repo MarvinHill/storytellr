@@ -4,12 +4,14 @@ import de.storyteller.api.dto.book.AddBookRequest;
 import de.storyteller.api.dto.book.BookDTO;
 import de.storyteller.api.dto.book.EditBookRequest;
 import de.storyteller.api.dto.chapter.ChapterDTO;
+import de.storyteller.api.dto.cover.CoverUriDTO;
 import de.storyteller.api.mapper.BookMapper;
 import de.storyteller.api.mapper.ChapterMapper;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
+import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,11 +68,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void updateBookCover(UUID bookId, String cover) {
+    public void updateBookCover(UUID bookId, CoverUriDTO coverUriDTO) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
         if(bookOptional.isPresent()) {
             Book book = bookOptional.get();
-            book.setCover(cover);
+            book.setCover(coverUriDTO);
             bookRepository.save(book);
         }
     }

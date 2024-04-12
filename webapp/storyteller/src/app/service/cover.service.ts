@@ -8,7 +8,7 @@ import { CoverURI } from '../model/cover';
 })
 export class CoverService {
 
-  public visible : BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public visible : BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor( private http: HttpClient) { }
 

@@ -28,5 +28,4 @@ public class EditBookRequest {
     private String description;
     private String catchphrase;
     private List<String> tags;
-    private String cover;
 }

@@ -4,6 +4,7 @@ import de.storyteller.api.dto.book.AddBookRequest;
 import de.storyteller.api.dto.book.BookDTO;
 import de.storyteller.api.dto.book.EditBookRequest;
 import de.storyteller.api.dto.chapter.ChapterDTO;
+import de.storyteller.api.dto.cover.CoverUriDTO;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.model.Genre;
@@ -30,7 +31,6 @@ public abstract class BookMapper {
 
     @Autowired
     protected GenreRepository genreRepository;
-    private final String ID_PLACEHOLDER = "550e8400-e29b-41d4-a716-446655440000";
 
     @Mapping(target = "genreId", source = "genre.id")
     public abstract BookDTO toBookDTO(Book book);
@@ -38,16 +38,29 @@ public abstract class BookMapper {
     @Mapping(target = "genre", source = "genreId")
     public abstract Book toBook(BookDTO bookDTO);
 
-    @Mapping(target = "id", constant = ID_PLACEHOLDER)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "genre", source = "genreId")
+    @Mapping(target = "cover", ignore = true)
     public abstract Book toBook(AddBookRequest addBookRequest);
+
+    @Mapping(target = "genreId", source = "genre")
+    public abstract AddBookRequest toAddBookRequest( Book book);
 
     public abstract EditBookRequest toEditBookRequest( BookDTO bookDTO);
 
+    @Mapping(target = "cover", ignore = true)
+    public abstract BookDTO toBookDTO(EditBookRequest editBookRequest);
+
     @Mapping(target = "genre", source = "genreId")
+    @Mapping(target = "cover", ignore = true)
     public abstract Book toBook(EditBookRequest editBookRequest);
+
     protected Genre mapGenreIdToGenre(UUID genreId) {
         return genreRepository.findById(genreId).orElse(null);
+    }
+
+    protected UUID mapGenreIdToGenre(Genre genre) {
+        return genre.getId();
     }
 
 }
