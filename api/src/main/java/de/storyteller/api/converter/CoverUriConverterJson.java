@@ -1,7 +1,7 @@
 package de.storyteller.api.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.storyteller.api.dto.cover.CoverUriDTO;
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import lombok.SneakyThrows;

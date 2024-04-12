@@ -1,14 +1,12 @@
 package de.storyteller.api.service;
 
-import de.storyteller.api.dto.cover.CoverUriDTO;
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Genre;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.GenreRepository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

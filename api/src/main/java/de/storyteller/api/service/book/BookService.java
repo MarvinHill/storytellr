@@ -1,14 +1,13 @@
 package de.storyteller.api.service.book;
 
-import de.storyteller.api.dto.book.AddBookRequest;
-import de.storyteller.api.dto.book.BookDTO;
-import de.storyteller.api.dto.book.EditBookRequest;
-import de.storyteller.api.dto.chapter.ChapterDTO;
-import de.storyteller.api.dto.cover.CoverUriDTO;
+import de.storyteller.api.v1.dto.book.AddBookRequest;
+import de.storyteller.api.v1.dto.book.BookDTO;
+import de.storyteller.api.v1.dto.book.EditBookRequest;
+import de.storyteller.api.v1.dto.chapter.ChapterDTO;
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 

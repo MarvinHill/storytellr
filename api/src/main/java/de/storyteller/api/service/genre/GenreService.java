@@ -1,12 +1,10 @@
 package de.storyteller.api.service.genre;
 
-import de.storyteller.api.dto.genre.AddGenreRequest;
-import de.storyteller.api.dto.genre.GenreDTO;
-import de.storyteller.api.model.Genre;
+import de.storyteller.api.v1.dto.genre.AddGenreRequest;
+import de.storyteller.api.v1.dto.genre.GenreDTO;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface GenreService {
     @Transactional

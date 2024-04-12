@@ -1,9 +1,8 @@
 package de.storyteller.api.service.chapter;
 
-import de.storyteller.api.dto.book.BookDTO;
-import de.storyteller.api.dto.chapter.AddChapterRequest;
-import de.storyteller.api.dto.chapter.ChapterDTO;
-import de.storyteller.api.dto.chapter.EditChapterRequest;
+import de.storyteller.api.v1.dto.chapter.AddChapterRequest;
+import de.storyteller.api.v1.dto.chapter.ChapterDTO;
+import de.storyteller.api.v1.dto.chapter.EditChapterRequest;
 import jakarta.transaction.Transactional;
 
 import java.util.List;

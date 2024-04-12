@@ -1,18 +1,15 @@
 package de.storyteller.api.model;
 
 import de.storyteller.api.converter.CoverUriConverterJson;
-import de.storyteller.api.dto.cover.CoverUriDTO;
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import jakarta.persistence.*;
-import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-import lombok.Setter;
 
 
 @Entity

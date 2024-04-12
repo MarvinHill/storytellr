@@ -1,14 +1,12 @@
 package de.storyteller.api.service.cover;
 
-import de.storyteller.api.dto.book.BookDTO;
-import de.storyteller.api.dto.book.EditBookRequest;
-import de.storyteller.api.dto.cover.CoverUriDTO;
-import de.storyteller.api.mapper.BookMapper;
+import de.storyteller.api.v1.dto.book.BookDTO;
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
+import de.storyteller.api.v1.mapper.BookMapper;
 import de.storyteller.api.service.book.BookService;
 import de.storyteller.api.service.tools.ImageEditService;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.im4java.core.Info;
 import org.im4java.core.InfoException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

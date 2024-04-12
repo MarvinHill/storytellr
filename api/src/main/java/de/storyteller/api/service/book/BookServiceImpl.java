@@ -1,17 +1,16 @@
 package de.storyteller.api.service.book;
 
-import de.storyteller.api.dto.book.AddBookRequest;
-import de.storyteller.api.dto.book.BookDTO;
-import de.storyteller.api.dto.book.EditBookRequest;
-import de.storyteller.api.dto.chapter.ChapterDTO;
-import de.storyteller.api.dto.cover.CoverUriDTO;
-import de.storyteller.api.mapper.BookMapper;
-import de.storyteller.api.mapper.ChapterMapper;
+import de.storyteller.api.v1.dto.book.AddBookRequest;
+import de.storyteller.api.v1.dto.book.BookDTO;
+import de.storyteller.api.v1.dto.book.EditBookRequest;
+import de.storyteller.api.v1.dto.chapter.ChapterDTO;
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
+import de.storyteller.api.v1.mapper.BookMapper;
+import de.storyteller.api.v1.mapper.ChapterMapper;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
-import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
