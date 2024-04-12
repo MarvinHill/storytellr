@@ -111,8 +111,8 @@ public class SimpleCoverServiceImpl implements CoverService {
     String lgExtPath = externalStoragePath + "/" + tempId + "-lg" + ".jpg";
 
     try {
-      editService.cropToSm(internalPath, smInternalPath);
       editService.cropToLg(internalPath, lgInternalPath);
+      editService.scaleToSm(lgInternalPath, smInternalPath);
     }
     catch (Exception e){
       log.error("Error saving image info", e);
