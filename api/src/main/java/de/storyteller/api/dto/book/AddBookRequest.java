@@ -1,5 +1,6 @@
 package de.storyteller.api.dto.book;
 
+import de.storyteller.api.model.Chapter;
 import de.storyteller.api.model.Genre;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,12 +21,13 @@ public class AddBookRequest {
     private String title;
 
     @NotNull(message = "A genre must be set")
-    private UUID genreId;
+    private String genreId;
     @NotBlank(message = "Author should not be blank")
     private String author;
     @NotBlank(message = "Description should not be blank")
     private String description;
     private String catchphrase;
+    private List<Chapter> chapters;
     private List<String> tags;
     private String cover;
 }

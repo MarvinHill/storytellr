@@ -31,7 +31,7 @@ public class ChapterServiceImpl implements ChapterService{
     }
 
     @Override
-    public Optional<ChapterDTO> getChapterById(UUID chapterId) {
+    public Optional<ChapterDTO> getChapterById(String chapterId) {
         Optional<Chapter> chapterOptional = chapterRepository.findById(chapterId);
         return chapterOptional.isPresent() ? Optional.of(chapterMapper.toChapterDTO(chapterOptional.get())) : Optional.empty();
     }

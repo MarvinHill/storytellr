@@ -43,7 +43,7 @@ public abstract class BookMapper {
     public abstract Book toBook(AddBookRequest addBookRequest);
     @Mapping(target = "genre", source = "genreId")
     public abstract Book toBook(EditBookRequest editBookRequest);
-    protected Genre mapGenreIdToGenre(UUID genreId) {
+    protected Genre mapGenreIdToGenre(String genreId) {
         return genreRepository.findById(genreId).orElse(null);
     }
 

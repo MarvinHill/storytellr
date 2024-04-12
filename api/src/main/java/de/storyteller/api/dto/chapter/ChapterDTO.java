@@ -12,8 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChapterDTO {
-    private UUID id;
-    private UUID bookId;
+    private String id;
+    private String bookId;
     private String chapterTitle;
     private String content;
     private LocalDateTime lastModified;

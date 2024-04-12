@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AddChapterRequest {
     @NotNull(message = "Book ID is required")
-    private UUID bookId;
+    private String bookId;
     @NotNull(message = "Chapter title is required")
     private String chapterTitle;
     private String content;

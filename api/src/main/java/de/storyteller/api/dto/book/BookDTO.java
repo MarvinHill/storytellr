@@ -1,5 +1,6 @@
 package de.storyteller.api.dto.book;
 
+import de.storyteller.api.model.Chapter;
 import de.storyteller.api.model.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,12 +15,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookDTO {
-    private UUID id;
+    private String id;
     private String title;
-    private UUID genreId;
-    private UUID author;
+    private String genreId;
+    private String author;
     private String description;
     private String catchphrase;
     private List<String> tags;
+    private List<Chapter> chapters;
     private String cover;
 }

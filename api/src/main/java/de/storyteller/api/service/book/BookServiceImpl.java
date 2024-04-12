@@ -34,7 +34,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<BookDTO> getBookById(UUID id) {
+    public Optional<BookDTO> getBookById(String id) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         return bookOptional.isPresent() ? Optional.of(bookMapper.toBookDTO(bookOptional.get())) : Optional.empty();
 
@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<ChapterDTO> getAllChapters(UUID bookId) {
+    public List<ChapterDTO> getAllChapters(String bookId) {
         List<Chapter> chapters = chapterRepository.findAllByBookId(bookId);
         return chapters.stream()
                 .map(chapterMapper::toChapterDTO)

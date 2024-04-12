@@ -1,28 +1,30 @@
 package de.storyteller.api.model;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
-import org.springframework.boot.jackson.JsonComponent;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-@Entity
+
+@Document(collection = "chapters")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Chapter {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    @ManyToOne
-    @JoinColumn(name = "book_id")
+    private String id;
+
+    @DBRef
     private Book book;
     private String chapterTitle;
-    @Column(columnDefinition = "json")
+
     private String content;
 
     private LocalDateTime lastModified;

@@ -23,7 +23,7 @@ public class CustomAuthorizationService {
     @Autowired
     ChapterService chapterService;
 
-    public boolean userOwnsBook(UUID bookId){
+    public boolean userOwnsBook(String bookId){
       Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       if(bookDTO.isEmpty() || authentication == null) return false;
@@ -32,7 +32,7 @@ public class CustomAuthorizationService {
       return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
     }
 
-    public boolean userIsAuthorOfChapter(UUID chapterId){
+    public boolean userIsAuthorOfChapter(String chapterId){
       Optional<ChapterDTO> chapterDTO = chapterService.getChapterById(chapterId);
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       if(chapterDTO.isEmpty() || authentication == null) return false;

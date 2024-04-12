@@ -38,7 +38,7 @@ public abstract class ChapterMapper {
     @Mapping(target = "book", source = "bookId")
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(EditChapterRequest chapter);
-    protected Book mapBookIdToBook(UUID bookId) {
+    protected Book mapBookIdToBook(String bookId) {
         return bookRepository.findById(bookId).orElse(null);
     }
     public JSONObject getContentAsJSONObject(String content) {

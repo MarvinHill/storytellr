@@ -36,13 +36,13 @@ public class BookController {
     }
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}")
-    public ResponseEntity<?> getBookById(@PathVariable UUID id){
+    public ResponseEntity<?> getBookById(@PathVariable String id){
         Optional<BookDTO> bookDTO = bookService.getBookById(id);
         return bookDTO.isPresent() ? ResponseEntity.ok(bookDTO.get()) : ResponseEntity.notFound().build();
     }
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}/chapters")
-    public ResponseEntity<?> getBookChapters(@PathVariable UUID id){
+    public ResponseEntity<?> getBookChapters(@PathVariable String id){
         return ResponseEntity.ok(bookService.getAllChapters(id));
     }
 }
