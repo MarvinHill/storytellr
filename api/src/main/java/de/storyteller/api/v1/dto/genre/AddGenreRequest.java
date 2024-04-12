@@ -1,4 +1,4 @@
-package de.storyteller.api.dto.genre;
+package de.storyteller.api.v1.dto.genre;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

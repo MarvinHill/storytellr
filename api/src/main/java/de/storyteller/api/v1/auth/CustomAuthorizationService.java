@@ -1,7 +1,7 @@
-package de.storyteller.api.auth;
+package de.storyteller.api.v1.auth;
 
-import de.storyteller.api.dto.book.BookDTO;
-import de.storyteller.api.dto.chapter.ChapterDTO;
+import de.storyteller.api.v1.dto.book.BookDTO;
+import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.service.book.BookService;
 import de.storyteller.api.service.chapter.ChapterService;
 import java.util.Optional;
@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 

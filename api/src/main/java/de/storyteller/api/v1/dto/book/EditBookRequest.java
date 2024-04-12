@@ -1,4 +1,4 @@
-package de.storyteller.api.dto.book;
+package de.storyteller.api.v1.dto.book;
 
 import de.storyteller.api.model.Genre;
 import jakarta.validation.constraints.NotBlank;

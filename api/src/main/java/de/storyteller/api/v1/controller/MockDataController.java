@@ -1,4 +1,4 @@
-package de.storyteller.api.controller.v1;
+package de.storyteller.api.v1.controller;
 
 
 import de.storyteller.api.service.ExampleDataGenerator;

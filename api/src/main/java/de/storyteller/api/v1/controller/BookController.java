@@ -1,8 +1,8 @@
-package de.storyteller.api.controller.v1;
+package de.storyteller.api.v1.controller;
 
-import de.storyteller.api.dto.book.AddBookRequest;
-import de.storyteller.api.dto.book.BookDTO;
-import de.storyteller.api.dto.book.EditBookRequest;
+import de.storyteller.api.v1.dto.book.AddBookRequest;
+import de.storyteller.api.v1.dto.book.BookDTO;
+import de.storyteller.api.v1.dto.book.EditBookRequest;
 import de.storyteller.api.service.book.BookService;
 import jakarta.validation.Valid;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package de.storyteller.api.dto.chapter;
+package de.storyteller.api.v1.dto.chapter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

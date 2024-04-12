@@ -1,4 +1,4 @@
-package de.storyteller.api.dto.genre;
+package de.storyteller.api.v1.dto.genre;
 
 import java.util.UUID;
 import lombok.AllArgsConstructor;

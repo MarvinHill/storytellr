@@ -1,11 +1,10 @@
-package de.storyteller.api.controller.v1;
+package de.storyteller.api.v1.controller;
 
-import de.storyteller.api.dto.genre.AddGenreRequest;
-import de.storyteller.api.dto.genre.GenreDTO;
+import de.storyteller.api.v1.dto.genre.AddGenreRequest;
+import de.storyteller.api.v1.dto.genre.GenreDTO;
 import de.storyteller.api.service.genre.GenreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

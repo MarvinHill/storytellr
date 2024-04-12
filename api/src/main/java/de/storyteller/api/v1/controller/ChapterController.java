@@ -1,7 +1,7 @@
-package de.storyteller.api.controller.v1;
+package de.storyteller.api.v1.controller;
 
-import de.storyteller.api.dto.chapter.AddChapterRequest;
-import de.storyteller.api.dto.chapter.EditChapterRequest;
+import de.storyteller.api.v1.dto.chapter.AddChapterRequest;
+import de.storyteller.api.v1.dto.chapter.EditChapterRequest;
 import de.storyteller.api.service.chapter.ChapterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

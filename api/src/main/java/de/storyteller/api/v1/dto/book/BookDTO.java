@@ -1,15 +1,11 @@
-package de.storyteller.api.dto.book;
+package de.storyteller.api.v1.dto.book;
 
-import de.storyteller.api.dto.cover.CoverUriDTO;
-import de.storyteller.api.model.Genre;
-import java.util.Map;
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Data

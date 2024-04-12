@@ -1,8 +1,7 @@
-package de.storyteller.api.mapper;
+package de.storyteller.api.v1.mapper;
 
-import de.storyteller.api.dto.chapter.ChapterDTO;
-import de.storyteller.api.dto.genre.AddGenreRequest;
-import de.storyteller.api.dto.genre.GenreDTO;
+import de.storyteller.api.v1.dto.genre.AddGenreRequest;
+import de.storyteller.api.v1.dto.genre.GenreDTO;
 import de.storyteller.api.model.Genre;
 import de.storyteller.api.repository.GenreRepository;
 import org.mapstruct.Mapper;
