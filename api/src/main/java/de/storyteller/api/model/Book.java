@@ -33,8 +33,6 @@ public class Book {
 
     private String catchphrase;
 
-    @DBRef
-    private List<Chapter> chapters = new ArrayList<>();
 
     private List<String> tags = new ArrayList<>();
     private String cover;

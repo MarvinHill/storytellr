@@ -22,6 +22,5 @@ public class BookDTO {
     private String description;
     private String catchphrase;
     private List<String> tags;
-    private List<Chapter> chapters;
     private String cover;
 }

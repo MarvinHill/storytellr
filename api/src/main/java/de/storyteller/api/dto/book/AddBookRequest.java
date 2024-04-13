@@ -27,7 +27,6 @@ public class AddBookRequest {
     @NotBlank(message = "Description should not be blank")
     private String description;
     private String catchphrase;
-    private List<Chapter> chapters;
     private List<String> tags;
     private String cover;
 }
