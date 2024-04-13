@@ -39,7 +39,7 @@ public class CustomAuthorizationService {
       Jwt jwt = (Jwt) authentication.getPrincipal();
 
       Optional<BookDTO> bookDTO = bookService.getBookById(chapterDTO.get().getBookId());
-      if(chapterDTO.isEmpty()) return false;
+      if(bookDTO.isEmpty()) return false;
 
       return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
     }
