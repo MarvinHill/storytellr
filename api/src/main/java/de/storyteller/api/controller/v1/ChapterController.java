@@ -31,4 +31,10 @@ public class ChapterController {
     public ResponseEntity<?> updateChapter(@Valid @RequestBody EditChapterRequest chapter){
         return ResponseEntity.ok(chapterService.updateChapter(chapter));
     }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getChapterById(@PathVariable String id){
+        return ResponseEntity.ok(chapterService.getChapterById(id));
+    }
 }
