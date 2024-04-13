@@ -7,14 +7,15 @@ import de.storyteller.api.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 @Mapper(componentModel = "spring")
 public abstract class GenreMapper {
 
-    private final GenreRepository genreRepository;
+    @Autowired
+    protected GenreRepository genreRepository;
 
     public abstract Genre toGenre(GenreDTO genreDTO);
     public abstract GenreDTO toGenreDTO(Genre genre);
