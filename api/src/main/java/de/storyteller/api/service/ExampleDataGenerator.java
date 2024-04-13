@@ -27,7 +27,6 @@ public class ExampleDataGenerator {
           UUID.randomUUID().toString(),
           "description " + i,
           "catch " + i,
-              List.of(),
               List.of("tag " + i, "tag " + (i + 1)),
           "no cover " + i
       ));
