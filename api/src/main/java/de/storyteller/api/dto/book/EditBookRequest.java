@@ -28,6 +28,7 @@ public class EditBookRequest {
     @NotBlank(message = "Description should not be blank")
     private String description;
     private String catchphrase;
+    private List<String> chapterIds;
     private List<String> tags;
     private String cover;
 }

@@ -9,5 +9,5 @@ import java.util.List;
 
 
 public interface ChapterRepository extends MongoRepository<Chapter, String> {
-    List<Chapter> findAllByBookId(String bookId);
+
 }

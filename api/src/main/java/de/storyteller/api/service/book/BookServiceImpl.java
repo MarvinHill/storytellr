@@ -55,8 +55,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<ChapterDTO> getAllChapters(String bookId) {
-        List<Chapter> chapters = chapterRepository.findAllByBookId(bookId);
-        return chapters.stream()
+        Optional<Book> book = bookRepository.findById(bookId);
+        Book book1 = book.get();
+        List<Chapter> chapterIds = book1.getChapters();
+        return chapterIds.stream()
                 .map(chapterMapper::toChapterDTO)
                 .collect(Collectors.toList());
     }

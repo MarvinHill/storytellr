@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.ListIterator;
 
 
 @Document(collection = "books")
@@ -28,11 +28,10 @@ public class Book {
     private String author;
     private String description;
     private String catchphrase;
+    @DBRef
+    private List<Chapter> chapters = new ArrayList<>();
     private List<String> tags = new ArrayList<>();
     private String cover;
-
-
-
 
 
 

@@ -21,8 +21,6 @@ public class Chapter {
     @Id
     private String id;
 
-    @DBRef
-    private Book book;
     private String chapterTitle;
 
     private String content;

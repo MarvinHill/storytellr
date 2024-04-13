@@ -25,16 +25,16 @@ public abstract class ChapterMapper {
     protected BookRepository bookRepository;
 
 
-    @Mapping(target = "bookId", source = "book.id")
+
     public abstract ChapterDTO toChapterDTO(Chapter chapter);
-    @Mapping(target = "book", source = "bookId")
+
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(ChapterDTO chapterDTO);
-    @Mapping(target = "book", source = "bookId")
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(AddChapterRequest chapter);
-    @Mapping(target = "book", source = "bookId")
+
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(EditChapterRequest chapter);
     protected Book mapBookIdToBook(String bookId) {

@@ -21,6 +21,7 @@ public class BookDTO {
     private String author;
     private String description;
     private String catchphrase;
+    private List<String> chapterIds;
     private List<String> tags;
     private String cover;
 }
