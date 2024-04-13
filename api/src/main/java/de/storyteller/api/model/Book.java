@@ -23,17 +23,11 @@ public class Book {
 
     private String title;
 
+    @DBRef
     private Genre genre;
-
     private String author;
-
-
     private String description;
-
-
     private String catchphrase;
-
-
     private List<String> tags = new ArrayList<>();
     private String cover;
 
