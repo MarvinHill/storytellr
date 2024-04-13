@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-
+/**
+ * Model class for a chapter
+ */
 @Document(collection = "chapters")
 @Data
 @NoArgsConstructor

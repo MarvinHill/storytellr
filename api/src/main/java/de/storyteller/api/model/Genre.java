@@ -9,6 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
+/**
+ * Model class for a genre
+ */
 @Document(collection = "genres")
 @Data
 @NoArgsConstructor

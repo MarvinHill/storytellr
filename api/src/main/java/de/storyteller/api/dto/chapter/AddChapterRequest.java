@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Request object to add a chapter
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

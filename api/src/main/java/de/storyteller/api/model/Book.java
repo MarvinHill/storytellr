@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-
+/**
+ * Model class for a book
+ */
 @Document(collection = "books")
 @Data
 @NoArgsConstructor

@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+/**
+ * Mapper for chapters
+ */
 @Component
 @Mapper(componentModel = "spring")
 public abstract class ChapterMapper {
@@ -25,21 +28,47 @@ public abstract class ChapterMapper {
     protected BookRepository bookRepository;
 
 
-
+    /**
+     * Maps a chapter to a chapterDTO
+     * @param chapter the chapter to map
+     * @return the mapped chapterDTO
+     */
     public abstract ChapterDTO toChapterDTO(Chapter chapter);
 
+    /**
+     * Maps a chapterDTO to a chapter
+     * @param chapterDTO the chapterDTO to map
+     * @return the mapped chapter
+     */
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(ChapterDTO chapterDTO);
 
+    /**
+     * Maps a AddChapterRequest to a chapter
+     * @param chapter the chapter to map
+     * @return the mapped chapter
+     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(AddChapterRequest chapter);
 
+    /**
+     * Maps a EditChapterRequest to a chapter
+     * @param chapter the chapter to map
+     * @return the mapped chapter
+     */
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(EditChapterRequest chapter);
+
+    /**
+     * Maps a bookId to a book
+     * @param bookId the bookId to map
+     * @return the mapped book
+     */
     protected Book mapBookIdToBook(String bookId) {
         return bookRepository.findById(bookId).orElse(null);
     }
+
     public JSONObject getContentAsJSONObject(String content) {
         return new JSONObject(content);
     }

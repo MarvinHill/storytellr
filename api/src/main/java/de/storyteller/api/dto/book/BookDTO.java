@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Data transfer object for a book
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

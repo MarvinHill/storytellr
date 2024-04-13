@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Request object to edit a book
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
