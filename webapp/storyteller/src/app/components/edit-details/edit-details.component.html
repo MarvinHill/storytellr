@@ -15,6 +15,7 @@
       </div>
       <div class="w-full mx-auto flex flex-col items-center">
         <h1 class="text-6xl font-bold">{{ book?.title || "Keine Information" }}</h1>
+        <input type="text" [ngModel]="book?.title">
         <p class="text-md mt-2 mb-7 ml-7 items-start">{{ book?.author || "Keine Information" }}</p>
         <div class="flex flex-row">
 
