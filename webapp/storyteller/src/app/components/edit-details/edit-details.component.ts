@@ -11,6 +11,7 @@ import {Book} from "../../model/book";
 })
 export class EditDetailsComponent implements OnInit{
   book?: Book;
+  titleEdit = false;
 
   constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService) {
   }

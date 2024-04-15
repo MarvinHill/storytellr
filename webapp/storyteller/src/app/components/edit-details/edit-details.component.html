@@ -14,8 +14,21 @@
         </div>
       </div>
       <div class="w-full mx-auto flex flex-col items-center">
-        <h1 class="text-6xl font-bold">{{ book?.title || "Keine Information" }}</h1>
-        <input type="text" [ngModel]="book?.title">
+        <div class="flex">
+          @if (!titleEdit) {
+            <h1 class="text-6xl font-bold">{{ book?.title || "Keine Information" }}</h1>
+            <button class="text-2xl px-6 text-blue-500 " (click)="titleEdit = !titleEdit">
+              <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+            </button>
+          }
+          @if (titleEdit) {
+            <input type="text" class="border border-black rounded text-6xl">
+            <button class="text-2xl px-6 text-blue-500 " (click)="titleEdit = !titleEdit">
+              <span class="material-symbols-outlined my-auto text-2xl">check</span>
+            </button>
+          }
+        </div>
+
         <p class="text-md mt-2 mb-7 ml-7 items-start">{{ book?.author || "Keine Information" }}</p>
         <div class="flex flex-row">
 
@@ -39,7 +52,7 @@
 
           <div class="flex flex-col items-end">
             <p
-              class="text-md xl:mx-12 xl:w-80 lg:w-72 w-72 text-center lg:text-right">{{ book?.description || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." }}</p>
+                    class="text-md xl:mx-12 xl:w-80 lg:w-72 w-72 text-center lg:text-right">{{ book?.description || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." }}</p>
             <div class="my-7 flex xl:mx-12">
               <div class="flex flex-col items-end">
                 <div class="flex flex-row flex-wrap w-56 text-right">
