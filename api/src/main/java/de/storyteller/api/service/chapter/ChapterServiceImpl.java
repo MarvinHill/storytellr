@@ -8,6 +8,7 @@ import de.storyteller.api.mapper.ChapterMapper;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
+import de.storyteller.api.model.Book;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +28,15 @@ public class ChapterServiceImpl implements ChapterService{
         if (!bookRepository.existsById(chapter.getBookId())) {
             throw new RuntimeException("Book with id: " + chapter.getBookId() + " doesn't exist");
         }
-        return chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
+        Book book = bookRepository.findById(chapter.getBookId()).get();
+        ChapterDTO savedChapter = chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
+        book.getChapters().add(chapterMapper.toChapter(savedChapter));
+        bookRepository.save(book);
+        return savedChapter;
     }
 
     @Override
-    public Optional<ChapterDTO> getChapterById(UUID chapterId) {
+    public Optional<ChapterDTO> getChapterById(String chapterId) {
         Optional<Chapter> chapterOptional = chapterRepository.findById(chapterId);
         return chapterOptional.isPresent() ? Optional.of(chapterMapper.toChapterDTO(chapterOptional.get())) : Optional.empty();
     }
@@ -40,9 +45,6 @@ public class ChapterServiceImpl implements ChapterService{
     public ChapterDTO updateChapter(EditChapterRequest chapter) {
         if (!chapterRepository.existsById(chapter.getId())) {
             throw new RuntimeException("Chapter with id: " + chapter.getId() + " doesn't exist");
-        }
-        if (!bookRepository.existsById(chapter.getBookId())) {
-            throw new RuntimeException("Book with id: " + chapter.getBookId() + " doesn't exist");
         }
         return chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
     }

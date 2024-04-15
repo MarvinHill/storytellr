@@ -14,35 +14,64 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+/**
+ * Controller for handling book related requests
+ * @version 1.0
+ */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
     private final BookService bookService;
+
+    /**
+     * Get all books
+     * @return List of all books
+     */
     @PreAuthorize("permitAll()")
     @GetMapping("/all")
     public ResponseEntity<?> getAllBooks(){
         return ResponseEntity.ok(bookService.getAllBooks());
     }
+    /**
+     * Add a new book if the user is authenticated
+     * @param book Book to be added
+     * @return Book added
+     */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/add")
     public ResponseEntity<BookDTO> addEvent(@Valid @RequestBody AddBookRequest book) {
         return new ResponseEntity<>(bookService.createBook(book), HttpStatus.CREATED);
     }
+    /**
+     * Update a book if the user is authenticated and owns the book
+     * @param book Book to be updated
+     * @return Book updated
+     */
     @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#book.id)")
     @PutMapping("/update")
     public ResponseEntity<BookDTO> updateEvent(@Valid @RequestBody EditBookRequest book) {
         return ResponseEntity.ok(bookService.updateBook(book));
     }
+    /**
+     * Get a book by its id
+     * @param id Id of the book
+     * @return Book with the given id
+     */
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}")
-    public ResponseEntity<?> getBookById(@PathVariable UUID id){
+    public ResponseEntity<?> getBookById(@PathVariable String id){
         Optional<BookDTO> bookDTO = bookService.getBookById(id);
         return bookDTO.isPresent() ? ResponseEntity.ok(bookDTO.get()) : ResponseEntity.notFound().build();
     }
+    /**
+     * Get all chapters of a book
+     * @param id Id of the book
+     * @return List of chapters of the book
+     */
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}/chapters")
-    public ResponseEntity<?> getBookChapters(@PathVariable UUID id){
+    public ResponseEntity<?> getBookChapters(@PathVariable String id){
         return ResponseEntity.ok(bookService.getAllChapters(id));
     }
 }
