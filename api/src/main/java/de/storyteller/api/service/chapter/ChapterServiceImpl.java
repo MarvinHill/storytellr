@@ -30,11 +30,8 @@ public class ChapterServiceImpl implements ChapterService{
         }
         Book book = bookRepository.findById(chapter.getBookId()).get();
         ChapterDTO savedChapter = chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
-        System.out.println("savedChapter: " + savedChapter);
-        System.out.println("book: " + book);
         book.getChapters().add(chapterMapper.toChapter(savedChapter));
         bookRepository.save(book);
-        System.out.println("book saved: " + book);
         return savedChapter;
     }
 
