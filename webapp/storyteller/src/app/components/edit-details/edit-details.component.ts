@@ -3,6 +3,7 @@ import {KeycloakService} from "keycloak-angular";
 import {BookService} from "../../service/book.service";
 import {UserServiceService} from "../../service/user-service.service";
 import {Book} from "../../model/book";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-edit-details',
@@ -11,16 +12,28 @@ import {Book} from "../../model/book";
 })
 export class EditDetailsComponent implements OnInit{
   book?: Book;
+  bookId!: string;
   titleEdit = false;
 
-  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService) {
+  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.keyCloakService.getToken()
-      .then(token => {
-        console.log(this.userService.getUserIdFromJWT(token));
-      });
+    this.route.queryParams.subscribe(params => {
+      this.bookId = params['bookId'];
+    });
+    this.getBookById();
+  }
+
+  getBookById(): void {
+    this.bookService.getBookById(this.bookId).subscribe({
+      next: (resp: Book) => {
+        this.book = resp;
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
   }
 
 }

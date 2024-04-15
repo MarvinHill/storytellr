@@ -14,10 +14,12 @@ export class BookDetailComponent implements OnInit{
 
 
   constructor(private route: ActivatedRoute, private bookService: BookService) {}
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.bookId = params['bookId'];
     });
+    this.getBookById();
   }
 
   getBookById(): void {
