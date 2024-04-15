@@ -4,6 +4,8 @@ import {BookService} from "../../service/book.service";
 import {UserServiceService} from "../../service/user-service.service";
 import {Book} from "../../model/book";
 import {ActivatedRoute} from "@angular/router";
+import {FormBuilderService} from "../../service/form-builder.service";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-details',
@@ -11,11 +13,14 @@ import {ActivatedRoute} from "@angular/router";
   styleUrl: './edit-details.component.scss'
 })
 export class EditDetailsComponent implements OnInit{
-  book?: Book;
+  book!: Book;
   bookId!: string;
   titleEdit = false;
+  descriptionEdit = false;
+  settingsForm!: FormGroup;
 
-  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService, private route: ActivatedRoute) {
+  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService, private route: ActivatedRoute,
+              private formBuilderService: FormBuilderService) {
   }
 
   ngOnInit() {
@@ -23,6 +28,7 @@ export class EditDetailsComponent implements OnInit{
       this.bookId = params['bookId'];
     });
     this.getBookById();
+    this.settingsForm = this.formBuilderService.buildBookSettingsForm();
   }
 
   getBookById(): void {
