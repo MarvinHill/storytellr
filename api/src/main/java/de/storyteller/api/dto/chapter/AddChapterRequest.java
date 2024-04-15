@@ -9,12 +9,15 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Request object to add a chapter
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddChapterRequest {
     @NotNull(message = "Book ID is required")
-    private UUID bookId;
+    private String bookId;
     @NotNull(message = "Chapter title is required")
     private String chapterTitle;
     private String content;
