@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, AfterContentInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {FormBuilderService} from "../../service/form-builder.service";
 import {Book} from "../../model/book";
@@ -11,7 +11,7 @@ import {BookMapperService} from "../../service/book-mapper.service";
   templateUrl: './book-settings.component.html',
   styleUrl: './book-settings.component.scss'
 })
-export class BookSettingsComponent implements OnInit{
+export class BookSettingsComponent implements OnInit, AfterContentInit{
   settingsForm!: FormGroup;
   @Input() book!: Book;
 
@@ -21,6 +21,13 @@ export class BookSettingsComponent implements OnInit{
 
   ngOnInit() {
     this.settingsForm = this.formBuilderService.buildBookSettingsForm();
+  }
+
+  ngAfterContentInit() {
+    this.settingsForm.get('public')?.setValue(this.book.public);
+    this.settingsForm.get('adultContent')?.setValue(this.book.adultContent);
+    this.settingsForm.get('finished')?.setValue(this.book.finished);
+    this.settingsForm.get('commentsDeactivated')?.setValue(this.book.commentsDeactivated);
   }
 
   updatePublic() {
