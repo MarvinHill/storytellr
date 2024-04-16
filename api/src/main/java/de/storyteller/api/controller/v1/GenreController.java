@@ -32,6 +32,12 @@ public class GenreController {
         return ResponseEntity.ok(genreService.getAllGenres());
     }
 
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{id}")
+    public ResponseEntity<GenreDTO> getGenreById(@PathVariable String id) {
+        return ResponseEntity.ok(genreService.getGenreById(id));
+    }
+
     /**
      * Add a new genre if the user is authenticated and has the authority to add a genre
      * @param genre Genre to be added
