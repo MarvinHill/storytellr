@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { EditDetailsComponent } from './components/edit-details/edit-details.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { BookSettingsComponent } from './components/book-settings/book-settings.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -37,7 +38,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     DiscoveryPageComponent,
     ApiTestComponent,
     BookDetailComponent,
-    EditDetailsComponent
+    EditDetailsComponent,
+    BookSettingsComponent
   ],
   imports: [
     BrowserModule,
