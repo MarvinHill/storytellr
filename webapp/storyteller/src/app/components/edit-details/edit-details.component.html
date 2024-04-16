@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full mx-auto flex flex-col items-center">
+      <div class="w-full mx-auto flex flex-col items-end">
         <div class="flex">
           @if (!titleEdit) {
             <h1 class="text-6xl font-bold">{{ book.title || "Keine Information" }}</h1>
@@ -19,14 +19,27 @@
               <span class="material-symbols-outlined my-auto text-2xl">edit</span>
             </button>
           } @else {
-            <input type="text" class="border border-black rounded text-6xl" [(ngModel)]="book.title" maxlength="100">
+            <input type="text" class="border border-black rounded text-6xl" [(ngModel)]="book.title" maxlength="100" placeholder="Book Title">
             <button class="text-2xl px-6 text-blue-500 " (click)="updateTitle()" [disabled]="book.title.length > 100">
               <span class="material-symbols-outlined my-auto text-2xl">check</span>
             </button>
           }
         </div>
 
-        <p class="text-md mt-2 mb-7 ml-7 items-start">{{ book.author || "Keine Information" }}</p>
+        <div class="flex items-end text-right my-3">
+          @if (!catchphraseEdit) {
+            <h1 class="text-xl italic">{{ book.catchphrase || "Keine Catchphrase" }}</h1>
+            <button class="text-2xl px-6 text-blue-500 " (click)="catchphraseEdit = !catchphraseEdit">
+              <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+            </button>
+          } @else {
+            <input type="text" class="border border-black rounded text-xl w-96" [(ngModel)]="book.catchphrase" maxlength="200" placeholder="Catchphrase">
+            <button class="text-2xl px-6 text-blue-500 " (click)="updateCatchphrase()">
+              <span class="material-symbols-outlined my-auto text-2xl">check</span>
+            </button>
+          }
+        </div>
+
         <div class="flex flex-row">
 
           <div>
@@ -50,12 +63,12 @@
           <div class="flex flex-col items-end">
             <div class="flex">
               @if (!descriptionEdit){
-                <p class="text-md xl:mx-12 xl:w-80 lg:w-72 w-72 text-center lg:text-right">{{ book.description || "Keine Beschreibung " }}</p>
+                <p class="text-md xl:w-80 lg:w-72 w-72 text-center lg:text-right">{{ book.description || "Keine Beschreibung " }}</p>
                 <button class="text-2xl px-6 text-blue-500 " (click)="descriptionEdit = !descriptionEdit">
                   <span class="material-symbols-outlined my-auto text-2xl">edit</span>
                 </button>
               } @else {
-                <textarea class="border border-black rounded text-md xl:w-80 lg:w-72 w-72 h-72" [(ngModel)]="book.description" maxlength="500"></textarea>
+                <textarea class="border border-black rounded text-md xl:w-80 lg:w-72 w-72 h-72" [(ngModel)]="book.description" maxlength="500" placeholder="Book Description"></textarea>
                 <button class="text-2xl px-6 text-blue-500 " (click)="updateDescription()" [disabled]="book.description.length > 500">
                   <span class="material-symbols-outlined my-auto text-2xl">check</span>
                 </button>
@@ -71,9 +84,26 @@
                       <p class="mx-1"> - </p>
                     }
                   }
-
                 </div>
               </div>
+
+              <div class="flex">
+                @if (!genreEdit){
+                  <p class="text-md xl:w-80 lg:w-72 w-72 text-center lg:text-right">{{book.genreId|| "No genre" }}</p>
+                  <button class="text-2xl px-6 text-blue-500 " (click)="genreEdit = !genreEdit">
+                    <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+                  </button>
+                } @else {
+                  <select [(ngModel)]="book.genreId" (change)="updateGenre()">
+                    @for (genre of genres; track genre; ) {
+                      <option [ngValue]="genre.id">{{ genre.name }}</option>
+                    }
+                  </select>
+                }
+
+              </div>
+
+
 
 
             </div>
