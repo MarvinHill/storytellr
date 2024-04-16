@@ -5,7 +5,7 @@ export interface Book {
   author: string;
   description: string;
   catchphrase?: string;
-  chapterIds: String[];
+  chapterIds: string[];
   tags: string[];
   cover?: string;
   public: boolean;
@@ -20,7 +20,7 @@ export interface AddBookRequest {
   author: string;
   description: string;
   catchphrase?: string;
-  chapterIds: String[];
+  chapterIds: string[];
   tags: string[];
   cover?: string;
   public: boolean;
@@ -36,7 +36,7 @@ export interface EditBookRequest {
   author: string;
   description: string;
   catchphrase?: string;
-  chapterIds: String[];
+  chapterIds: string[];
   tags: string[];
   cover?: string;
   public: boolean;
