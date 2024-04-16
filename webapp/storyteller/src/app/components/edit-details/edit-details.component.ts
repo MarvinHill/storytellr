@@ -17,10 +17,8 @@ export class EditDetailsComponent implements OnInit{
   bookId!: string;
   titleEdit = false;
   descriptionEdit = false;
-  settingsForm!: FormGroup;
 
-  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService, private route: ActivatedRoute,
-              private formBuilderService: FormBuilderService) {
+  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -28,7 +26,7 @@ export class EditDetailsComponent implements OnInit{
       this.bookId = params['bookId'];
     });
     this.getBookById();
-    this.settingsForm = this.formBuilderService.buildBookSettingsForm();
+
   }
 
   getBookById(): void {

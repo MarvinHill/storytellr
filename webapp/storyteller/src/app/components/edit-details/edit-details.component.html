@@ -7,46 +7,7 @@
           <img src="/assets/images/book-cover.png" alt="Book Cover" width="329" height="449"
                priority="true">
           <div class="w-72 mx-auto">
-            <p class="text-center text-3xl my-3">settings</p>
-            <form [formGroup]="settingsForm" class="grid grid-cols-2">
-
-                <div class="flex my-1 items-center">
-                  <input type="checkbox" id="public" formControlName="public" class="appearance-none peer size-6 border-2 rounded-lg border-black bg-transparent checked:white checked:border-1 checked:border-black">
-                  <div class="absolute pointer-events-none hidden peer-checked:flex size-6 p-0.5">
-                    <svg class="fill-black size-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                  </div>
-                  <label for="public" class="text-lg mx-1">
-                    public
-                  </label>
-                </div>
-              <div class="flex my-1 items-center">
-                <input type="checkbox" id="commentsDeactivated" formControlName="commentsDeactivated" class="appearance-none peer size-6 border-2 rounded-lg border-black bg-transparent checked:white checked:border-1 checked:border-black">
-                <div class="absolute pointer-events-none hidden peer-checked:flex size-6 p-0.5">
-                  <svg class="fill-black size-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                </div>
-                <label for="commentsDeactivated" class="text-lg mx-1">
-                  no comments
-                </label>
-              </div>
-              <div class="flex my-1 items-center">
-                <input type="checkbox" id="finished" formControlName="finished" class="appearance-none peer size-6 border-2 rounded-lg border-black bg-transparent checked:white checked:border-1 checked:border-black">
-                <div class="absolute pointer-events-none hidden peer-checked:flex size-6 p-0.5">
-                  <svg class="fill-black size-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                </div>
-                <label for="finished" class="text-lg mx-1">
-                  finished
-                </label>
-              </div>
-              <div class="flex my-1 items-center">
-                <input type="checkbox" id="adultContent" formControlName="adultContent" class="appearance-none peer size-6 border-2 rounded-lg border-black bg-transparent checked:white checked:border-1 checked:border-black">
-                <div class="absolute pointer-events-none hidden peer-checked:flex size-6 p-0.5">
-                  <svg class="fill-black size-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                </div>
-                <label for="adultContent" class="text-lg mx-1">
-                  adult content
-                </label>
-              </div>
-            </form>
+            <app-book-settings [book]="book"></app-book-settings>
           </div>
         </div>
       </div>
