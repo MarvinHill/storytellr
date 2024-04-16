@@ -19,7 +19,7 @@ export class BookMapperService {
       chapterIds: book.chapterIds,
       tags: book.tags,
       cover: book.cover,
-      isPublic: book.isPublic,
+      public: book.public,
       adultContent: book.adultContent,
       commentsDeactivated: book.commentsDeactivated,
       finished: book.finished

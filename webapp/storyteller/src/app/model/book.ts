@@ -8,7 +8,7 @@ export interface Book {
   chapterIds: String[];
   tags: string[];
   cover?: string;
-  isPublic: boolean;
+  public: boolean;
   adultContent: boolean;
   commentsDeactivated: boolean;
   finished: boolean;
@@ -23,7 +23,7 @@ export interface AddBookRequest {
   chapterIds: String[];
   tags: string[];
   cover?: string;
-  isPublic: boolean;
+  public: boolean;
   adultContent: boolean;
   commentsDeactivated: boolean;
   finished: boolean;
@@ -39,7 +39,7 @@ export interface EditBookRequest {
   chapterIds: String[];
   tags: string[];
   cover?: string;
-  isPublic: boolean;
+  public: boolean;
   adultContent: boolean;
   commentsDeactivated: boolean;
   finished: boolean;
