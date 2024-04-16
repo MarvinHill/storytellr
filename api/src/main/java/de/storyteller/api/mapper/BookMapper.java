@@ -91,6 +91,9 @@ public abstract class BookMapper {
      * @return the mapped chapters
      */
     List<String> mapIdsToChapters(List<Chapter> chapters) {
+        if(chapters == null) {
+            return null;
+        }
         return chapters.stream().map(Chapter::getId).collect(Collectors.toList());
     }
 
@@ -100,6 +103,9 @@ public abstract class BookMapper {
      * @return the mapped chapters
      */
     List<Chapter> mapChaptersToId(List<String> chapterIds) {
+        if(chapterIds == null) {
+            return null;
+        }
         return chapterIds.stream().map(chapterRepository::findById).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 }
