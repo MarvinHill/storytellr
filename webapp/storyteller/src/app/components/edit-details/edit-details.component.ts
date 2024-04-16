@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 import {BookService} from "../../service/book.service";
-import {UserServiceService} from "../../service/user-service.service";
+import {UserService} from "../../service/user.service";
 import {Book} from "../../model/book";
 import {ActivatedRoute} from "@angular/router";
+import {BookMapperService} from "../../service/book-mapper.service";
 import {FormBuilderService} from "../../service/form-builder.service";
-import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-details',
@@ -18,7 +18,8 @@ export class EditDetailsComponent implements OnInit{
   titleEdit = false;
   descriptionEdit = false;
 
-  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserServiceService, private route: ActivatedRoute) {
+  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserService, private route: ActivatedRoute,
+              private bookMapperService: BookMapperService) {
   }
 
   ngOnInit() {
@@ -26,7 +27,6 @@ export class EditDetailsComponent implements OnInit{
       this.bookId = params['bookId'];
     });
     this.getBookById();
-
   }
 
   getBookById(): void {
@@ -40,4 +40,29 @@ export class EditDetailsComponent implements OnInit{
     });
   }
 
+  updateTitle() {
+    this.titleEdit = !this.titleEdit;
+    let editBook = this.bookMapperService.toEditBookRequest(this.book);
+    this.bookService.updateBook(editBook).subscribe({
+      next: (resp) => {
+        console.log("Response:" + resp);
+      },
+      error: (error) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  updateDescription() {
+    this.descriptionEdit = !this.descriptionEdit;
+    let editBook = this.bookMapperService.toEditBookRequest(this.book);
+    this.bookService.updateBook(editBook).subscribe({
+      next: (resp) => {
+        console.log("Response:" + resp);
+      },
+      error: (error) => {
+        console.error(error.message);
+      }
+    });
+  }
 }

@@ -19,11 +19,10 @@
               <span class="material-symbols-outlined my-auto text-2xl">edit</span>
             </button>
           } @else {
-            <input type="text" class="border border-black rounded text-6xl" [(ngModel)]="book.title">
-            <button class="text-2xl px-6 text-blue-500 " (click)="titleEdit = !titleEdit">
+            <input type="text" class="border border-black rounded text-6xl" [(ngModel)]="book.title" maxlength="100">
+            <button class="text-2xl px-6 text-blue-500 " (click)="updateTitle()" [disabled]="book.title.length > 100">
               <span class="material-symbols-outlined my-auto text-2xl">check</span>
             </button>
-
           }
         </div>
 
@@ -56,8 +55,8 @@
                   <span class="material-symbols-outlined my-auto text-2xl">edit</span>
                 </button>
               } @else {
-                <textarea class="border border-black rounded text-md xl:w-80 lg:w-72 w-72 h-72" [(ngModel)]="book.description"></textarea>
-                <button class="text-2xl px-6 text-blue-500 " (click)="descriptionEdit = !descriptionEdit">
+                <textarea class="border border-black rounded text-md xl:w-80 lg:w-72 w-72 h-72" [(ngModel)]="book.description" maxlength="500"></textarea>
+                <button class="text-2xl px-6 text-blue-500 " (click)="updateDescription()" [disabled]="book.description.length > 500">
                   <span class="material-symbols-outlined my-auto text-2xl">check</span>
                 </button>
               }
