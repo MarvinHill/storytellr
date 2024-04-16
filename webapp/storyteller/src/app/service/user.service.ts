@@ -5,7 +5,7 @@ import {JWTPayload} from 'jose'
 @Injectable({
   providedIn: 'root'
 })
-export class UserServiceService {
+export class UserService {
 
   constructor() { }
 
