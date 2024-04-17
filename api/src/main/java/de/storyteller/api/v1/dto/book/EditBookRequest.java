@@ -1,5 +1,6 @@
 package de.storyteller.api.v1.dto.book;
 
+import de.storyteller.api.model.Chapter;
 import de.storyteller.api.model.Genre;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,20 +13,24 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Request object to edit a book
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class EditBookRequest {
     @NotNull(message = "An id must be set")
-    private UUID id;
+    private String id;
     @NotBlank(message = "Title should not be blank")
     private String title;
     @NotNull(message = "A genre must be set")
-    private UUID genreId;
+    private String genreId;
     @NotBlank(message = "Author should not be blank")
     private String author;
     @NotBlank(message = "Description should not be blank")
     private String description;
     private String catchphrase;
+    private List<String> chapterIds;
     private List<String> tags;
 }

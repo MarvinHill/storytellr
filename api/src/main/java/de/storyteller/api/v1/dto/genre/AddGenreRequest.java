@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Request object to add a genre
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

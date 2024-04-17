@@ -1,17 +1,23 @@
 # Storytellr
 
 ## Branches
+
 ### Prefixes
+
 - feature/
 - bug/
 - chore/
 
 ## Commits
+
 Commits use the [Conventional Commit Structure](https://www.conventionalcommits.org/en/v1.0.0/) naming pattern.
 
 A helper tool can be found at [link](https://commit-creator.netlify.app/).
+
 ### Scope Naming
+
 Current existing Scopes in Storytellr
+
 - api
 - webapp
 - proxy
@@ -26,10 +32,12 @@ Current existing Scopes in Storytellr
 - The **api folder** contains a spring boot backend api service that is consumed by the webapp.
 
 ### Local Development
-- create a ```.env``` file in the same folder as the ```docker-compose.yml``` file
-- run ```docker compose --profile dev up -d```.
+
+- create a `.env` file in the same folder as the `docker-compose.yml` file
+- run `docker compose --profile dev up -d`.
 
 **.env File Content**
+
 ```
 KEYCLOAK_DATABASE_VENDOR
 KEYCLOAK_DB_SCHEMA
@@ -51,8 +59,12 @@ API_JPA_DATABASE_PLATFORM
 API_HIBERNATE_MODE
 API_JPA_SHOW_SQL
 API_DEBUG_LEVEL
+MONGODB_HOST
+MONGODB_PORT
+
 ```
 
 ### Production Deployment
+
 - create a env file like in dev mode
-- run ```docker compose --profile prod up -d```
+- run `docker compose --profile prod up -d`

@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+/**
+ * Mapper for chapters
+ */
 @Component
 @Mapper(componentModel = "spring")
 public abstract class ChapterMapper {
@@ -23,23 +26,48 @@ public abstract class ChapterMapper {
     @Autowired
     protected BookRepository bookRepository;
 
-    private final String ID_PLACEHOLDER = "550e8400-e29b-41d4-a716-446655440000";
 
-    @Mapping(target = "bookId", source = "book.id")
+    /**
+     * Maps a chapter to a chapterDTO
+     * @param chapter the chapter to map
+     * @return the mapped chapterDTO
+     */
     public abstract ChapterDTO toChapterDTO(Chapter chapter);
-    @Mapping(target = "book", source = "bookId")
+
+    /**
+     * Maps a chapterDTO to a chapter
+     * @param chapterDTO the chapterDTO to map
+     * @return the mapped chapter
+     */
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(ChapterDTO chapterDTO);
-    @Mapping(target = "book", source = "bookId")
-    @Mapping(target = "id", constant = ID_PLACEHOLDER)
+
+    /**
+     * Maps a AddChapterRequest to a chapter
+     * @param chapter the chapter to map
+     * @return the mapped chapter
+     */
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(AddChapterRequest chapter);
-    @Mapping(target = "book", source = "bookId")
+
+    /**
+     * Maps a EditChapterRequest to a chapter
+     * @param chapter the chapter to map
+     * @return the mapped chapter
+     */
     @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(EditChapterRequest chapter);
-    protected Book mapBookIdToBook(UUID bookId) {
+
+    /**
+     * Maps a bookId to a book
+     * @param bookId the bookId to map
+     * @return the mapped book
+     */
+    protected Book mapBookIdToBook(String bookId) {
         return bookRepository.findById(bookId).orElse(null);
     }
+
     public JSONObject getContentAsJSONObject(String content) {
         return new JSONObject(content);
     }

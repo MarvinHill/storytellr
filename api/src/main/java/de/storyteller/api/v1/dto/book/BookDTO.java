@@ -6,18 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
+/**
+ * Data transfer object for a book
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookDTO {
-    private UUID id;
+    private String id;
     private String title;
-    private UUID genreId;
-    private UUID author;
+    private String genreId;
+    private String author;
     private String description;
     private String catchphrase;
+    private List<String> chapterIds;
     private List<String> tags;
     private CoverUriDTO cover;
 }

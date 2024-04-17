@@ -19,15 +19,16 @@ public class ExampleDataGenerator {
   BookRepository bookRepository;
 
   public void generate(){
-    genreRepository.save(new Genre(UUID.fromString("1b8b0883-596d-42b0-be60-b8793f22a572"),"Fantasy"));
+    genreRepository.save(new Genre("1b8b0883-596d-42b0-be60-b8793f22a572","Fantasy"));
     for (int i = 0; i < 10; i++) {
       bookRepository.save(new Book(
-          UUID.randomUUID(),
+          UUID.randomUUID().toString(),
           "Title " + i,
           genreRepository.findByName("Fantasy"),
           UUID.randomUUID().toString(),
           "description " + i,
           "catch " + i,
+              List.of(),
               List.of("tag " + i, "tag " + (i + 1)),
           new CoverUriDTO()
       ));

@@ -4,8 +4,9 @@ import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.service.book.BookService;
 import de.storyteller.api.service.chapter.ChapterService;
+
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ public class CustomAuthorizationService {
     @Autowired
     ChapterService chapterService;
 
-    public boolean userOwnsBook(UUID bookId){
+    public boolean userOwnsBook(String bookId){
       Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       if(bookDTO.isEmpty() || authentication == null) return false;
@@ -31,20 +32,33 @@ public class CustomAuthorizationService {
       return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
     }
 
-    public boolean userOwnsBook(String bookId){
-        return userOwnsBook(UUID.fromString(bookId));
-    }
+//    public boolean userIsAuthorOfChapter(String chapterId){
+//      Optional<ChapterDTO> chapterDTO = chapterService.getChapterById(chapterId);
+//      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//      if(chapterDTO.isEmpty() || authentication == null) return false;
+//      Jwt jwt = (Jwt) authentication.getPrincipal();
+//
+//      Optional<BookDTO> bookDTO = bookService.getBookById(chapterDTO.get().getBookId());
+//      if(bookDTO.isEmpty()) return false;
+//
+//      return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
+//    }
 
-    public boolean userIsAuthorOfChapter(UUID chapterId){
+    public boolean userIsAuthorOfChapter(String chapterId){
       Optional<ChapterDTO> chapterDTO = chapterService.getChapterById(chapterId);
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       if(chapterDTO.isEmpty() || authentication == null) return false;
       Jwt jwt = (Jwt) authentication.getPrincipal();
 
-      Optional<BookDTO> bookDTO = bookService.getBookById(chapterDTO.get().getBookId());
-      if(chapterDTO.isEmpty()) return false;
-
-      return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
+        List<BookDTO> books = bookService.getAllBooks();
+        for(BookDTO book : books){
+            for(String chapter : book.getChapterIds()){
+                if(chapter.equals(chapterId)){
+                    return jwt.getSubject().equals(book.getAuthor().toString());
+                }
+            }
+        }
+        return false;
     }
 
     public boolean testLog(){

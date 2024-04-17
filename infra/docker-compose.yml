@@ -15,16 +15,15 @@ services:
     container_name: api
     build: ../api
     depends_on:
-      - apidb
+      - apidb-mongo
     restart: unless-stopped
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://apidb:5432/${API_DATABASE_NAME}
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: ${API_DATABASE_DRIVER_CLASS_NAME}
+
       SPRING_DATASOURCE_USERNAME: ${API_DATABASE_USER}
       SPRING_DATASOURCE_PASSWORD: ${API_DATABASE_PASSWORD}
-      SPRING_JPA_DATABASE_PLATFORM:  ${API_JPA_DATABASE_PLATFORM}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: ${API_HIBERNATE_MODE}
-      SPRING_JPA_SHOW_SQL: ${API_JPA_SHOW_SQL}
+      SPRING_DATA_MONGODB_HOST: ${MONGODB_HOST}
+      SPRING_DATA_MONGODB_PORT: ${MONGODB_PORT}
+      SPRING_DATA_MONGODB_DATABASE: ${API_DATABASE_NAME}
 
       KEYCLOAK_ISSUER_URI: ${KEYCLOAK_ISSUER_URI}
       KEYCLOAK_FRONTEND_CLIENT_ID: ${KEYCLOAK_FRONTEND_CLIENT_ID}
@@ -48,19 +47,33 @@ services:
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
     volumes:
       - ../webapp/nginx.conf:/etc/nginx/nginx.conf
-
-  apidb:
-    container_name: apidb
-    image: postgres:16.2-alpine3.18
-    restart: unless-stopped
+  
+  webapp-dev:
+    container_name: webapp
+    profiles:
+      - "dev"
+    build: 
+      context: ../webapp
+      dockerfile: Dockerfile.dev
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: ${API_DATABASE_PASSWORD}
-      POSTGRES_USER: ${API_DATABASE_USER}
-      POSTGRES_DB: ${API_DATABASE_NAME}
+      - "8081:80"
+    environment: 
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
     volumes:
-      - apidb:/var/lib/postgresql/data
+      - ../webapp/storyteller:/var/source
+
+  apidb-mongo:
+    container_name: apidb-mongo
+    image: mongodb/mongodb-community-server:4.4.23-ubuntu2004
+    restart: unless-stopped
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: ${API_DATABASE_USER}
+      MONGODB_INITDB_ROOT_PASSWORD: ${API_DATABASE_PASSWORD}
+      MONGODB_INITDB_DATABASE: ${API_DATABASE_NAME}
+    volumes:
+      - apidb-mongo:/data/db
+    ports:
+      - 27017:27017
 
   keycloakdb:
     container_name: keycloakdb
@@ -112,6 +125,7 @@ services:
 volumes:
   keycloakdb:
   apidb:
+  apidb-mongo:
   caddy_data:
   caddy_config:
   public_data:

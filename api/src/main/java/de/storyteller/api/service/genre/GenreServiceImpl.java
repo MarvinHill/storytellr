@@ -26,10 +26,10 @@ public class GenreServiceImpl implements GenreService{
 
     @Override
     public void deleteGenre(String id) {
-        if(!genreRepository.existsById(UUID.fromString(id))){
+        if(!genreRepository.existsById(id)){
             throw new RuntimeException("Genre with id: " + id + " doesn't exist");
         }
-        genreRepository.deleteById(UUID.fromString(id));
+        genreRepository.deleteById(id);
     }
 
     @Override

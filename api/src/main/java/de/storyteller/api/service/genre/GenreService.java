@@ -2,15 +2,31 @@ package de.storyteller.api.service.genre;
 
 import de.storyteller.api.v1.dto.genre.AddGenreRequest;
 import de.storyteller.api.v1.dto.genre.GenreDTO;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
+/**
+ * Service for genres
+ */
 public interface GenreService {
-    @Transactional
+
+    /**
+     * Create a genre
+     * @param genre the genre to create
+     * @return the created genre
+     */
     GenreDTO createGenre(AddGenreRequest genre);
-    @Transactional
+
+    /**
+     * Delete a genre by its id
+     * @param id the id of the genre
+     */
     void deleteGenre(String id);
-    @Transactional
+
+    /**
+     * Get all genres
+     * @return a list of all genres
+     */
     List<GenreDTO> getAllGenres();
 }
