@@ -1,25 +1,25 @@
 <app-top-bar></app-top-bar>
-<div class="font-playfair 2xl:w-7/12 xl:w-8/12 w-9/12 mx-auto">
+<div class="font-playfair w-9/12 mx-auto border-2 border-yellow-400">
   <div class="mx-auto my-12">
-    <div class="flex flex-col lg:flex-row gap-7">
-      <div class="mx-auto">
-        <div class="mx-8 xl:mx-0">
+    <div class="flex flex-col lg:flex-row gap-32">
+      <div class="mx-auto border-2 border-green-500">
+        <div class="mx-8 lg:mx-0 border-2 border-green-900">
           <img src="/assets/images/book-cover.png" alt="Book Cover" width="329" height="449"
                priority="true">
-          <div class="w-72 mx-auto">
+          <div class="mx-auto">
             <app-book-settings [book]="book"></app-book-settings>
           </div>
         </div>
       </div>
-      <div class="mx-auto flex flex-col items-end self-start">
+      <div class="mx-auto flex flex-col items-end border-2 border-pink-500">
         <div class="flex">
           @if (!titleEdit) {
-            <h1 class="text-6xl font-bold">{{ book.title || "Keine Information" }}</h1>
+            <h1 class="text-4xl font-bold">{{ book.title || "Keine Information" }}</h1>
             <button class="text-2xl px-6 text-blue-500 " (click)="titleEdit = !titleEdit">
               <span class="material-symbols-outlined my-auto text-2xl">edit</span>
             </button>
           } @else {
-            <input type="text" class="border border-black rounded text-6xl" [(ngModel)]="book.title" maxlength="100"
+            <input type="text" class="border border-black rounded text-4xl" [(ngModel)]="book.title" maxlength="100"
                    placeholder="Book Title">
             <button class="text-2xl px-6 text-blue-500 " (click)="updateTitle()" [disabled]="book.title.length > 100">
               <span class="material-symbols-outlined my-auto text-2xl">check</span>
@@ -65,12 +65,12 @@
           <div class="flex flex-col items-end">
             <div class="flex">
               @if (!descriptionEdit) {
-                <p class="text-md xl:w-80 lg:w-72 w-72 text-center lg:text-right">{{ book.description || "Keine Beschreibung " }}</p>
+                <p class="text-md w-72 lg:text-right">{{ book.description || "Keine Beschreibung " }}</p>
                 <button class="text-2xl px-6 text-blue-500 " (click)="descriptionEdit = !descriptionEdit">
                   <span class="material-symbols-outlined my-auto text-2xl">edit</span>
                 </button>
               } @else {
-                <textarea class="border border-black rounded text-md xl:w-80 lg:w-72 w-72 h-72"
+                <textarea class="border border-black rounded text-md w-72 h-72"
                           [(ngModel)]="book.description" maxlength="500" placeholder="Book Description"></textarea>
                 <button class="text-2xl px-6 text-blue-500 " (click)="updateDescription()"
                         [disabled]="book.description.length > 500">
