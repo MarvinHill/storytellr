@@ -1,8 +1,8 @@
 <app-top-bar></app-top-bar>
-<div class="font-playfair w-9/12 mx-auto border-2 border-red-300">
+<div class="font-playfair w-full mx-auto items-center border-2 border-red-300">
   <div class="mx-auto my-12 border-2 border-blue-400">
     <div class="flex flex-col lg:flex-row gap-32">
-      <div class="border-2 border-yellow-400 mx-auto">
+      <div class="border-2 border-yellow-400 lg:ml-auto mx-auto">
         <div class="mx-8 lg:mx-0">
           <img src="/assets/images/book-cover.png" alt="Book Cover" width="329" height="449"
                priority="true">
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full mr-auto flex flex-col border-2 border-green-500">
+      <div class="lg:mr-auto mx-auto flex flex-col border-2 border-green-500">
         <h1 class="text-4xl font-bold">{{ book?.title || "Keine Information" }}</h1>
         <p class="text-md mt-2 mb-7 ml-7 items-start">{{ book?.author || "Keine Information" }}</p>
         <div class="flex flex-row h-full border-2 border-green-950">
