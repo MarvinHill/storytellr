@@ -111,4 +111,9 @@ export class EditDetailsComponent implements OnInit{
       }
     });
   }
+
+  getGenreName(genreId: string) {
+    let genre = this.genres.find(genre => genre.id === genreId);
+    return genre?.name;
+  }
 }
