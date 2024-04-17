@@ -1,11 +1,8 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {KeycloakService} from "keycloak-angular";
+import {Component, OnInit} from '@angular/core';
 import {BookService} from "../../service/book.service";
-import {UserService} from "../../service/user.service";
 import {Book} from "../../model/book";
 import {ActivatedRoute} from "@angular/router";
 import {BookMapperService} from "../../service/book-mapper.service";
-import {FormBuilderService} from "../../service/form-builder.service";
 import {GenreService} from "../../service/genre.service";
 import {Genre} from "../../model/genre";
 
@@ -20,14 +17,15 @@ export class EditDetailsComponent implements OnInit{
   titleEdit = false;
   descriptionEdit = false;
   catchphraseEdit= false;
-  genreEdit = false;
+  tagsEdit = false;
   genres: Genre[] = [];
+  newTags!: string;
 
-  constructor(private keyCloakService: KeycloakService, private bookService: BookService, private userService: UserService, private route: ActivatedRoute,
+  constructor(private bookService: BookService, private route: ActivatedRoute,
               private bookMapperService: BookMapperService, private genreService: GenreService) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.bookId = params['bookId'];
     });
@@ -40,9 +38,10 @@ export class EditDetailsComponent implements OnInit{
     this.bookService.getBookById(bookId).subscribe({
       next: (resp: Book) => {
         this.book = resp;
+        this.newTags = resp.tags.join(", ");
       },
       error: (error: any) => {
-        console.error(error.message);
+        alert(error.message);
       }
     });
 
@@ -57,9 +56,11 @@ export class EditDetailsComponent implements OnInit{
         console.log("Response:" + resp);
       },
       error: (error) => {
-        console.error(error.message);
+        alert(error.message);
+        this.getBookById(this.bookId);
       }
     });
+
   }
 
   updateDescription() {
@@ -70,7 +71,8 @@ export class EditDetailsComponent implements OnInit{
         console.log("Response:" + resp);
       },
       error: (error) => {
-        console.error(error.message);
+        alert(error.message);
+        this.getBookById(this.bookId);
       }
     });
   }
@@ -80,9 +82,11 @@ export class EditDetailsComponent implements OnInit{
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
       next: (resp) => {
+        console.log("Response:" + resp);
       },
       error: (error) => {
-        console.error(error.message);
+        alert(error.message);
+        this.getBookById(this.bookId)
       }
     });
   }
@@ -100,20 +104,35 @@ export class EditDetailsComponent implements OnInit{
   }
 
   updateGenre() {
-    this.genreEdit = !this.genreEdit;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
       next: (resp) => {
         console.log("Response:" + resp);
       },
       error: (error) => {
-        console.error(error.message);
+        alert(error.message);
+        this.getBookById(this.bookId)
       }
     });
   }
 
-  getGenreName(genreId: string) {
-    let genre = this.genres.find(genre => genre.id === genreId);
-    return genre?.name;
+  getTagsFromInput(tags: string) : string[] {
+    return tags.split(",")
+  }
+
+  updateTags() {
+    this.tagsEdit = !this.tagsEdit;
+    this.book.tags = this.getTagsFromInput(this.newTags);
+    console.log(this.book.tags);
+    let editBook = this.bookMapperService.toEditBookRequest(this.book);
+    this.bookService.updateBook(editBook).subscribe({
+      next: (resp) => {
+        console.log("Response:" + resp);
+      },
+      error: (error) => {
+        alert(error.message);
+        this.getBookById(this.bookId)
+      }
+    });
   }
 }
