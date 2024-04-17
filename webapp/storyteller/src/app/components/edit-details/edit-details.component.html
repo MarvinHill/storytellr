@@ -19,7 +19,8 @@
               <span class="material-symbols-outlined my-auto text-2xl">edit</span>
             </button>
           } @else {
-            <input type="text" class="border border-black rounded text-6xl" [(ngModel)]="book.title" maxlength="100" placeholder="Book Title">
+            <input type="text" class="border border-black rounded text-6xl" [(ngModel)]="book.title" maxlength="100"
+                   placeholder="Book Title">
             <button class="text-2xl px-6 text-blue-500 " (click)="updateTitle()" [disabled]="book.title.length > 100">
               <span class="material-symbols-outlined my-auto text-2xl">check</span>
             </button>
@@ -33,7 +34,8 @@
               <span class="material-symbols-outlined my-auto text-2xl">edit</span>
             </button>
           } @else {
-            <input type="text" class="border border-black rounded text-xl w-96" [(ngModel)]="book.catchphrase" maxlength="200" placeholder="Catchphrase">
+            <input type="text" class="border border-black rounded text-xl w-96" [(ngModel)]="book.catchphrase"
+                   maxlength="200" placeholder="Catchphrase">
             <button class="text-2xl px-6 text-blue-500 " (click)="updateCatchphrase()">
               <span class="material-symbols-outlined my-auto text-2xl">check</span>
             </button>
@@ -62,14 +64,16 @@
 
           <div class="flex flex-col items-end">
             <div class="flex">
-              @if (!descriptionEdit){
+              @if (!descriptionEdit) {
                 <p class="text-md xl:w-80 lg:w-72 w-72 text-center lg:text-right">{{ book.description || "Keine Beschreibung " }}</p>
                 <button class="text-2xl px-6 text-blue-500 " (click)="descriptionEdit = !descriptionEdit">
                   <span class="material-symbols-outlined my-auto text-2xl">edit</span>
                 </button>
               } @else {
-                <textarea class="border border-black rounded text-md xl:w-80 lg:w-72 w-72 h-72" [(ngModel)]="book.description" maxlength="500" placeholder="Book Description"></textarea>
-                <button class="text-2xl px-6 text-blue-500 " (click)="updateDescription()" [disabled]="book.description.length > 500">
+                <textarea class="border border-black rounded text-md xl:w-80 lg:w-72 w-72 h-72"
+                          [(ngModel)]="book.description" maxlength="500" placeholder="Book Description"></textarea>
+                <button class="text-2xl px-6 text-blue-500 " (click)="updateDescription()"
+                        [disabled]="book.description.length > 500">
                   <span class="material-symbols-outlined my-auto text-2xl">check</span>
                 </button>
               }
@@ -78,7 +82,7 @@
             <div class="my-7 flex flex-col items-end">
               <div class="flex flex-row">
                 <div class="flex flex-row flex-wrap items-end text-right">
-                @if (!tagsEdit){
+                  @if (!tagsEdit) {
                     @for (tag of book.tags; track tag; ) {
                       <p> {{ tag }} </p>
                       @if (!$last) {
@@ -88,26 +92,29 @@
                     <button class="text-2xl px-6 text-blue-500 " (click)="tagsEdit = !tagsEdit">
                       <span class="material-symbols-outlined my-auto text-2xl">edit</span>
                     </button>
-                } @else {
-                  <input type="text" class="border border-black rounded text-md w-72" [(ngModel)]="newTags" placeholder="Tag">
-                  <button class="text-2xl px-6 text-blue-500 " (click)="updateTags()">
-                    <span class="material-symbols-outlined my-auto text-2xl">check</span>
-                  </button>
-                }
-              </div>
+                  } @else {
+                    <div class="flex flex-col">
+                      <label for="tagsInput" class="text-md">Please use commas to separate your tags:</label>
+                      <input id="tagsInput" type="text" class="border border-black rounded text-md w-72"
+                             [(ngModel)]="newTags" placeholder="Tag">
+                    </div>
+                    <button class="text-2xl px-6 text-blue-500 " (click)="updateTags()">
+                      <span class="material-symbols-outlined my-auto text-2xl">check</span>
+                    </button>
+                  }
+                </div>
 
               </div>
 
               <div class="flex mx-12 my-3">
-                  <select [(ngModel)]="book.genreId" (change)="updateGenre()" class="text-md xl:w-80 lg:w-72 w-72 text-center lg:text-right">
-                    @for (genre of genres; track genre; ) {
-                      <option [ngValue]="genre.id">{{ genre.name }}</option>
-                    }
-                  </select>
+                <select [(ngModel)]="book.genreId" (change)="updateGenre()"
+                        class="text-md xl:w-80 lg:w-72 w-72 text-center lg:text-right">
+                  @for (genre of genres; track genre; ) {
+                    <option [ngValue]="genre.id">{{ genre.name }}</option>
+                  }
+                </select>
 
               </div>
-
-
 
 
             </div>

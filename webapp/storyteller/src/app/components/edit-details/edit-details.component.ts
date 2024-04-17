@@ -38,7 +38,7 @@ export class EditDetailsComponent implements OnInit{
     this.bookService.getBookById(bookId).subscribe({
       next: (resp: Book) => {
         this.book = resp;
-        this.newTags = resp.tags.join(", ");
+        this.newTags = resp.tags.join(", ").trim();
       },
       error: (error: any) => {
         alert(error.message);
@@ -117,7 +117,7 @@ export class EditDetailsComponent implements OnInit{
   }
 
   getTagsFromInput(tags: string) : string[] {
-    return tags.split(",")
+    return tags.split(",").map(tag => tag.trim());
   }
 
   updateTags() {
