@@ -52,6 +52,7 @@ export class CoverUploadComponent implements OnInit {
         result => {
           this.closeDialog();
           console.debug("result, committing cover", result)
+          this.error = false;
         },
         error => {
           this.error = true;

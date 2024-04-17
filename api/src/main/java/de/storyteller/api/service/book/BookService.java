@@ -5,7 +5,6 @@ import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;
 import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.v1.dto.cover.CoverUriDTO;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,5 +49,5 @@ public interface BookService {
      */
     List<ChapterDTO> getAllChapters(String bookId);
 
-    void updateBookCover(UUID id, CoverUriDTO coverUriDTO);
+    void updateBookCover(String id, CoverUriDTO coverUriDTO);
 }

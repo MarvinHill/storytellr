@@ -69,7 +69,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void updateBookCover(UUID bookId, CoverUriDTO coverUriDTO) {
+    public void updateBookCover(String bookId, CoverUriDTO coverUriDTO) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
         if(bookOptional.isPresent()) {
             Book book = bookOptional.get();

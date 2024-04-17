@@ -1,5 +1,6 @@
 package de.storyteller.api.v1.mapper;
 
+import de.storyteller.api.model.Chapter;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;
@@ -8,6 +9,7 @@ import de.storyteller.api.model.Genre;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
 import de.storyteller.api.repository.GenreRepository;
+import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * Mapper for books
@@ -65,20 +65,18 @@ public abstract class BookMapper {
     @Mapping(target = "cover", ignore = true)
     public abstract Book toBook(AddBookRequest addBookRequest);
 
+    @Mapping(target = "cover", ignore = true)
+    public abstract BookDTO toBookDTO(EditBookRequest editBookRequest);
+
+    private String toGenreId(Genre genre){
+        return genre.getId();
+    }
+
     /**
      * Maps a EditBookRequest to a book
      * @param editBookRequest the book to map
      * @return the mapped book
      */
-
-    @Mapping(target = "genreId", source = "genre")
-    public abstract AddBookRequest toAddBookRequest( Book book);
-
-    public abstract EditBookRequest toEditBookRequest( BookDTO bookDTO);
-
-    @Mapping(target = "cover", ignore = true)
-    public abstract BookDTO toBookDTO(EditBookRequest editBookRequest);
-
     @Mapping(target = "genre", source = "genreId")
     @Mapping(target = "chapters", source = "chapterIds")
     @Mapping(target = "cover", ignore = true)

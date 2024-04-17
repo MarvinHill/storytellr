@@ -1,6 +1,5 @@
 package de.storyteller.api.model;
 
-import de.storyteller.api.converter.CoverUriConverterJson;
 import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;

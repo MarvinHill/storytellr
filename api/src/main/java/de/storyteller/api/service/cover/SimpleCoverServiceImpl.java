@@ -39,7 +39,7 @@ public class SimpleCoverServiceImpl implements CoverService {
     UUID tempId = UUID.randomUUID();
     Optional<CoverUriDTO> responseDTO =
         saveFile(tempId,INTERNAL_STORAGE_PATH, EXTERNAL_STORAGE_PATH, multipartFile);
-    Optional<BookDTO> optionalBookDTO = bookService.getBookById(UUID.fromString(bookId));
+    Optional<BookDTO> optionalBookDTO = bookService.getBookById(bookId);
     if (optionalBookDTO.isEmpty() || responseDTO.isEmpty()) {
       return Optional.empty();
     }
