@@ -1,8 +1,8 @@
 <app-top-bar></app-top-bar>
-<div class="font-playfair w-full mx-auto items-center border-2 border-red-300">
-  <div class="mx-auto my-12 border-2 border-blue-400">
+<div class="font-playfair w-full mx-auto items-center">
+  <div class="mx-auto my-12">
     <div class="flex flex-col lg:flex-row gap-32">
-      <div class="border-2 border-yellow-400 lg:ml-auto mx-auto">
+      <div class="lg:mr-0 mx-auto">
         <div class="mx-8 lg:mx-0">
           <img src="/assets/images/book-cover.png" alt="Book Cover" width="329" height="449"
                priority="true">
@@ -13,12 +13,12 @@
           </div>
         </div>
       </div>
-      <div class="lg:mr-auto mx-auto flex flex-col border-2 border-green-500">
+      <div class="flex flex-col lg:ml-0 mx-auto">
         <h1 class="text-4xl font-bold">{{ book?.title || "Keine Information" }}</h1>
         <p class="text-md mt-2 mb-7 ml-7 items-start">{{ book?.author || "Keine Information" }}</p>
-        <div class="flex flex-row h-full border-2 border-green-950">
+        <div class="flex flex-row h-full">
 
-          <div class="border-2 border-pink-500 w-24">
+          <div class="w-24">
             <div class="flex flex-col mr-8">
               <div class="flex flex-row mt-2">
               <span class="material-symbols-outlined text-amber-400">
@@ -52,9 +52,9 @@
             </div>
           </div>
 
-          <div class="flex flex-col items-end border-2 border-yellow-400">
+          <div class="flex flex-col items-end">
             <p
-              class="text-md lg:w-72 w-72 text-center lg:text-right border-2 border-green-500">{{ book?.description || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." }}</p>
+              class="text-md lg:w-72 w-72 text-center lg:text-right">{{ book?.description || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." }}</p>
             <div class="my-7 flex lg:mx-12">
               <div class="flex flex-col items-end">
                 <div class="flex flex-row flex-wrap w-56 text-right">

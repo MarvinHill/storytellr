@@ -49,7 +49,7 @@ export class EditDetailsComponent implements OnInit{
 
 
   updateTitle() {
-    this.titleEdit = !this.titleEdit;
+    this.titleEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
       next: (resp) => {
@@ -64,7 +64,7 @@ export class EditDetailsComponent implements OnInit{
   }
 
   updateDescription() {
-    this.descriptionEdit = !this.descriptionEdit;
+    this.descriptionEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
       next: (resp) => {
@@ -78,7 +78,7 @@ export class EditDetailsComponent implements OnInit{
   }
 
   updateCatchphrase() {
-    this.catchphraseEdit = !this.catchphraseEdit;
+    this.catchphraseEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
       next: (resp) => {
@@ -121,7 +121,7 @@ export class EditDetailsComponent implements OnInit{
   }
 
   updateTags() {
-    this.tagsEdit = !this.tagsEdit;
+    this.tagsEdit = false;
     this.book.tags = this.getTagsFromInput(this.newTags);
     console.log(this.book.tags);
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
