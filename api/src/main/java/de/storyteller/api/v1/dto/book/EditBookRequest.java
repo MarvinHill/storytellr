@@ -33,4 +33,12 @@ public class EditBookRequest {
     private String catchphrase;
     private List<String> chapterIds;
     private List<String> tags;
+    @NotNull(message = "Public must be set")
+    private boolean isPublic;
+    @NotNull(message = "Adult content must be set")
+    private boolean adultContent;
+    @NotNull(message = "Comments deactivated must be set")
+    private boolean commentsDeactivated;
+    @NotNull(message = "Finished must be set")
+    private boolean finished;
 }

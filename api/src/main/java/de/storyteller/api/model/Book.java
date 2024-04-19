@@ -34,4 +34,8 @@ public class Book {
     private List<Chapter> chapters = new ArrayList<>();
     private List<String> tags = new ArrayList<>();
     private CoverUriDTO cover;
+    private boolean isPublic;
+    private boolean adultContent;
+    private boolean commentsDeactivated;
+    private boolean finished;
 }

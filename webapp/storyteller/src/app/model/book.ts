@@ -7,8 +7,13 @@ export interface Book {
   author: string;
   description: string;
   catchphrase?: string;
+  chapterIds: string[];
   tags: string[];
   cover?: CoverURI;
+  public: boolean;
+  adultContent: boolean;
+  commentsDeactivated: boolean;
+  finished: boolean;
 }
 
 export interface AddBookRequest {
@@ -17,7 +22,12 @@ export interface AddBookRequest {
   author: string;
   description: string;
   catchphrase?: string;
+  chapterIds: string[];
   tags: string[];
+  public: boolean;
+  adultContent: boolean;
+  commentsDeactivated: boolean;
+  finished: boolean;
 }
 
 export interface EditBookRequest {
@@ -27,5 +37,10 @@ export interface EditBookRequest {
   author: string;
   description: string;
   catchphrase?: string;
+  chapterIds: string[];
   tags: string[];
+  public: boolean;
+  adultContent: boolean;
+  commentsDeactivated: boolean;
+  finished: boolean;
 }

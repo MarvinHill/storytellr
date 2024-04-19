@@ -4,7 +4,6 @@ import de.storyteller.api.v1.dto.genre.AddGenreRequest;
 import de.storyteller.api.v1.dto.genre.GenreDTO;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Service for genres
@@ -29,4 +28,6 @@ public interface GenreService {
      * @return a list of all genres
      */
     List<GenreDTO> getAllGenres();
+
+    GenreDTO getGenreById(String id);
 }

@@ -30,7 +30,8 @@ public class ExampleDataGenerator {
           "catch " + i,
               List.of(),
               List.of("tag " + i, "tag " + (i + 1)),
-          new CoverUriDTO()
+          new CoverUriDTO("no cover" + i,"no cover" + i,"no cover" + i),
+            true, false, false, false
       ));
     }
   }

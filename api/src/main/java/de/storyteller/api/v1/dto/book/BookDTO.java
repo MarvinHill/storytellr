@@ -23,4 +23,8 @@ public class BookDTO {
     private List<String> chapterIds;
     private List<String> tags;
     private CoverUriDTO cover;
+    private boolean isPublic;
+    private boolean adultContent;
+    private boolean commentsDeactivated;
+    private boolean finished;
 }

@@ -11,6 +11,10 @@ import { ApiTestComponent } from './components/api-test/api-test.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { CoverUploadComponent } from './components/cover-upload/cover-upload.component';
+import { EditDetailsComponent } from './components/edit-details/edit-details.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { BookSettingsComponent } from './components/book-settings/book-settings.component';
+
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -35,13 +39,17 @@ function initializeKeycloak(keycloak: KeycloakService) {
     CoverUploadComponent,
     DiscoveryPageComponent,
     ApiTestComponent,
-    BookDetailComponent
+    BookDetailComponent,
+    EditDetailsComponent,
+    BookSettingsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     KeycloakAngularModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
