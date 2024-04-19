@@ -18,7 +18,6 @@ export class BookMapperService {
       catchphrase: book.catchphrase,
       chapterIds: book.chapterIds,
       tags: book.tags,
-      cover: book.cover,
       public: book.public,
       adultContent: book.adultContent,
       commentsDeactivated: book.commentsDeactivated,
