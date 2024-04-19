@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Book} from "../../model/book";
 import {Chapter} from "../../model/chapter";
+import {ChapterService} from "../../service/chapter.service";
 
 @Component({
   selector: 'app-chapter-edit-list',
@@ -11,17 +12,20 @@ export class ChapterEditListComponent implements OnInit{
   @Input() book!: Book;
   chapters: Chapter[] = [];
 
-  constructor() {
+  constructor(private chapterService: ChapterService) {
   }
 
   ngOnInit() {
-    // Get the chapters of the book from chapter service
-
-    // Save them to chapters array
+    this.getChapters();
   }
 
   getChapters() {
-
+    for (let chapterId of this.book.chapterIds) {
+      console.log(chapterId);
+      this.chapterService.getChapterById(chapterId).subscribe((chapter: Chapter) => {
+        this.chapters.push(chapter);
+      });
+    }
   }
 
 }
