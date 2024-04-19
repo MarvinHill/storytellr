@@ -29,4 +29,6 @@ public interface GenreService {
      * @return a list of all genres
      */
     List<GenreDTO> getAllGenres();
+
+    GenreDTO getGenreById(String id);
 }

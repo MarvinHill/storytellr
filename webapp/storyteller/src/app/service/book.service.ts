@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Book} from "../model/book";
+import {Book, EditBookRequest} from "../model/book";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
@@ -16,6 +16,18 @@ export class BookService {
   }
 
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${environment.apiUrl}/books`);
+    return this.http.get<Book[]>(`${environment.apiUrl}/books/all`);
+  }
+
+  addBook(book: Book): Observable<Book> {
+    return this.http.post<Book>(`${environment.apiUrl}/books/add`, book);
+  }
+
+  generateData(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/mock/gen`);
+  }
+
+  updateBook(editBook: EditBookRequest): Observable<EditBookRequest> {
+    return this.http.put<EditBookRequest>(`${environment.apiUrl}/books/update`, editBook);
   }
 }

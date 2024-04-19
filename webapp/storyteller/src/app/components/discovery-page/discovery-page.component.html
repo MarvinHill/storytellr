@@ -1,2 +1,9 @@
 <app-top-bar></app-top-bar>
-<button (click)="navigateToBookDetail()">Go to Book Detail</button>
+@for (book of books; track book.id){
+  <div class="book">
+    <h2>{{ book.title }}</h2>
+    <button (click)="navigateToBookDetail(book.id)">Detail</button> <br>
+    <button (click)="navigateToEditDetail(book.id)">Edit</button>
+  </div>
+}
+

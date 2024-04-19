@@ -38,4 +38,9 @@ public class GenreServiceImpl implements GenreService{
             List<Genre> genres = genreRepository.findAll();
             return genres.stream().map(genreMapper::toGenreDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public GenreDTO getGenreById(String id) {
+        return genreMapper.toGenreDTO(genreRepository.findById(id).orElseThrow(() -> new RuntimeException("Genre with id: " + id + " doesn't exist")));
+    }
 }
