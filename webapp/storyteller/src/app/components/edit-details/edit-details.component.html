@@ -1,8 +1,8 @@
 <app-top-bar></app-top-bar>
-<div class="font-playfair w-9/12 mx-auto">
+<div class="font-playfair w-full mx-auto items-center">
   <div class="mx-auto my-12">
     <div class="flex flex-col lg:flex-row gap-32">
-      <div class="mx-auto">
+      <div class="lg:mr-0 mx-auto">
         <div class="mx-8 lg:mx-0">
           <img src="/assets/images/book-cover.png" alt="Book Cover" width="329" height="449">
           <div class="mx-auto">
@@ -10,128 +10,130 @@
           </div>
         </div>
       </div>
-      <div class="mx-auto flex flex-col items-end">
-        <div class="flex">
-          @if (!titleEdit) {
-            <h1 class="text-4xl font-bold">{{ book.title || "Keine Information" }}</h1>
-            <button class="text-2xl px-6 text-blue-500 " (click)="titleEdit = true">
-              <span class="material-symbols-outlined my-auto text-2xl">edit</span>
-            </button>
-          } @else {
-            <input type="text" class="border border-black rounded text-4xl" [(ngModel)]="book.title" maxlength="100"
-                   placeholder="Book Title">
-            <button class="text-2xl px-1 text-blue-500 " (click)="updateTitle()" [disabled]="book.title.length > 100">
-              <span class="material-symbols-outlined my-auto text-2xl">check</span>
-            </button>
-            <button class="text-2xl px-1 text-blue-500 " (click)="titleEdit = false">
-              <span class="material-symbols-outlined my-auto text-2xl">close</span>
-            </button>
-          }
-        </div>
+      <div class="flex flex-col lg:ml-0 mx-auto">
+        <div class="mx-auto flex flex-col items-end">
+          <div class="flex">
+            @if (!titleEdit) {
+              <h1 class="text-4xl font-bold">{{ book.title || "Keine Information" }}</h1>
+              <button class="text-2xl px-6 text-blue-500 " (click)="titleEdit = true">
+                <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+              </button>
+            } @else {
+              <input type="text" class="border border-black rounded text-4xl" [(ngModel)]="book.title" maxlength="100"
+                     placeholder="Book Title">
+              <button class="text-2xl px-1 text-blue-500 " (click)="updateTitle()" [disabled]="book.title.length > 100">
+                <span class="material-symbols-outlined my-auto text-2xl">check</span>
+              </button>
+              <button class="text-2xl px-1 text-blue-500 " (click)="titleEdit = false">
+                <span class="material-symbols-outlined my-auto text-2xl">close</span>
+              </button>
+            }
+          </div>
 
-        <div class="flex items-end text-right my-3">
-          @if (!catchphraseEdit) {
-            <h1 class="text-xl italic">{{ book.catchphrase || "Keine Catchphrase" }}</h1>
-            <button class="text-2xl px-6 text-blue-500 " (click)="catchphraseEdit = true">
-              <span class="material-symbols-outlined my-auto text-2xl">edit</span>
-            </button>
-          } @else {
-            <input type="text" class="border border-black rounded text-xl w-96" [(ngModel)]="book.catchphrase"
-                   maxlength="200" placeholder="Catchphrase">
-            <button class="text-2xl px-1 text-blue-500 " (click)="updateCatchphrase()">
-              <span class="material-symbols-outlined my-auto text-2xl">check</span>
-            </button>
-            <button class="text-2xl px-1 text-blue-500 " (click)="catchphraseEdit = false">
-              <span class="material-symbols-outlined my-auto text-2xl">close</span>
-            </button>
-          }
-        </div>
+          <div class="flex items-end text-right my-3">
+            @if (!catchphraseEdit) {
+              <h1 class="text-xl italic">{{ book.catchphrase || "Keine Catchphrase" }}</h1>
+              <button class="text-2xl px-6 text-blue-500 " (click)="catchphraseEdit = true">
+                <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+              </button>
+            } @else {
+              <input type="text" class="border border-black rounded text-xl w-96" [(ngModel)]="book.catchphrase"
+                     maxlength="200" placeholder="Catchphrase">
+              <button class="text-2xl px-1 text-blue-500 " (click)="updateCatchphrase()">
+                <span class="material-symbols-outlined my-auto text-2xl">check</span>
+              </button>
+              <button class="text-2xl px-1 text-blue-500 " (click)="catchphraseEdit = false">
+                <span class="material-symbols-outlined my-auto text-2xl">close</span>
+              </button>
+            }
+          </div>
 
-        <div class="flex flex-row">
+          <div class="flex flex-row">
 
-          <div>
-            <div class="flex flex-col mr-8">
-              <div class="flex flex-row mt-2">
+            <div>
+              <div class="flex flex-col mr-8">
+                <div class="flex flex-row mt-2">
               <span class="material-symbols-outlined text-amber-400">
                 star
               </span>
-                <p>250</p>
-              </div>
-              <div class="flex flex-row mt-2">
+                  <p>250</p>
+                </div>
+                <div class="flex flex-row mt-2">
               <span class="material-symbols-outlined">
                 visibility
               </span>
-                <p>2500</p>
+                  <p>2500</p>
+                </div>
               </div>
-            </div>
-
-          </div>
-
-          <div class="flex flex-col items-end">
-            <div class="flex">
-              @if (!descriptionEdit) {
-                <p class="text-md w-72 lg:text-right">{{ book.description || "Keine Beschreibung " }}</p>
-                <button class="text-2xl px-6 text-blue-500 " (click)="descriptionEdit = true">
-                  <span class="material-symbols-outlined my-auto text-2xl">edit</span>
-                </button>
-              } @else {
-                <textarea class="border border-black rounded text-md w-72 h-72"
-                          [(ngModel)]="book.description" maxlength="500" placeholder="Book Description"></textarea>
-                <button class="text-2xl px-1 text-blue-500 " (click)="updateDescription()"
-                        [disabled]="book.description.length > 500">
-                  <span class="material-symbols-outlined my-auto text-2xl">check</span>
-                </button>
-                <button class="text-2xl px-1 text-blue-500 " (click)="descriptionEdit = false">
-                  <span class="material-symbols-outlined my-auto text-2xl">close</span>
-                </button>
-              }
 
             </div>
-            <div class="my-7 flex flex-col items-end">
-              <div class="flex flex-row">
-                <div class="flex flex-row flex-wrap items-end text-right">
-                  @if (!tagsEdit) {
-                    @for (tag of book.tags; track tag; ) {
-                      <p> {{ tag }} </p>
-                      @if (!$last) {
-                        <p class="mx-1"> - </p>
+
+            <div class="flex flex-col items-end">
+              <div class="flex">
+                @if (!descriptionEdit) {
+                  <p class="text-md w-72 lg:text-right">{{ book.description || "Keine Beschreibung " }}</p>
+                  <button class="text-2xl px-6 text-blue-500 " (click)="descriptionEdit = true">
+                    <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+                  </button>
+                } @else {
+                  <textarea class="border border-black rounded text-md w-72 h-72"
+                            [(ngModel)]="book.description" maxlength="500" placeholder="Book Description"></textarea>
+                  <button class="text-2xl px-1 text-blue-500 " (click)="updateDescription()"
+                          [disabled]="book.description.length > 500">
+                    <span class="material-symbols-outlined my-auto text-2xl">check</span>
+                  </button>
+                  <button class="text-2xl px-1 text-blue-500 " (click)="descriptionEdit = false">
+                    <span class="material-symbols-outlined my-auto text-2xl">close</span>
+                  </button>
+                }
+
+              </div>
+              <div class="my-7 flex flex-col items-end">
+                <div class="flex flex-row">
+                  <div class="flex flex-row flex-wrap items-end text-right">
+                    @if (!tagsEdit) {
+                      @for (tag of book.tags; track tag; ) {
+                        <p> {{ tag }} </p>
+                        @if (!$last) {
+                          <p class="mx-1"> - </p>
+                        }
                       }
+                      <button class="text-2xl px-6 text-blue-500 " (click)="tagsEdit = true">
+                        <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+                      </button>
+                    } @else {
+                      <div class="flex flex-col">
+                        <label for="tagsInput" class="text-md">Please use spaces to separate your tags:</label>
+                        <input id="tagsInput" type="text" class="border border-black rounded text-md w-72"
+                               [(ngModel)]="newTags" placeholder="Tag">
+                      </div>
+                      <button class="text-2xl px-1 text-blue-500 " (click)="updateTags()">
+                        <span class="material-symbols-outlined my-auto text-2xl">check</span>
+                      </button>
+                      <button class="text-2xl px-1 text-blue-500 " (click)="tagsEdit = false">
+                        <span class="material-symbols-outlined my-auto text-2xl">close</span>
+                      </button>
                     }
-                    <button class="text-2xl px-6 text-blue-500 " (click)="tagsEdit = true">
-                      <span class="material-symbols-outlined my-auto text-2xl">edit</span>
-                    </button>
-                  } @else {
-                    <div class="flex flex-col">
-                      <label for="tagsInput" class="text-md">Please use spaces to separate your tags:</label>
-                      <input id="tagsInput" type="text" class="border border-black rounded text-md w-72"
-                             [(ngModel)]="newTags" placeholder="Tag">
-                    </div>
-                    <button class="text-2xl px-1 text-blue-500 " (click)="updateTags()">
-                      <span class="material-symbols-outlined my-auto text-2xl">check</span>
-                    </button>
-                    <button class="text-2xl px-1 text-blue-500 " (click)="tagsEdit = false">
-                      <span class="material-symbols-outlined my-auto text-2xl">close</span>
-                    </button>
-                  }
+                  </div>
+
                 </div>
 
+                <div class="flex mx-12 my-3">
+                  <select [(ngModel)]="book.genreId" (change)="updateGenre()"
+                          class="text-md lg:w-72 w-72 text-center lg:text-right">
+                    @for (genre of genres; track genre; ) {
+                      <option [ngValue]="genre.id">{{ genre.name }}</option>
+                    }
+                  </select>
+
+                </div>
+
+
               </div>
-
-              <div class="flex mx-12 my-3">
-                <select [(ngModel)]="book.genreId" (change)="updateGenre()"
-                        class="text-md xl:w-80 lg:w-72 w-72 text-center lg:text-right">
-                  @for (genre of genres; track genre; ) {
-                    <option [ngValue]="genre.id">{{ genre.name }}</option>
-                  }
-                </select>
-
-              </div>
-
-
             </div>
           </div>
         </div>
-        <div class="m-7">
+        <div class="w-full">
           <app-chapter-edit-list [book]="book"></app-chapter-edit-list>
         </div>
       </div>
