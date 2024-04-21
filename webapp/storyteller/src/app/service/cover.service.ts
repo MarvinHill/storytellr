@@ -8,7 +8,7 @@ import { CoverURI } from '../model/cover';
 })
 export class CoverService {
 
-  public visible : BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public visible : BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor( private http: HttpClient) { }
 
@@ -16,6 +16,11 @@ export class CoverService {
     var fd = new FormData();
     fd.append('file', file);
     return this.http.post<CoverURI>('/api/v1/cover/previewImage', fd);
+  }
+
+  getDefaultUri(): CoverURI {
+    let coverUri : CoverURI = {smImageUri: "assets/images/book-cover.png", originalImageUri: "assets/images/book-cover.png", lgImageUri: "assets/images/book-cover.png"} as CoverURI
+    return coverUri; 
   }
 
   public commitImage(file : File, bookId : string) : Observable<CoverURI>{
