@@ -14,6 +14,8 @@ import { CoverUploadComponent } from './components/cover-upload/cover-upload.com
 import { EditDetailsComponent } from './components/edit-details/edit-details.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BookSettingsComponent } from './components/book-settings/book-settings.component';
+import { ChapterEditListComponent } from './components/chapter-edit-list/chapter-edit-list.component';
+import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -41,7 +43,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ApiTestComponent,
     BookDetailComponent,
     EditDetailsComponent,
-    BookSettingsComponent
+    BookSettingsComponent,
+    ChapterEditListComponent,
+    LeadingZeroPipe
   ],
   imports: [
     BrowserModule,
