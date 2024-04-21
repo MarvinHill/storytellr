@@ -1,6 +1,6 @@
 package de.storyteller.api.model;
 
-
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ public class Book {
     @DBRef
     private List<Chapter> chapters = new ArrayList<>();
     private List<String> tags = new ArrayList<>();
-    private String cover;
+    private CoverUriDTO cover;
     private boolean isPublic;
     private boolean adultContent;
     private boolean commentsDeactivated;

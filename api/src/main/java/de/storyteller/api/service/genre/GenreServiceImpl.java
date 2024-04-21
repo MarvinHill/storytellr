@@ -1,9 +1,8 @@
 package de.storyteller.api.service.genre;
 
-import de.storyteller.api.dto.genre.AddGenreRequest;
-import de.storyteller.api.dto.genre.GenreDTO;
-import de.storyteller.api.mapper.GenreMapper;
-import de.storyteller.api.model.Book;
+import de.storyteller.api.v1.dto.genre.AddGenreRequest;
+import de.storyteller.api.v1.dto.genre.GenreDTO;
+import de.storyteller.api.v1.mapper.GenreMapper;
 import de.storyteller.api.model.Genre;
 import de.storyteller.api.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;

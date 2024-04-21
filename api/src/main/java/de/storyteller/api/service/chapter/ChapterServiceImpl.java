@@ -1,10 +1,10 @@
 package de.storyteller.api.service.chapter;
 
 
-import de.storyteller.api.dto.chapter.AddChapterRequest;
-import de.storyteller.api.dto.chapter.ChapterDTO;
-import de.storyteller.api.dto.chapter.EditChapterRequest;
-import de.storyteller.api.mapper.ChapterMapper;
+import de.storyteller.api.v1.dto.chapter.AddChapterRequest;
+import de.storyteller.api.v1.dto.chapter.ChapterDTO;
+import de.storyteller.api.v1.dto.chapter.EditChapterRequest;
+import de.storyteller.api.v1.mapper.ChapterMapper;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;

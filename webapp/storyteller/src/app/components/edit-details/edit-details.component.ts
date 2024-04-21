@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {BookMapperService} from "../../service/book-mapper.service";
 import {GenreService} from "../../service/genre.service";
 import {Genre} from "../../model/genre";
+import { CoverURI } from '../../model/cover';
+import { CoverService } from '../../service/cover.service';
 
 @Component({
   selector: 'app-edit-details',
@@ -21,7 +23,8 @@ export class EditDetailsComponent implements OnInit{
   genres: Genre[] = [];
   newTags!: string;
 
-  constructor(private bookService: BookService, private route: ActivatedRoute,
+
+  constructor(private coverService: CoverService, private bookService: BookService, private route: ActivatedRoute,
               private bookMapperService: BookMapperService, private genreService: GenreService) {
   }
 
@@ -31,6 +34,15 @@ export class EditDetailsComponent implements OnInit{
     });
     this.getBookById(this.bookId);
     this.getGenres();
+  }
+
+  openCoverUpload() {
+      this.coverService.show()
+  }
+
+  updateCover(url : CoverURI) {
+    console.log("updateCoverEvent",url);
+    this.book.cover = url;
   }
 
 

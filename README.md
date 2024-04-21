@@ -23,6 +23,7 @@ Current existing Scopes in Storytellr
 - proxy
 - infra
 - keycloak
+- publicdata
 
 ## Project Structure
 

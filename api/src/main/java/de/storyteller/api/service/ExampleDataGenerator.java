@@ -1,5 +1,6 @@
 package de.storyteller.api.service;
 
+import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Genre;
 import de.storyteller.api.repository.BookRepository;
@@ -29,7 +30,7 @@ public class ExampleDataGenerator {
           "catch " + i,
               List.of(),
               List.of("tag " + i, "tag " + (i + 1)),
-          "no cover " + i,
+          new CoverUriDTO("no cover" + i,"no cover" + i,"no cover" + i),
             true, false, false, false
       ));
     }
