@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BookSettingsComponent } from './components/book-settings/book-settings.component';
 import { ChapterEditListComponent } from './components/chapter-edit-list/chapter-edit-list.component';
 import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
+import { EditorComponent } from './components/editor/editor.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -45,7 +46,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EditDetailsComponent,
     BookSettingsComponent,
     ChapterEditListComponent,
-    LeadingZeroPipe
+    LeadingZeroPipe,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
