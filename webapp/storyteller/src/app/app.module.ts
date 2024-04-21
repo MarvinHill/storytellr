@@ -17,6 +17,7 @@ import { BookSettingsComponent } from './components/book-settings/book-settings.
 import { ChapterEditListComponent } from './components/chapter-edit-list/chapter-edit-list.component';
 import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
 import { EditorComponent } from './components/editor/editor.component';
+import { WriteOverviewComponent } from './write-overview/write-overview.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -47,7 +48,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     BookSettingsComponent,
     ChapterEditListComponent,
     LeadingZeroPipe,
-    EditorComponent
+    EditorComponent,
+    WriteOverviewComponent
   ],
   imports: [
     BrowserModule,

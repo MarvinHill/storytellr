@@ -6,6 +6,7 @@ import { ApiTestComponent } from './components/api-test/api-test.component';
 import {BookDetailComponent} from "./components/book-detail/book-detail.component";
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
 import {EditorComponent} from "./components/editor/editor.component";
+import {WriteOverviewComponent} from "./write-overview/write-overview.component";
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'discovery', component: DiscoveryPageComponent },
   { path: 'book-details', component: BookDetailComponent},
   { path: 'edit-details', component: EditDetailsComponent},
-  { path: 'editor', component: EditorComponent}
+  { path: 'editor', component: EditorComponent},
+  { path: 'write', component: WriteOverviewComponent}
 ];
 
 @NgModule({
