@@ -1,3 +1,5 @@
+import { CoverURI } from "./cover";
+
 export interface Book {
   id: string;
   title: string;
@@ -7,7 +9,7 @@ export interface Book {
   catchphrase?: string;
   chapterIds: string[];
   tags: string[];
-  cover?: string;
+  cover?: CoverURI;
   public: boolean;
   adultContent: boolean;
   commentsDeactivated: boolean;
@@ -22,7 +24,6 @@ export interface AddBookRequest {
   catchphrase?: string;
   chapterIds: string[];
   tags: string[];
-  cover?: string;
   public: boolean;
   adultContent: boolean;
   commentsDeactivated: boolean;
@@ -38,7 +39,6 @@ export interface EditBookRequest {
   catchphrase?: string;
   chapterIds: string[];
   tags: string[];
-  cover?: string;
   public: boolean;
   adultContent: boolean;
   commentsDeactivated: boolean;

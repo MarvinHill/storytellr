@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Book } from './Book';
+import { Book } from '../../model/book';
 
 @Component({
   selector: 'app-api-test',
@@ -11,6 +11,7 @@ import { Book } from './Book';
 export class ApiTestComponent {
   private http: HttpClient = inject(HttpClient);
   public books: BehaviorSubject<Book[]> = new BehaviorSubject<Book[]>([]);
+  public file: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null)
 
   public getBooks() {
     console.info('run get books');
@@ -34,6 +35,15 @@ export class ApiTestComponent {
           console.log('Book added successfully:', response);
         });
     }
+  }
+
+  public getPreview(event : any) {
+    if(event.target.files.item(0) == null) return;
+    const formData = new FormData();
+    formData.append('file', event.target.files.item(0));
+    return this.http.post('/api/v1/cover/previewImage',formData, {observe: 'response'}).subscribe(response => {
+      console.log(JSON.stringify(response));
+    });
   }
 
   private requestBooks(): Observable<Book[]> {

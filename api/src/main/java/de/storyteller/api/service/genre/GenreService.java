@@ -1,8 +1,7 @@
 package de.storyteller.api.service.genre;
 
-import de.storyteller.api.dto.genre.AddGenreRequest;
-import de.storyteller.api.dto.genre.GenreDTO;
-
+import de.storyteller.api.v1.dto.genre.AddGenreRequest;
+import de.storyteller.api.v1.dto.genre.GenreDTO;
 
 import java.util.List;
 
