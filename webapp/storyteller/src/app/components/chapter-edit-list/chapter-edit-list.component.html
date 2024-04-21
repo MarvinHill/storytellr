@@ -1,0 +1,21 @@
+<div class="font-playfair w-full">
+  <h2 class="text-xl my-1"> chapters </h2>
+  <hr class="border-1 border-black pb-4">
+  @for (chapter of chapters; track chapter.id; let index = $index) {
+    <div class="flex mr-2 p-1">
+      <p class="text-lg mx-2">{{ index + 1 | leadingZero}}</p>
+      <p class="text-lg">{{ chapter.chapterTitle }}</p>
+      <div class="flex flex-col ml-auto">
+        <p class=" text-sm"> {{ chapter.lastModified | date:'dd.MM.yyyy' }} </p>
+        <p class=" text-sm"> last modified </p>
+      </div>
+      <button class="text-2xl px-2 text-blue-500">
+        <span class="material-symbols-outlined my-auto text-2xl">edit</span>
+      </button>
+    </div>
+
+  }
+</div>
+
+
+
