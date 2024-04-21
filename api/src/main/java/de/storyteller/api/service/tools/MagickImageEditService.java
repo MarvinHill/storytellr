@@ -8,6 +8,8 @@ import org.im4java.core.IMOperation;
 import org.im4java.core.Info;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class MagickImageEditService implements ImageEditService {
 
@@ -43,18 +45,13 @@ public class MagickImageEditService implements ImageEditService {
     int width = imageInfo.getImageWidth();
     int height = imageInfo.getImageHeight();
 
-
     int DEST_WIDTH = (int) (DEST_HEIGHT / ASPECT_RATIO);
-
-    if (DEST_WIDTH > width) {
-      DEST_HEIGHT = (int) (width * 1.6);
-      DEST_WIDTH = width;
-    }
 
     IMOperation op = new IMOperation();
     op.addImage();
     op.gravity("center");
-    op.crop(DEST_WIDTH, DEST_HEIGHT, 0, 0);
+    op.resize(DEST_WIDTH, DEST_HEIGHT, "^");
+    op.extent(DEST_WIDTH, DEST_HEIGHT);
     op.addImage();
     cmd.run(op, inputFilePath, outputFilePath);
   }
