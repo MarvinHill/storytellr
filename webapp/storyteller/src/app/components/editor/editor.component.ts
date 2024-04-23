@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import EditorJS from "@editorjs/editorjs";
+import {HttpClient} from "@angular/common/http";
+
+
 
 @Component({
   selector: 'app-editor',
@@ -12,7 +15,14 @@ export class EditorComponent implements OnInit{
   ngOnInit() {
     this.editor = new EditorJS({
       holder: 'editorjs',
+      placeholder: 'Let`s write an awesome story!',
     });
+  }
+
+  async saveContent() {
+
+      const savedData = await this.editor.save();
+      console.log("Saved" + JSON.stringify(savedData));
   }
 
 }
