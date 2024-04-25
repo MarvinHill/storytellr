@@ -7,6 +7,7 @@ module.exports = {
     extend: {},
     fontFamily: {
       playfair: ['Playfair Display', 'serif'],
+      courier: ['Courier New', 'monospace'],
     }
   },
   plugins: [],
