@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import EditorJS from "@editorjs/editorjs";
-import {HttpClient} from "@angular/common/http";
-
+import Header from '@editorjs/header';
 
 
 @Component({
@@ -16,6 +15,9 @@ export class EditorComponent implements OnInit{
     this.editor = new EditorJS({
       holder: 'editorjs',
       placeholder: 'Let`s write an awesome story!',
+      tools: {
+      header: Header
+      }
     });
   }
 
