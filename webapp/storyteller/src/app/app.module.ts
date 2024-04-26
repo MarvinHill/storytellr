@@ -16,6 +16,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BookSettingsComponent } from './components/book-settings/book-settings.component';
 import { ChapterEditListComponent } from './components/chapter-edit-list/chapter-edit-list.component';
 import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
+import { BookDisplayComponent } from './book-display/book-display.component';
+import { BookHeroComponent } from './book-hero/book-hero.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -24,11 +26,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
       config: {
         url: 'http://localhost:8080/auth',
         realm: 'storytellr',
-        clientId: 'storytellr-frontend'
+        clientId: 'storytellr-frontend',
       },
       initOptions: {
-        onLoad:'login-required',
-      }
+        onLoad:'check-sso',
+      },
+      
     });
 }
 
@@ -45,7 +48,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EditDetailsComponent,
     BookSettingsComponent,
     ChapterEditListComponent,
-    LeadingZeroPipe
+    LeadingZeroPipe,
+    BookDisplayComponent,
+    BookHeroComponent
   ],
   imports: [
     BrowserModule,

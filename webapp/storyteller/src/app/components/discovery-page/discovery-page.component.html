@@ -1,8 +1,17 @@
-@for (book of books; track book.id){
-  <div class="book">
-    <h2>{{ book.title }}</h2>
-    <button (click)="navigateToBookDetail(book.id)">Detail</button> <br>
-    <button (click)="navigateToEditDetail(book.id)">Edit</button>
-  </div>
-}
+<div class="flex justify-center items-center font-playfair">
+  <div class=" w-full max-w-[1600px] px-4 md:px-8 lg:px-16">
 
+    <h1 class="text-4xl pt-6 pb-4">continue reading</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 w-full p-4">
+      <app-book-hero [book]="books[0]" class="row-span-1 col-span-1 sm:row-span-2 sm:col-span-2 lg:row-span-1 lg:col-span-2"></app-book-hero>
+      @for (book of books.slice(1,9); track book.id){
+      <app-book-display
+        class="col-span-1 row-span-1 h-[20rem]"
+        [book]="book"
+      ></app-book-display>
+      }
+    </div>
+
+
+  </div>
+</div>

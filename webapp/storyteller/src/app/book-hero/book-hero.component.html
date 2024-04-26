@@ -1,0 +1,12 @@
+<div class="relative min-h-[20rem] size-full rounded-lg bg-gray-300 overflow-hidden" [ngStyle]="{'backgrond-color': book.color}">
+    <app-book-display [bokk]="book"></app-book-display>
+    <div class="relative size-full" #element>
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" #c1></div>
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" #c2></div>
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" #c3></div>
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" #c4></div>
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" #c5></div>
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 rounded-full" #c6></div>
+    </div>
+    <div class="absolute top-0 left-0 bottom-0 right-0 backdrop-blur-lg bg-black/25"></div>
+</div>

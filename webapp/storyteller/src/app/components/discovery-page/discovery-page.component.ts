@@ -19,12 +19,4 @@ export class DiscoveryPageComponent implements OnInit {
             this.books = books;
         });
     }
-
-    navigateToBookDetail(bookId: string) {
-        this.router.navigate(['/book-details'], {queryParams: {bookId: bookId}})
-    }
-
-    navigateToEditDetail(bookId: string) {
-        this.router.navigate(['/edit-details'], {queryParams: {bookId: bookId}})
-    }
 }
