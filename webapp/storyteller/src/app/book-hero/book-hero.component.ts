@@ -1,6 +1,8 @@
 
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Book } from '../model/book';
+import { BookDisplayComponent } from '../book-display/book-display.component';
+import ColorThief from 'colorthief'
 
 @Component({
   selector: 'app-book-hero',
@@ -10,6 +12,8 @@ import { Book } from '../model/book';
 export class BookHeroComponent implements AfterViewInit {
 
   @Input() book: Book | undefined;
+
+  mainColor = ""
 
   @ViewChild("element") element: ElementRef | undefined;
 
@@ -31,8 +35,7 @@ export class BookHeroComponent implements AfterViewInit {
   }
 
   updateColors(){
-    const colorThief = new ColorThief();
-    const color = colorThief.getColor(this.element?.nativeElement);
+
   }
   
 

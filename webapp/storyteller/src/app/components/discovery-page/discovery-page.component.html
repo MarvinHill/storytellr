@@ -2,7 +2,7 @@
   <div class=" w-full max-w-[1600px] px-4 md:px-8 lg:px-16">
 
     <h1 class="text-4xl pt-6 pb-4">continue reading</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 w-full p-4">
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 w-full p-4">
       <app-book-hero [book]="books[0]" class="row-span-1 col-span-1 sm:row-span-2 sm:col-span-2 lg:row-span-1 lg:col-span-2"></app-book-hero>
       @for (book of books.slice(1,9); track book.id){
       <app-book-display

@@ -1,4 +1,4 @@
-<div class="flex size-full px-4 py-8 pb-0 justify-center items-end" (click) = "openBookDetails()" #bookContainerWrapper>
+<div class="flex size-full justify-center items-end cursor-pointer" (click) = "openBookDetails()" #bookContainerWrapper>
     <div class="relative rounded-lg overflow-hidden" #element>
         <div class="absolute top-0 left-0 size-full bg-gray-300" [class.animate-pulse]="isLoading"></div>
         <img [class.hidden] = "isLoading" class="object-cover" [src] ="this.book?.cover?.smImageUri" (load)="isLoaded()" alt="">
