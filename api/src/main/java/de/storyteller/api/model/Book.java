@@ -23,6 +23,7 @@ public class Book {
     @Id
     private String id;
 
+    private String bookId;
     private String title;
 
     @DBRef
