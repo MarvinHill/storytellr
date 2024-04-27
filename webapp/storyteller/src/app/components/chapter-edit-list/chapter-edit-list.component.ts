@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Book} from "../../model/book";
-import {Chapter} from "../../model/chapter";
+import {AddChapterRequest, Chapter} from "../../model/chapter";
 import {ChapterService} from "../../service/chapter.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-chapter-edit-list',
@@ -12,7 +13,7 @@ export class ChapterEditListComponent implements OnInit{
   @Input() book!: Book;
   chapters: Chapter[] = [];
 
-  constructor(private chapterService: ChapterService) {
+  constructor(private chapterService: ChapterService, private router: Router) {
   }
 
   ngOnInit() {
@@ -28,4 +29,23 @@ export class ChapterEditListComponent implements OnInit{
     }
   }
 
+  addChapter() {
+    const chapter: AddChapterRequest = {
+        chapterTitle: 'New Chapter',
+        content: '',
+        lastModified: new Date(),
+        bookId: this.book.id
+        };
+
+    this.chapterService.addChapter(chapter).subscribe({
+        next: (resp: Chapter) => {
+            this.router.navigate(['/editor'], {queryParams: {chapterId: resp.id}});
+
+        },
+        error: (error: any) => {
+            console.error(error.message);
+        }
+        });
+
+    }
 }
