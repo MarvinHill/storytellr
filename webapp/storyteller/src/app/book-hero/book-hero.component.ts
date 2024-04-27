@@ -2,7 +2,8 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Book } from '../model/book';
 import { BookDisplayComponent } from '../book-display/book-display.component';
-import ColorThief from 'colorthief'
+import { Palette } from 'auto-palette';
+import { AccessService } from '../service/access.service';
 
 @Component({
   selector: 'app-book-hero',
@@ -13,7 +14,8 @@ export class BookHeroComponent implements AfterViewInit {
 
   @Input() book: Book | undefined;
 
-  mainColor = ""
+  primaryColor = ""
+  secondaryColor = ""
 
   @ViewChild("element") element: ElementRef | undefined;
 
@@ -23,6 +25,10 @@ export class BookHeroComponent implements AfterViewInit {
   @ViewChild("c4") c4: ElementRef | undefined;
   @ViewChild("c5") c5: ElementRef | undefined;
   @ViewChild("c6") c6: ElementRef | undefined;
+
+  @ViewChild("cover") cover: ElementRef | undefined;
+
+  constructor(private access : AccessService){ }
 
   ngAfterViewInit(): void {
     const elements = [this.c1, this.c2, this.c3, this.c4, this.c5, this.c6];
@@ -34,9 +40,24 @@ export class BookHeroComponent implements AfterViewInit {
     }
   }
 
-  updateColors(){
+  updateColors(img : HTMLImageElement){
 
+    if(img == null) return;
+
+    const palette = Palette.extract(img);
+
+    const swatches = palette.findSwatches(2, "light");
+    
+
+    this.primaryColor = String(`rgb(${swatches[0].color.toRGB().r}, ${swatches[0].color.toRGB().g}, ${swatches[0].color.toRGB().b})`);
+    console.log("primary color", this.primaryColor)
+    this.secondaryColor = String(`rgb(${swatches[1].color.toRGB().r}, ${swatches[1].color.toRGB().g}, ${swatches[1].color.toRGB().b})`);
+    console.log("secondary color", this.secondaryColor)
   }
-  
+
+  openBookDetails(){
+    if(this.book == null || this.book == undefined) return;
+    this.access.toEditOrDetailPage(this.book);
+  }
 
 }

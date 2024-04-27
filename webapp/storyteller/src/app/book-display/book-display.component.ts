@@ -1,25 +1,33 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { Book } from '../model/book';
 import { BehaviorSubject, debounceTime, fromEvent } from 'rxjs';
 import { EventManager } from '@angular/platform-browser';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { AccessService } from '../service/access.service';
 
 @Component({
   selector: 'app-book-display',
   templateUrl: './book-display.component.html',
   styleUrl: './book-display.component.scss'
 })
-export class BookDisplayComponent implements AfterViewInit {
+export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
 
   @Input() book: Book | undefined;
   protected isLoading : boolean = true;
+  @Output() imageLoaded = new EventEmitter<HTMLImageElement>();
+
+  @Input() showDetails: boolean = true;
 
   @ViewChild("bookContainerWrapper") wrapper: ElementRef | undefined;
   @ViewChild("element") element: ElementRef | undefined;
+  @ViewChild("img") image : ElementRef | undefined;
   
-  constructor(private renderer: Renderer2, private router: Router, private keycloak : KeycloakService) { }
+  constructor(private renderer: Renderer2, private access : AccessService) { }
+  ngAfterViewChecked(): void {
+    this.recSize();
+  }
 
   ngAfterViewInit(): void {
     console.log("element updated", this.element);
@@ -31,11 +39,12 @@ export class BookDisplayComponent implements AfterViewInit {
       this.recSize();
     })
 
-    
   }
 
   isLoaded(){
+    console.log("img loaded");
     this.isLoading = false;
+    this.imageLoaded.emit(this.image?.nativeElement);
   }
 
   async openBookDetails(){
@@ -46,22 +55,11 @@ export class BookDisplayComponent implements AfterViewInit {
 
     console.log("current route", window.location.href)
 
-    if(!this.keycloak.isLoggedIn()) this.router.navigate(['/book-details'], {queryParams: {bookId: this.book.id}});
-
-    this.keycloak.loadUserProfile().then((p) => {
-      if(p == null || p == undefined || this.book == undefined) return;
-
-      if(p.id == this.book?.author){
-        this.router.navigate(['/edit-details'], {queryParams: {bookId: this.book.id}})
-        return
-      }
-      this.router.navigate(['/book-details'], {queryParams: {bookId: this.book.id}})
-    });
+    this.access.toEditOrDetailPage(this.book);
 
   }
 
   recSize(){
-    console.log("wrapper", this.wrapper);
 
     if(this.wrapper == undefined || this.element == undefined) return;
     
@@ -73,17 +71,13 @@ export class BookDisplayComponent implements AfterViewInit {
     const calcWidth = height / 1.6;
 
     if(calcHeight > height){
-      console.log("calcHeight > height |height|width|aspectRatio",height,calcWidth,String(height / calcWidth));
       this.renderer.setStyle(this.element.nativeElement, 'height', `${height}px`);
       this.renderer.setStyle(this.element.nativeElement, 'width', `${calcWidth}px`);
       return
     }
 
-    console.log("calcHeight < height |height|width|aspectRatio: ",calcHeight,width,String(calcHeight / width));
     this.renderer.setStyle(this.element.nativeElement, 'height', `${calcHeight}px`);
     this.renderer.setStyle(this.element.nativeElement, 'width', `${width}px`);
-    console.log("calcHeight:width", calcHeight, width);
-
   }
 
   

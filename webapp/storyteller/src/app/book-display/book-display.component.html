@@ -1,10 +1,12 @@
 <div class="flex size-full justify-center items-end cursor-pointer" (click) = "openBookDetails()" #bookContainerWrapper>
     <div class="relative rounded-lg overflow-hidden" #element>
-        <div class="absolute top-0 left-0 size-full bg-gray-300" [class.animate-pulse]="isLoading"></div>
-        <img [class.hidden] = "isLoading" class="object-cover" [src] ="this.book?.cover?.smImageUri" (load)="isLoaded()" alt="">
-        <div class="absolute bottom-0 w-full min-h-11 bg-black/75 p-1">
-            <h2 class="text-white font-bold text-xl w-full text-center line-clamp-2">{{ book?.title }}</h2>
-            <p class="text-white w-full text-center line-clamp-1" >{{ book?.author }}</p>
-        </div>
+        <img [class.hidden] = "isLoading" class="absolute top-0 left-0 right-0 bottom-0 object-cover z-10 size-full" [src] ="this.book?.cover?.smImageUri" (load)="isLoaded()" alt="" #img>
+        <div [class.hidden] = "!isLoading" class="z-10 absolute top-0 left-0 size-full bg-gray-300" [class.animate-pulse]="isLoading"></div>
+        @if(showDetails){
+            <div class="absolute bottom-0 w-full min-h-11 bg-black/75 p-1 z-20">
+                <h2 class="text-white font-bold text-xl w-full text-center line-clamp-2">{{ book?.title }}</h2>
+                <p class="text-white w-full text-center line-clamp-1" >{{ book?.author }}</p>
+            </div>
+        } 
     </div>
 </div>
