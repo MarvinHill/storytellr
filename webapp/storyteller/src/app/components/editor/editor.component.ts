@@ -4,6 +4,7 @@ import Header from '@editorjs/header';
 import {ActivatedRoute} from "@angular/router";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
+import {ChapterMapperService} from "../../service/chapter-mapper.service";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class EditorComponent implements OnInit{
   chapterId!: string;
   chapter!: Chapter;
 
-  constructor(private route: ActivatedRoute, private chapterService: ChapterService) {
+  constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
   }
 
   ngOnInit() {
@@ -41,4 +42,15 @@ export class EditorComponent implements OnInit{
       console.log("Saved" + JSON.stringify(savedData));
   }
 
+  updateChapterTitle() {
+    const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
+    this.chapterService.updateChapter(editChapter).subscribe({
+      next: (resp: Chapter) => {
+        console.log("Chapter updated");
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
 }
