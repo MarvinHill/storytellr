@@ -9,6 +9,7 @@ export interface AddChapterRequest{
     chapterTitle: string;
     content: string;
     lastModified: Date;
+    bookId: string;
 }
 
 export interface UpdateChapterRequest{
