@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import EditorJS from "@editorjs/editorjs";
 import Header from '@editorjs/header';
+import {ActivatedRoute} from "@angular/router";
+import {ChapterService} from "../../service/chapter.service";
+import {Chapter} from "../../model/chapter";
 
 
 @Component({
@@ -10,6 +13,11 @@ import Header from '@editorjs/header';
 })
 export class EditorComponent implements OnInit{
   editor: any;
+  chapterId!: string;
+  chapter!: Chapter;
+
+  constructor(private route: ActivatedRoute, private chapterService: ChapterService) {
+  }
 
   ngOnInit() {
     this.editor = new EditorJS({
@@ -18,6 +26,12 @@ export class EditorComponent implements OnInit{
       tools: {
       header: Header
       }
+    });
+    this.route.queryParams.subscribe(params => {
+        this.chapterId = params['chapterId'];
+        this.chapterService.getChapterById(this.chapterId).subscribe((chapter: Chapter) => {
+          this.chapter = chapter;
+        });
     });
   }
 
