@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import EditorJS from "@editorjs/editorjs";
 import Header from '@editorjs/header';
 import {ActivatedRoute} from "@angular/router";
@@ -15,6 +15,7 @@ import {ChapterMapperService} from "../../service/chapter-mapper.service";
 export class EditorComponent implements OnInit{
   editor: any;
   chapter!: Chapter;
+  @Output() contentEmitter = new EventEmitter<string>();
 
   constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
   }
@@ -32,6 +33,6 @@ export class EditorComponent implements OnInit{
   async saveContent() {
 
       const savedData = await this.editor.save();
-      console.log("Saved" + JSON.stringify(savedData));
+      this.contentEmitter.emit(JSON.stringify(savedData));
   }
 }

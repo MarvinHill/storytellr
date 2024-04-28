@@ -31,7 +31,21 @@ export class ChapterEditComponent {
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
-        console.log("Chapter updated");
+        console.log(resp);
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  updateContent(event: any) {
+    console.log(event);
+    this.chapter.content = event;
+    const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
+    this.chapterService.updateChapter(editChapter).subscribe({
+      next: (resp: Chapter) => {
+        console.log(resp);
       },
       error: (error: any) => {
         console.error(error.message);
