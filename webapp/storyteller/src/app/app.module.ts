@@ -16,8 +16,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BookSettingsComponent } from './components/book-settings/book-settings.component';
 import { ChapterEditListComponent } from './components/chapter-edit-list/chapter-edit-list.component';
 import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
-import { BookDisplayComponent } from './book-display/book-display.component';
-import { BookHeroComponent } from './book-hero/book-hero.component';
+import { BookDisplayComponent } from './components/book-display/book-display.component';
+import { BookHeroComponent } from './components/book-hero/book-hero.component';
+import { LazyImageComponent } from './components/lazy-image/lazy-image.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -50,10 +51,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ChapterEditListComponent,
     LeadingZeroPipe,
     BookDisplayComponent,
-    BookHeroComponent
+    BookHeroComponent,
+    LazyImageComponent
   ],
   imports: [
     BrowserModule,
+    NgOptimizedImage,
     AppRoutingModule,
     KeycloakAngularModule,
     HttpClientModule,
@@ -68,7 +71,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
       deps: [KeycloakService]
     },
     AppRoutingModule,
-    NgOptimizedImage,
     HttpClientModule
   ],
   bootstrap: [AppComponent]

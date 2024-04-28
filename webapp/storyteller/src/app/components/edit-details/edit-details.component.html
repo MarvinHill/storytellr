@@ -4,7 +4,7 @@
     <div class="flex flex-col lg:flex-row gap-32">
       <div class="lg:mr-0 mx-auto">
         <div class="mx-8 lg:mx-0">
-          <img class="cursor-pointer rounded-lg" [src]="this.book.cover?.lgImageUri" (click)="openCoverUpload()" alt="Book Cover" width="329" height="449">
+          <app-lazy-image (click)="openCoverUpload()" [clickable]="true" [cover]="book.cover" [width]="'w-72'" [size]="'lg'"></app-lazy-image>
           <div class="mx-auto">
             <app-book-settings [book]="book"></app-book-settings>
           </div>
