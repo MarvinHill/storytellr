@@ -1,10 +1,10 @@
 import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { Book } from '../model/book';
+import { Book } from '../../model/book';
 import { BehaviorSubject, debounceTime, fromEvent } from 'rxjs';
 import { EventManager } from '@angular/platform-browser';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
-import { AccessService } from '../service/access.service';
+import { AccessService } from '../../service/access.service';
 
 @Component({
   selector: 'app-book-display',
@@ -15,14 +15,12 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
 
   @Input() book: Book | undefined;
-  protected isLoading : boolean = true;
   @Output() imageLoaded = new EventEmitter<HTMLImageElement>();
 
   @Input() showDetails: boolean = true;
 
   @ViewChild("bookContainerWrapper") wrapper: ElementRef | undefined;
   @ViewChild("element") element: ElementRef | undefined;
-  @ViewChild("img") image : ElementRef | undefined;
   
   constructor(private renderer: Renderer2, private access : AccessService) { }
   ngAfterViewChecked(): void {
@@ -41,10 +39,8 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
   }
 
-  isLoaded(){
-    console.log("img loaded");
-    this.isLoading = false;
-    this.imageLoaded.emit(this.image?.nativeElement);
+  reemitImageElement(image : HTMLImageElement){
+    this.imageLoaded.emit(image);
   }
 
   async openBookDetails(){

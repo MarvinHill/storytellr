@@ -1,9 +1,9 @@
 
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Book } from '../model/book';
+import { Book } from '../../model/book';
 import { BookDisplayComponent } from '../book-display/book-display.component';
 import { Palette } from 'auto-palette';
-import { AccessService } from '../service/access.service';
+import { AccessService } from '../../service/access.service';
 
 @Component({
   selector: 'app-book-hero',
