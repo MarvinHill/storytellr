@@ -29,6 +29,8 @@ public class Chapter {
 
     private LocalDateTime lastModified;
 
+    private String bookId;
+
     public JSONObject getContentAsJSONObject() {
         return new JSONObject(content);
     }
