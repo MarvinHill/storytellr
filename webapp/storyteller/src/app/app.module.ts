@@ -18,6 +18,7 @@ import { ChapterEditListComponent } from './components/chapter-edit-list/chapter
 import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
 import { EditorComponent } from './components/editor/editor.component';
 import { WriteOverviewComponent } from './components/write-overview/write-overview.component';
+import { ChapterEditComponent } from './components/chapter-edit/chapter-edit.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -49,7 +50,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ChapterEditListComponent,
     LeadingZeroPipe,
     EditorComponent,
-    WriteOverviewComponent
+    WriteOverviewComponent,
+    ChapterEditComponent
   ],
   imports: [
     BrowserModule,
