@@ -4,7 +4,6 @@ package de.storyteller.api.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.json.JSONObject;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -30,15 +29,6 @@ public class Chapter {
     private LocalDateTime lastModified;
 
     private String bookId;
-
-    public JSONObject getContentAsJSONObject() {
-        return new JSONObject(content);
-    }
-
-    public void setContentFromJSONObject(JSONObject jsonObject) {
-        this.content = jsonObject.toString();
-    }
-
 
 
 }
