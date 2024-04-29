@@ -38,7 +38,6 @@ public abstract class ChapterMapper {
      * @param chapterDTO the chapterDTO to map
      * @return the mapped chapter
      */
-    @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(ChapterDTO chapterDTO);
 
     /**
@@ -47,7 +46,6 @@ public abstract class ChapterMapper {
      * @return the mapped chapter
      */
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(AddChapterRequest chapter);
 
     /**
@@ -55,7 +53,6 @@ public abstract class ChapterMapper {
      * @param chapter the chapter to map
      * @return the mapped chapter
      */
-    @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(EditChapterRequest chapter);
 
     /**
@@ -66,6 +63,4 @@ public abstract class ChapterMapper {
     protected Book mapBookIdToBook(String bookId) {
         return bookRepository.findById(bookId).orElse(null);
     }
-
-
 }

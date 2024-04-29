@@ -74,7 +74,7 @@ public class ChapterServiceImpl implements ChapterService {
                 .collect(Collectors.toList());
     }
 
-    public static boolean isValidJSON(final String chapterContent) {
+    public static boolean isValidJSON(String chapterContent) {
         boolean valid = true;
         try {
             objectMapper.readTree(chapterContent);
@@ -87,44 +87,52 @@ public class ChapterServiceImpl implements ChapterService {
     public static boolean isValidChapterContent(String chapterContent) throws IOException {
 
         if (!isValidJSON(chapterContent)) {
+            System.out.println("invalid json");
+            return false;
+        } else if (!hasValidAttributes(chapterContent)) {
+            System.out.println("invalid attributes");
+            return false;
+        } else if (!isValidChapterType(chapterContent)) {
+            System.out.println("invalid type");
             return false;
         }
-        else if (!isValidChapterType(chapterContent)) {
-            return false;
-        }
-        else if (!isValidChapterId(chapterContent)) {
-            return false;
-        }
-        return hasValidAttributes(chapterContent);
+        return isValidChapterId(chapterContent);
     }
 
     public static boolean isValidChapterType(final String chapterContent) throws IOException {
         boolean valid = true;
         JsonNode jsonNode = objectMapper.readTree(chapterContent);
-        if (!jsonNode.has("type")) {
-            valid = false;
-        } else {
-            // Check if the value of the "type" attribute is a valid enum value
-            String chapterTypeString = jsonNode.get("type").asText();
-            try {
-                EditorTypes.valueOf(chapterTypeString.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                valid = false; // Invalid if the value is not a valid enum value
+        JsonNode blocksNode = jsonNode.get("blocks");
+        System.out.println(blocksNode);
+        for (JsonNode block : blocksNode) {
+            if (!block.has("type")) {
+                System.out.println("no type");
+                valid = false;
+            } else {
+                // Check if the value of the "type" attribute is a valid enum value
+                String chapterTypeString = block.get("type").asText();
+                valid = Arrays.stream(EditorTypes.values())
+                        .anyMatch(editorType -> editorType.getType().equals(chapterTypeString));
+
             }
         }
+
         return valid;
     }
 
     public static boolean isValidChapterId(final String chapterContent) throws IOException {
         boolean valid = true;
         JsonNode jsonNode = objectMapper.readTree(chapterContent);
-        System.out.println(jsonNode);
-        if (!jsonNode.has("id") && !jsonNode.get("id").isTextual()) {
-            valid = false;
-        } else {
-            String id = jsonNode.get("id").asText();
-            if (id.length() != 10) {
+        JsonNode blocksNode = jsonNode.get("blocks");
+        System.out.println(blocksNode);
+        for (JsonNode block : blocksNode) {
+            if (!block.has("id")) {
                 valid = false;
+            } else {
+                String id = block.get("id").asText();
+                if (id.length() != 10) {
+                    valid = false;
+                }
             }
         }
         return valid;
