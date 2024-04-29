@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import EditorJS from "@editorjs/editorjs";
 import Header from '@editorjs/header';
 import {ActivatedRoute} from "@angular/router";
@@ -14,7 +14,7 @@ import {ChapterMapperService} from "../../service/chapter-mapper.service";
 })
 export class EditorComponent implements OnInit{
   editor: any;
-  chapter!: Chapter;
+  @Input() chapter!: Chapter;
   @Output() contentEmitter = new EventEmitter<string>();
 
   constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
@@ -27,6 +27,10 @@ export class EditorComponent implements OnInit{
       tools: {
       header: Header
       }
+    });
+    this.editor.isReady.then(() => {
+      const chapterContent = JSON.parse(this.chapter.content);
+      this.editor.render(chapterContent);
     });
   }
 

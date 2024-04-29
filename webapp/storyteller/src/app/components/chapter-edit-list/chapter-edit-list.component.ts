@@ -3,6 +3,7 @@ import {Book} from "../../model/book";
 import {AddChapterRequest, Chapter} from "../../model/chapter";
 import {ChapterService} from "../../service/chapter.service";
 import {Router} from "@angular/router";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-chapter-edit-list',
@@ -19,15 +20,14 @@ export class ChapterEditListComponent implements OnInit{
   ngOnInit() {
     this.getChapters();
   }
-
-  getChapters() {
-    for (let chapterId of this.book.chapterIds) {
-      console.log(chapterId);
-      this.chapterService.getChapterById(chapterId).subscribe((chapter: Chapter) => {
-        this.chapters.push(chapter);
-      });
+    async getChapters() {
+        for (let chapterId of this.book.chapterIds) {
+            console.log(chapterId);
+            const chapter = await firstValueFrom(this.chapterService.getChapterById(chapterId));
+            this.chapters.push(chapter);
+        }
     }
-  }
+
 
   addChapter() {
     const chapter: AddChapterRequest = {
@@ -47,5 +47,9 @@ export class ChapterEditListComponent implements OnInit{
         }
         });
 
+    }
+
+    updateChapterContent(chapter: Chapter) {
+      this.router.navigate(['/editor'], {queryParams: {chapterId: chapter.id}});
     }
 }

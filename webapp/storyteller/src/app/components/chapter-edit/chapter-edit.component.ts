@@ -3,8 +3,6 @@ import {Chapter} from "../../model/chapter";
 import {ActivatedRoute} from "@angular/router";
 import {ChapterService} from "../../service/chapter.service";
 import {ChapterMapperService} from "../../service/chapter-mapper.service";
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
 
 @Component({
   selector: 'app-chapter-edit',
@@ -28,6 +26,7 @@ export class ChapterEditComponent {
   }
 
   updateChapterTitle() {
+    this.chapter.lastModified = new Date();
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
