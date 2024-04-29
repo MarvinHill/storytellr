@@ -1,6 +1,10 @@
 package de.storyteller.api.service.chapter;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.storyteller.api.model.EditorTypes;
 import de.storyteller.api.v1.dto.chapter.AddChapterRequest;
 import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.v1.dto.chapter.EditChapterRequest;
@@ -9,20 +13,23 @@ import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
 import de.storyteller.api.model.Book;
-import java.util.Optional;
-import java.util.UUID;
+
+import java.io.IOException;
+import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class ChapterServiceImpl implements ChapterService{
+public class ChapterServiceImpl implements ChapterService {
     private final ChapterRepository chapterRepository;
     private final BookRepository bookRepository;
     private final ChapterMapper chapterMapper;
+    static ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public ChapterDTO createChapter(AddChapterRequest chapter) {
         if (!bookRepository.existsById(chapter.getBookId())) {
@@ -46,6 +53,16 @@ public class ChapterServiceImpl implements ChapterService{
         if (!chapterRepository.existsById(chapter.getId())) {
             throw new RuntimeException("Chapter with id: " + chapter.getId() + " doesn't exist");
         }
+        try {
+            boolean valid = isValidChapterContent(chapter.getContent());
+            if (!valid) {
+                throw new RuntimeException("Chapter content is not valid");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Chapter content is not valid JSON");
+        }
+
+
         return chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
     }
 
@@ -55,5 +72,103 @@ public class ChapterServiceImpl implements ChapterService{
         return chapters.stream()
                 .map(chapterMapper::toChapterDTO)
                 .collect(Collectors.toList());
+    }
+
+    public static boolean isValidJSON(final String chapterContent) {
+        boolean valid = true;
+        try {
+            objectMapper.readTree(chapterContent);
+        } catch (JsonProcessingException e) {
+            valid = false;
+        }
+        return valid;
+    }
+
+    public static boolean isValidChapterContent(String chapterContent) throws IOException {
+
+        if (!isValidJSON(chapterContent)) {
+            return false;
+        }
+        else if (!isValidChapterType(chapterContent)) {
+            return false;
+        }
+        else if (!isValidChapterId(chapterContent)) {
+            return false;
+        }
+        return hasValidAttributes(chapterContent);
+    }
+
+    public static boolean isValidChapterType(final String chapterContent) throws IOException {
+        boolean valid = true;
+        JsonNode jsonNode = objectMapper.readTree(chapterContent);
+        if (!jsonNode.has("type")) {
+            valid = false;
+        } else {
+            // Check if the value of the "type" attribute is a valid enum value
+            String chapterTypeString = jsonNode.get("type").asText();
+            try {
+                EditorTypes.valueOf(chapterTypeString.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                valid = false; // Invalid if the value is not a valid enum value
+            }
+        }
+        return valid;
+    }
+
+    public static boolean isValidChapterId(final String chapterContent) throws IOException {
+        boolean valid = true;
+        JsonNode jsonNode = objectMapper.readTree(chapterContent);
+        System.out.println(jsonNode);
+        if (!jsonNode.has("id") && !jsonNode.get("id").isTextual()) {
+            valid = false;
+        } else {
+            String id = jsonNode.get("id").asText();
+            if (id.length() != 10) {
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
+    public static boolean hasValidAttributes(final String chapterContent) throws IOException {
+        JsonNode jsonNode = objectMapper.readTree(chapterContent);
+
+        // List of allowed attributes
+        Set<String> allowedAttributes = new HashSet<>();
+        allowedAttributes.add("time");
+        allowedAttributes.add("blocks");
+        allowedAttributes.add("version");
+        allowedAttributes.add("id");
+        allowedAttributes.add("type");
+        allowedAttributes.add("data");
+
+        // Check if all attributes are allowed
+        for (Iterator<String> it = jsonNode.fieldNames(); it.hasNext(); ) {
+            String attributeName = it.next();
+            if (!allowedAttributes.contains(attributeName)) {
+                // Invalid if an attribute is not allowed
+                return false;
+            }
+        }
+
+        // Check attributes of blocks
+        if (jsonNode.has("blocks")) {
+            JsonNode blocksNode = jsonNode.get("blocks");
+            if (!blocksNode.isArray()) {
+                // If "blocks" is not an array, the structure is invalid
+                return false;
+            } else {
+                for (JsonNode block : blocksNode) {
+                    if (!block.has("id") || !block.has("type") || !block.has("data")) {
+                        // If a block is missing an attribute, the structure is invalid
+                        return false;
+                    }
+                }
+            }
+        } else {
+            return false;
+        }
+
+        return true;
     }
 }
