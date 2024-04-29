@@ -44,7 +44,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO createBook(AddBookRequest book) {
-        BookDTO dto = bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
+        Book bookEntity = bookMapper.toBook(book);
+        bookEntity.setCover(
+            new CoverUriDTO(
+                "assets/images/cover-original.png",
+                "assets/images/cover-sm.png",
+                "assets/images/cover-lg.png")
+            );
+        BookDTO dto = bookMapper.toBookDTO(bookRepository.save(bookEntity));
         log.info("Create book with id: {}", dto.getId());
         return dto;
     }
