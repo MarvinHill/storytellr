@@ -76,6 +76,9 @@ public class ChapterServiceImpl implements ChapterService {
 
     public static boolean isValidJSON(String chapterContent) {
         boolean valid = true;
+        if (chapterContent == null || chapterContent.isEmpty()) {
+            return false;
+        }
         try {
             objectMapper.readTree(chapterContent);
         } catch (JsonProcessingException e) {
@@ -87,13 +90,10 @@ public class ChapterServiceImpl implements ChapterService {
     public static boolean isValidChapterContent(String chapterContent) throws IOException {
 
         if (!isValidJSON(chapterContent)) {
-            System.out.println("invalid json");
             return false;
         } else if (!hasValidAttributes(chapterContent)) {
-            System.out.println("invalid attributes");
             return false;
         } else if (!isValidChapterType(chapterContent)) {
-            System.out.println("invalid type");
             return false;
         }
         return isValidChapterId(chapterContent);
@@ -103,10 +103,11 @@ public class ChapterServiceImpl implements ChapterService {
         boolean valid = true;
         JsonNode jsonNode = objectMapper.readTree(chapterContent);
         JsonNode blocksNode = jsonNode.get("blocks");
-        System.out.println(blocksNode);
+        if (blocksNode == null) {
+            return false;
+        }
         for (JsonNode block : blocksNode) {
             if (!block.has("type")) {
-                System.out.println("no type");
                 valid = false;
             } else {
                 // Check if the value of the "type" attribute is a valid enum value
@@ -124,7 +125,6 @@ public class ChapterServiceImpl implements ChapterService {
         boolean valid = true;
         JsonNode jsonNode = objectMapper.readTree(chapterContent);
         JsonNode blocksNode = jsonNode.get("blocks");
-        System.out.println(blocksNode);
         for (JsonNode block : blocksNode) {
             if (!block.has("id")) {
                 valid = false;
