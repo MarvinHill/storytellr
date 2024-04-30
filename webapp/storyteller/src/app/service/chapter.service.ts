@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Chapter} from "../model/chapter";
+import {AddChapterRequest, Chapter, EditChapterRequest} from "../model/chapter";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -14,4 +14,12 @@ export class ChapterService {
   getChapterById(chapterId: string): Observable<Chapter> {
     return this.http.get<Chapter>(`${environment.apiUrl}/chapters/${chapterId}`);
   }
+
+    addChapter(chapter: AddChapterRequest): Observable<Chapter> {
+        return this.http.post<Chapter>(`${environment.apiUrl}/chapters/add`, chapter);
+    }
+
+    updateChapter(chapter: EditChapterRequest): Observable<Chapter> {
+        return this.http.put<Chapter>(`${environment.apiUrl}/chapters/update`, chapter);
+    }
 }

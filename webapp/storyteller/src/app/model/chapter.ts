@@ -3,17 +3,20 @@ export interface Chapter{
     chapterTitle: string;
     content: string;
     lastModified: Date;
+    bookId: string;
 }
 
 export interface AddChapterRequest{
     chapterTitle: string;
     content: string;
     lastModified: Date;
+    bookId: string;
 }
 
-export interface UpdateChapterRequest{
+export interface EditChapterRequest{
     id: string;
     chapterTitle: string;
     content: string;
     lastModified: Date;
+    bookId: string;
 }
