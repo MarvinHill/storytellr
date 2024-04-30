@@ -40,12 +40,11 @@ export class BookHeroComponent implements AfterViewInit {
     }
   }
 
-  updateColors(img : HTMLImageElement){
+  async updateColors(img : HTMLImageElement){
 
     if(img == null) return;
 
-    const palette = Palette.extract(img);
-
+    const palette = Palette.extract(img, {maxSwatches: 2});
     const swatches = palette.findSwatches(2, "light");
     
 

@@ -1,9 +1,6 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { Book } from '../../model/book';
-import { BehaviorSubject, debounceTime, fromEvent } from 'rxjs';
-import { EventManager } from '@angular/platform-browser';
-import { Router, RouterStateSnapshot } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
+import { debounceTime, fromEvent } from 'rxjs';
 import { AccessService } from '../../service/access.service';
 
 @Component({
@@ -17,6 +14,9 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
   @Input() book: Book | undefined;
   @Output() imageLoaded = new EventEmitter<HTMLImageElement>();
 
+  @Input() align : "top" | "bottom" = "bottom";
+
+  @Input() placeholder: boolean = false;
   @Input() showDetails: boolean = true;
 
   @ViewChild("bookContainerWrapper") wrapper: ElementRef | undefined;
@@ -28,11 +28,7 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
   }
 
   ngAfterViewInit(): void {
-    console.log("element updated", this.element);
     this.recSize();
-
-    console.log("loaded book", this.book);
-
     fromEvent(window, 'resize').pipe(debounceTime(300)).subscribe(() => {
       this.recSize();
     })

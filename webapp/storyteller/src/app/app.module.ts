@@ -19,6 +19,9 @@ import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
 import { BookDisplayComponent } from './components/book-display/book-display.component';
 import { BookHeroComponent } from './components/book-hero/book-hero.component';
 import { LazyImageComponent } from './components/lazy-image/lazy-image.component';
+import { BookShowcaseComponent } from './components/book-showcase/book-showcase.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -52,7 +55,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     LeadingZeroPipe,
     BookDisplayComponent,
     BookHeroComponent,
-    LazyImageComponent
+    LazyImageComponent,
+    BookShowcaseComponent,
+    SearchResultComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
