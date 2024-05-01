@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.swing.text.html.Option;
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -58,11 +60,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO updateBook(EditBookRequest book)  {
-        if (!bookRepository.existsById(book.getId())) {
+        Optional<Book> currentBook = bookRepository.findById(book.getId());
+        if (currentBook.isEmpty()) {
             throw new RuntimeException("Book with id: " + book.getId() + " doesn't exist");
         }
         log.info("Update book with id: {}", book.getId());
-        return bookMapper.toBookDTO(bookRepository.save(bookMapper.toBook(book)));
+        Book updatedBook = bookMapper.toBook(book);
+        updatedBook.setCover(currentBook.get().getCover());
+        return bookMapper.toBookDTO( bookRepository.save(updatedBook));
     }
 
     @Override
