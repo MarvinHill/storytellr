@@ -5,8 +5,6 @@ import { AuthGuard } from './guard/auth.guard';
 import { ApiTestComponent } from './components/api-test/api-test.component';
 import {BookDetailComponent} from "./components/book-detail/book-detail.component";
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
-import {EditorComponent} from "./components/editor/editor.component";
-import {WriteOverviewComponent} from "./components/write-overview/write-overview.component";
 import {ChapterEditComponent} from "./components/chapter-edit/chapter-edit.component";
 
 
@@ -17,7 +15,6 @@ const routes: Routes = [
   { path: 'book-details', component: BookDetailComponent},
   { path: 'edit-details', component: EditDetailsComponent},
   { path: 'editor', component: ChapterEditComponent},
-  { path: 'write', component: WriteOverviewComponent}
 ];
 
 @NgModule({
