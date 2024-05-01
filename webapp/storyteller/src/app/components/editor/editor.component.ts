@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import EditorJS from "@editorjs/editorjs";
+import EditorJS, {API} from "@editorjs/editorjs";
 import Header from '@editorjs/header';
 import {ActivatedRoute} from "@angular/router";
 import {ChapterService} from "../../service/chapter.service";
@@ -26,6 +26,11 @@ export class EditorComponent implements OnInit{
       placeholder: 'Let`s write an awesome story!',
       tools: {
       header: Header
+      },
+      onChange: () => {
+        setTimeout(() => {
+          this.saveContent();
+        }, 1000)
       }
     });
     this.editor.isReady.then(() => {
@@ -35,7 +40,6 @@ export class EditorComponent implements OnInit{
   }
 
   async saveContent() {
-
       const savedData = await this.editor.save();
       this.contentEmitter.emit(JSON.stringify(savedData));
   }
