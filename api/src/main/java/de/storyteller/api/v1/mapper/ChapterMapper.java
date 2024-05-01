@@ -7,13 +7,12 @@ import de.storyteller.api.model.Book;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
-import org.json.JSONObject;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+
 
 /**
  * Mapper for chapters
@@ -39,7 +38,6 @@ public abstract class ChapterMapper {
      * @param chapterDTO the chapterDTO to map
      * @return the mapped chapter
      */
-    @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(ChapterDTO chapterDTO);
 
     /**
@@ -48,7 +46,6 @@ public abstract class ChapterMapper {
      * @return the mapped chapter
      */
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(AddChapterRequest chapter);
 
     /**
@@ -56,7 +53,6 @@ public abstract class ChapterMapper {
      * @param chapter the chapter to map
      * @return the mapped chapter
      */
-    @Mapping(target = "contentFromJSONObject", ignore = true)
     public abstract Chapter toChapter(EditChapterRequest chapter);
 
     /**
@@ -67,13 +63,4 @@ public abstract class ChapterMapper {
     protected Book mapBookIdToBook(String bookId) {
         return bookRepository.findById(bookId).orElse(null);
     }
-
-    public JSONObject getContentAsJSONObject(String content) {
-        return new JSONObject(content);
-    }
-
-    public String setContentFromJSONObject(JSONObject jsonObject) {
-        return jsonObject.toString();
-    }
-
 }

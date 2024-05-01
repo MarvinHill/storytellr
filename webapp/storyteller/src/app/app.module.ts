@@ -22,6 +22,8 @@ import { LazyImageComponent } from './components/lazy-image/lazy-image.component
 import { BookShowcaseComponent } from './components/book-showcase/book-showcase.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { EditorComponent } from './components/editor/editor.component';
+import { ChapterEditComponent } from './components/chapter-edit/chapter-edit.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -59,6 +61,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     BookShowcaseComponent,
     SearchResultComponent,
     PaginationComponent
+    EditorComponent,
+    ChapterEditComponent
   ],
   imports: [
     BrowserModule,
