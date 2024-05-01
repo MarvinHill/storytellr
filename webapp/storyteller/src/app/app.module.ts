@@ -16,6 +16,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BookSettingsComponent } from './components/book-settings/book-settings.component';
 import { ChapterEditListComponent } from './components/chapter-edit-list/chapter-edit-list.component';
 import { LeadingZeroPipe } from './pipes/leading-zero.pipe';
+import { BookDisplayComponent } from './components/book-display/book-display.component';
+import { BookHeroComponent } from './components/book-hero/book-hero.component';
+import { LazyImageComponent } from './components/lazy-image/lazy-image.component';
+import { BookShowcaseComponent } from './components/book-showcase/book-showcase.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { ChapterEditComponent } from './components/chapter-edit/chapter-edit.component';
 
@@ -26,11 +32,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
       config: {
         url: 'http://localhost:8080/auth',
         realm: 'storytellr',
-        clientId: 'storytellr-frontend'
+        clientId: 'storytellr-frontend',
       },
       initOptions: {
-        onLoad:'login-required',
-      }
+        onLoad:'check-sso',
+      },
+      
     });
 }
 
@@ -48,11 +55,18 @@ function initializeKeycloak(keycloak: KeycloakService) {
     BookSettingsComponent,
     ChapterEditListComponent,
     LeadingZeroPipe,
+    BookDisplayComponent,
+    BookHeroComponent,
+    LazyImageComponent,
+    BookShowcaseComponent,
+    SearchResultComponent,
+    PaginationComponent,
     EditorComponent,
     ChapterEditComponent
   ],
   imports: [
     BrowserModule,
+    NgOptimizedImage,
     AppRoutingModule,
     KeycloakAngularModule,
     HttpClientModule,
@@ -67,7 +81,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
       deps: [KeycloakService]
     },
     AppRoutingModule,
-    NgOptimizedImage,
     HttpClientModule
   ],
   bootstrap: [AppComponent]

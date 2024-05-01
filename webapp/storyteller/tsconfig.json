@@ -17,8 +17,8 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "allowJs": true,
     "useDefineForClassFields": false,
+    "allowJs": true,
     "lib": [
       "ES2022",
       "dom"

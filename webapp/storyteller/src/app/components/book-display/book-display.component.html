@@ -1,0 +1,17 @@
+<div class="flex size-full justify-center cursor-pointer" [ngClass]="{'items-end': align == 'bottom', 'items-start': align == 'top'}" (click) = "openBookDetails()" #bookContainerWrapper>
+    @if(placeholder == true){
+        <div class="w-72 aspect-[1/1.6] rounded-lg bg-gray-300 animate-pulse" #element></div>
+    }
+    @else {
+        <div class="relative rounded-lg overflow-hidden" #element>
+            <app-lazy-image class="absolute top-0 left-0 right-0 bottom-0" [fullSize]="true" [cover]="this.book?.cover" [width]="'w-72'" [size]="'lg'" (imgElementLoaded)="reemitImageElement($event)"></app-lazy-image>
+            @if(showDetails){
+                <div class="absolute bottom-0 w-full min-h-11 bg-black/75 p-1 z-20">
+                    <h2 class="text-white font-bold text-xl w-full text-center line-clamp-2">{{ book?.title }}</h2>
+                    <p class="text-white w-full text-center line-clamp-1" >{{ book?.author }}</p>
+                </div>
+            } 
+        </div>
+    }
+    
+</div>

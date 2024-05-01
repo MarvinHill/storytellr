@@ -12,7 +12,6 @@ export class BookDetailComponent implements OnInit{
   bookId!: string;
   book?: Book;
 
-
   constructor(private route: ActivatedRoute, private bookService: BookService) {}
 
   ngOnInit() {

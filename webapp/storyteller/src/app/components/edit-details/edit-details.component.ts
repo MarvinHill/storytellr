@@ -23,7 +23,6 @@ export class EditDetailsComponent implements OnInit{
   genres: Genre[] = [];
   newTags!: string;
 
-
   constructor(private coverService: CoverService, private bookService: BookService, private route: ActivatedRoute,
               private bookMapperService: BookMapperService, private genreService: GenreService) {
   }

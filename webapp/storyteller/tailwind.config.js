@@ -7,6 +7,7 @@ module.exports = {
     extend: {},
     fontFamily: {
       playfair: ['Playfair Display', 'serif'],
+      handwriter: ["Delicious Handrawn", 'cursive'],
       courier: ['Courier New', 'monospace'],
     }
   },
