@@ -1,0 +1,7 @@
+<div class="flex flex-row-reverse md:flex-row items-end ">
+    <div class="text-[3rem] md:text-[6rem] align-baseline flex-initial inline-block">{{currentPage}}</div>
+    <div class="flex flex-row md:pl-0 md:ml-auto md:mr-0 flex-1 justify-end align-middle">
+      <img [ngClass]="{'opacity-25': state == 'first'}" class="size-12 cursor-pointer" src="/assets/icons/chevron_left.svg" alt="previous page" (click)="previousePage()">
+      <img [ngClass]="{'opacity-25': state == 'last'}" class="size-12 cursor-pointer" src="/assets/icons/chevron_right.svg" alt="previous page" (click)="nextPage()">
+    </div>
+</div>

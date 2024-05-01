@@ -49,6 +49,22 @@
   "roles": {
     "realm": [
       {
+        "id": "5846fbec-327a-4e4a-b674-beb2ac701feb",
+        "name": "query_information",
+        "description": "",
+        "composite": true,
+        "composites": {
+          "client": {
+            "realm-management": [
+              "query-users"
+            ]
+          }
+        },
+        "clientRole": false,
+        "containerId": "0906aa62-75e3-49b9-8e3f-91992ced7c99",
+        "attributes": {}
+      },
+      {
         "id": "a7421949-2431-440e-a2e7-1d596465c8a6",
         "name": "default-roles-storytellr",
         "description": "${role_default-roles}",
@@ -57,7 +73,12 @@
           "realm": [
             "offline_access",
             "uma_authorization"
-          ]
+          ],
+          "client": {
+            "account": [
+              "manage-account"
+            ]
+          }
         },
         "clientRole": false,
         "containerId": "0906aa62-75e3-49b9-8e3f-91992ced7c99",
@@ -381,6 +402,25 @@
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
   "webAuthnPolicyPasswordlessExtraOrigins": [],
+  "users": [
+    {
+      "id": "21f1cec0-ffe6-4fd1-b677-5d5f1ddf3040",
+      "username": "service-account-storytellr-backend",
+      "emailVerified": false,
+      "createdTimestamp": 1713710116523,
+      "enabled": true,
+      "totp": false,
+      "serviceAccountClientId": "storytellr-backend",
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "query_information",
+        "default-roles-storytellr"
+      ],
+      "notBefore": 0,
+      "groups": []
+    }
+  ],
   "scopeMappings": [
     {
       "clientScope": "offline_access",
@@ -620,9 +660,9 @@
       "optionalClientScopes": []
     },
     {
-      "id": "b830cb95-423e-4312-ad88-b560f0e5c96a",
+      "id": "f5ed9b07-3291-4c45-b19b-6dc4649e89aa",
       "clientId": "storytellr-backend",
-      "name": "Storytellr Backend",
+      "name": "storytellr-backend",
       "description": "",
       "rootUrl": "",
       "adminUrl": "",
@@ -633,10 +673,10 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        ""
+        "/*"
       ],
       "webOrigins": [
-        ""
+        "/*"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -644,13 +684,12 @@
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
-      "serviceAccountsEnabled": false,
+      "serviceAccountsEnabled": true,
       "publicClient": false,
       "frontchannelLogout": true,
       "protocol": "openid-connect",
       "attributes": {
-        "client.secret.creation.time": "1712159558",
-        "post.logout.redirect.uris": "+",
+        "client.secret.creation.time": "1713710116",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "use.refresh.tokens": "true",
@@ -667,6 +706,53 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "dc16ea2f-a53b-4f0a-850f-a40aef6b34cb",
+          "name": "Client Host",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usersessionmodel-note-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "clientHost",
+            "introspection.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "clientHost",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "99a4da6f-5404-4665-9d71-95f35fbc6b7a",
+          "name": "Client ID",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usersessionmodel-note-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "client_id",
+            "introspection.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "client_id",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "8ac89706-9a24-4ac1-9ba8-4b90912f1a1c",
+          "name": "Client IP Address",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usersessionmodel-note-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "clientAddress",
+            "introspection.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "clientAddress",
+            "jsonType.label": "String"
+          }
+        }
+      ],
       "defaultClientScopes": [
         "web-origins",
         "acr",
@@ -1334,14 +1420,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "saml-user-attribute-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
+            "oidc-usermodel-attribute-mapper",
             "saml-user-property-mapper",
             "saml-role-list-mapper",
             "oidc-address-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "oidc-full-name-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-usermodel-property-mapper"
+            "oidc-usermodel-property-mapper",
+            "oidc-full-name-mapper"
           ]
         }
       },
@@ -1377,14 +1463,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "saml-user-property-mapper",
             "saml-user-attribute-mapper",
-            "oidc-address-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "saml-role-list-mapper",
             "oidc-usermodel-property-mapper",
             "oidc-full-name-mapper",
-            "saml-role-list-mapper"
+            "oidc-address-mapper",
+            "saml-user-property-mapper",
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       },
