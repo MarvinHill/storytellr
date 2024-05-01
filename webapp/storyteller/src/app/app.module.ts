@@ -60,7 +60,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     LazyImageComponent,
     BookShowcaseComponent,
     SearchResultComponent,
-    PaginationComponent
+    PaginationComponent,
     EditorComponent,
     ChapterEditComponent
   ],
