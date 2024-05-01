@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Chapter} from "../../model/chapter";
 import {ActivatedRoute} from "@angular/router";
 import {ChapterService} from "../../service/chapter.service";
@@ -9,9 +9,12 @@ import {ChapterMapperService} from "../../service/chapter-mapper.service";
   templateUrl: './chapter-edit.component.html',
   styleUrl: './chapter-edit.component.scss'
 })
-export class ChapterEditComponent {
+export class ChapterEditComponent implements OnInit{
   chapterId!: string;
   chapter!: Chapter;
+  saving: boolean = false;
+  saved: boolean = true;
+  savingError: boolean = false;
 
   constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
   }
@@ -39,15 +42,24 @@ export class ChapterEditComponent {
   }
 
   updateContent(event: any) {
-    console.log(event);
+    this.saved = false;
+    this.saving = true;
+    this.savingError = false;
     this.chapter.content = event;
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
         console.log(resp);
+        setTimeout(() => {
+          this.saving = false;
+          this.saved = true;
+        }, 1000);
       },
       error: (error: any) => {
         console.error(error.message);
+        this.saving = false;
+        this.saved = false;
+        this.savingError = true;
       }
     });
   }
