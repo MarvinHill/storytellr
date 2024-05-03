@@ -1,11 +1,12 @@
 <div class="flex flex-col justify-center items-center font-playfair w-full ">
   <div class="w-full max-w-[1600px]">
     <div class="px-4 md:px-8 lg:px-16">
-      <h1 class="text-4xl pt-6 pb-4">continue reading</h1>
+      @if(books &&books.length >= 1){
+        <h1 class="text-4xl pt-6 pb-4">continue reading</h1>
       <div class="grid gap-4 grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 w-full p-4">
-        <app-book-hero [book]="books[0]"
+          <app-book-hero [book]="books[0]"
           class="row-span-1 col-span-1 sm:row-span-2 sm:col-span-2 lg:row-span-1 lg:col-span-2"></app-book-hero>
-        @if(books != null && books.length > 1){
+        @if(books){
         @for (book of books.slice(1,9); track book.id){
         <app-book-display class="col-span-1 row-span-1 h-[20rem]" [book]="book"></app-book-display>
         }
@@ -17,38 +18,55 @@
         }
 
       </div>
+      }    
     </div>
-    <div class="mt-8">
-      <app-book-showcase [book]="books[0]"></app-book-showcase>
-    </div>
-    <div class="mt-8">
-      <app-book-showcase [book]="books[1]" [clipMode]="'circle'"></app-book-showcase>
-    </div>
-    <div class="relative flex items-stretch w-full p-5 flex-col-reverse md:flex-row">
-      <div class="basis-3/4">
-        @for(book of displayedBooks; track book.id){
-        <div>
-          <app-search-result [book]="book"></app-search-result>
-        </div>
+    
+    @if(books && books.length > 0){
+
+      <div class="mt-8">
+        @if(books){
+        <app-book-showcase [book]="books[0]"></app-book-showcase>
         }
       </div>
-      <div class="md:border-l-2 md:border-b-0 border-b-2 border-black mb-4 min-h-full basis-1/4 md:pl-4 md:mb-0 flex md:flex-col flex-row flex-wrap justify-between md:items-start items-end pb-4 md:pb-0">
-        <div class=" flex flex-col md:flex-row md:block flex-1 items-start">
-          <h2 class="text-2xl flex-1 w-full ">popular tags</h2>
-          <div class="flex flex-wrap w-full items-center flex-1">
-            @if(genres != null){
-              <a class="p-1 text-sm underline">{{genres[0].name}}</a>
-              @for(genre of genres.slice(1); track genre.id){
-                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="2" fill="#000000" />
-                </svg>
-                <a class="p-1 text-sm underline">{{genre.name}}</a>
-              }
-            }
-          </div>
-        </div>
-        <app-pagination [pageCount]="calculatePageCount()" (pageChanged)="pageChanged($event)" class="flex-initial self-stretch"></app-pagination>
+      <div class="mt-8">
+        @if(books){
+        <app-book-showcase [book]="books[1]" [clipMode]="'circle'"></app-book-showcase>
+        }
       </div>
-    </div>
+      <div class="relative flex items-stretch w-full p-5 flex-col-reverse md:flex-row">
+        <div class="basis-3/4">
+          @for(book of displayedBooks; track book.id){
+          <div>
+            <app-search-result [book]="book"></app-search-result>
+          </div>
+          }
+        </div>
+        <div class="md:border-l-2 md:border-b-0 border-b-2 border-black mb-4 min-h-full basis-1/4 md:pl-4 md:mb-0 flex md:flex-col flex-row flex-wrap justify-between md:items-start items-end pb-4 md:pb-0">
+          <div class=" flex flex-col md:flex-row md:block flex-1 items-start">
+            <h2 class="text-2xl flex-1 w-full ">popular tags</h2>
+            <div class="flex flex-wrap w-full items-center flex-1">
+              @if(genres){
+                @if(genres[0]){
+                  <a class="p-1 text-sm underline">{{genres[0].name}}</a>
+                }
+                @for(genre of genres.slice(1); track genre.id){
+                  <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="2" fill="#000000" />
+                  </svg>
+                  <a class="p-1 text-sm underline">{{genre?.name}}</a>
+                 
+                }
+              }
+            </div>
+          </div>
+          <app-pagination [pageCount]="calculatePageCount()" (pageChanged)="pageChanged($event)" class="flex-initial self-stretch"></app-pagination>
+        </div>
+      </div>
+
+    }
+    @else {
+      <h1 class="text-4xl p-6 font-handwriter">There are no books, maybe you want to write one? </h1>
+    }
+    
   </div>
 </div>
