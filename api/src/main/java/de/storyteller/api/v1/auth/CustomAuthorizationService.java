@@ -5,8 +5,13 @@ import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.service.book.BookService;
 import de.storyteller.api.service.chapter.ChapterService;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,14 +19,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service("sAuthService")
 @Slf4j
 public class CustomAuthorizationService {
-    @Autowired
     BookService bookService;
-
-    @Autowired
     ChapterService chapterService;
+    AuthUtils authUtils;
 
     public boolean userOwnsBook(String bookId){
       Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
@@ -30,6 +34,25 @@ public class CustomAuthorizationService {
       Jwt jwt = (Jwt) authentication.getPrincipal();
 
       return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
+    }
+
+    public boolean isAdmin(){
+      try {
+        Map<String, Object> claims = authUtils.getClaims();
+        Map<String,Object> realmAccess = (Map<String, Object>) claims.get("realm_access");
+        ArrayList<String> roles = (ArrayList<String>) realmAccess.get("roles");
+
+         for (String role : roles) {
+           if(role.equals("admin-storytellr")){
+             return true;
+           }
+         }
+      }
+      catch (Exception e){
+        log.error(e.getMessage());
+        log.info("Authentication Token could not be parsed");
+      }
+      return false;
     }
 
 //    public boolean userIsAuthorOfChapter(String chapterId){

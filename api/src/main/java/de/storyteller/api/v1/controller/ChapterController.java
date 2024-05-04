@@ -35,7 +35,7 @@ public class ChapterController {
      * @param chapter Chapter to be added
      * @return Chapter added
      */
-    @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#chapter.bookId)")
+    @PreAuthorize("isAuthenticated() && (@sAuthService.userOwnsBook(#chapter.bookId) || @sAuthService.isAdmin())")
     @PostMapping("/add")
     public ResponseEntity<?> addChapter(@Valid @RequestBody AddChapterRequest chapter){
         return ResponseEntity.ok(chapterService.createChapter(chapter));
@@ -46,7 +46,7 @@ public class ChapterController {
      * @param chapter Chapter to be updated
      * @return Chapter updated
      */
-    @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#chapter.bookId)")
+    @PreAuthorize("isAuthenticated() && (@sAuthService.userOwnsBook(#chapter.bookId) || @sAuthService.isAdmin())")
     @PutMapping("/update")
     public ResponseEntity<?> updateChapter(@Valid @RequestBody EditChapterRequest chapter){
         return ResponseEntity.ok(chapterService.updateChapter(chapter));
