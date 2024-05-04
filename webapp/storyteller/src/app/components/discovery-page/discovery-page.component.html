@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center items-center font-playfair w-full ">
   <div class="w-full max-w-[1600px]">
     <div class="px-4 md:px-8 lg:px-16">
-      @if(books &&books.length >= 1){
+      @if(books && books.length >= 1){
         <h1 class="text-4xl pt-6 pb-4">continue reading</h1>
       <div class="grid gap-4 grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 w-full p-4">
           <app-book-hero [book]="books[0]"
@@ -64,7 +64,7 @@
       </div>
 
     }
-    @else {
+    @else if(books && books.length == 0) {
       <h1 class="text-4xl p-6 font-handwriter">There are no books, maybe you want to write one? </h1>
     }
     
