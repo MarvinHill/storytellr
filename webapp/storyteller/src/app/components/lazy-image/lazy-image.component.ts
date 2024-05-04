@@ -20,6 +20,7 @@ export class LazyImageComponent {
   @Input() fullSize : boolean = false;
 
   imgLoaded() {
+    console.log("loaded img", this.getSrc())
     this.imageLoaded.emit();
     this.imgElementLoaded.emit(this.image?.nativeElement);
   }
@@ -32,15 +33,15 @@ export class LazyImageComponent {
   getSrc() {
     switch(this.size) {
       case "lg": 
-        if(this.cover == undefined) return "assets/images/cover-lg.png";
-        if(!this.cover?.lgImageUri.startsWith("/datastore")) return "assets/images/cover-lg.png";
+        if(this.cover == undefined) return "/datastore/cover-lg.png";
+        if(!this.cover?.lgImageUri.startsWith("/datastore")) return "/datastore/cover-lg.png";
         return this.cover?.lgImageUri;
       case "sm": 
-        if(this.cover == undefined) return "assets/images/cover-sm.png";
-        if(!this.cover?.lgImageUri.startsWith("/datastore")) return "assets/images/cover-sm.png";
+        if(this.cover == undefined) return "/datastore/cover-sm.png";
+        if(!this.cover?.lgImageUri.startsWith("/datastore")) return "/datastore/cover-sm.png";
         return this.cover?.smImageUri;
       default:
-        return "assets/images/cover-lg.png";
+        return "/datastore/cover-lg.png";
     }
   }
 

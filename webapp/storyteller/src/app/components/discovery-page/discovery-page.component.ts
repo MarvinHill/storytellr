@@ -11,7 +11,7 @@ import { GenreService } from '../../service/genre.service';
     styleUrl: './discovery-page.component.scss'
 })
 export class DiscoveryPageComponent implements OnInit {
-    books: Book[] = [];
+    books: Book[] | null = null;
     genres: Genre[] = [];
 
     pageSize : number = 5;

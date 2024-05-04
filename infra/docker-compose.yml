@@ -113,7 +113,7 @@ services:
       - ../keycloak/import:/opt/keycloak/data/import
 
   publicdata:
-    image: nginx:1.25.4
+    build: ../publicdata
     container_name: publicdata
     restart: unless-stopped
     ports:
