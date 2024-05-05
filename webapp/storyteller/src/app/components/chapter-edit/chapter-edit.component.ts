@@ -16,6 +16,7 @@ export class ChapterEditComponent implements OnInit{
   saved: boolean = true;
   savingError: boolean = false;
 
+
   constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
   }
 
@@ -61,6 +62,32 @@ export class ChapterEditComponent implements OnInit{
         this.saving = false;
         this.saved = false;
         this.savingError = true;
+      }
+    });
+  }
+
+  publishChapter() {
+    this.chapter.published = true;
+    const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
+    this.chapterService.updateChapter(editChapter).subscribe({
+      next: (resp: Chapter) => {
+        console.log(resp);
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  unpublishChapter() {
+    this.chapter.published = false;
+    const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
+    this.chapterService.updateChapter(editChapter).subscribe({
+      next: (resp: Chapter) => {
+        console.log(resp);
+      },
+      error: (error: any) => {
+        console.error(error.message);
       }
     });
   }
