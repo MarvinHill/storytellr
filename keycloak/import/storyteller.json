@@ -94,6 +94,15 @@
         "attributes": {}
       },
       {
+        "id": "6a373f01-f15c-4e87-b016-cd7edaa1048b",
+        "name": "admin-storytellr",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "0906aa62-75e3-49b9-8e3f-91992ced7c99",
+        "attributes": {}
+      },
+      {
         "id": "2f7aa6e4-01d6-4e29-ab72-e1b6c5b20064",
         "name": "offline_access",
         "description": "${role_offline-access}",
@@ -690,6 +699,7 @@
       "protocol": "openid-connect",
       "attributes": {
         "client.secret.creation.time": "1713710116",
+        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "use.refresh.tokens": "true",
@@ -716,6 +726,7 @@
           "config": {
             "user.session.note": "clientHost",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientHost",
@@ -731,6 +742,7 @@
           "config": {
             "user.session.note": "client_id",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "client_id",
@@ -746,6 +758,7 @@
           "config": {
             "user.session.note": "clientAddress",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientAddress",
@@ -1420,14 +1433,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-user-attribute-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-attribute-mapper",
             "saml-user-property-mapper",
-            "saml-role-list-mapper",
+            "saml-user-attribute-mapper",
             "oidc-address-mapper",
             "oidc-usermodel-property-mapper",
-            "oidc-full-name-mapper"
+            "oidc-full-name-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
+            "saml-role-list-mapper",
+            "oidc-usermodel-attribute-mapper"
           ]
         }
       },
@@ -1463,14 +1476,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "saml-role-list-mapper",
             "saml-user-attribute-mapper",
             "oidc-usermodel-attribute-mapper",
-            "saml-role-list-mapper",
-            "oidc-usermodel-property-mapper",
-            "oidc-full-name-mapper",
             "oidc-address-mapper",
             "saml-user-property-mapper",
-            "oidc-sha256-pairwise-sub-mapper"
+            "oidc-sha256-pairwise-sub-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-full-name-mapper"
           ]
         }
       },
@@ -2193,6 +2206,15 @@
       "config": {}
     },
     {
+      "alias": "delete_credential",
+      "name": "Delete Credential",
+      "providerId": "delete_credential",
+      "enabled": true,
+      "defaultAction": false,
+      "priority": 100,
+      "config": {}
+    },
+    {
       "alias": "update_user_locale",
       "name": "Update User Locale",
       "providerId": "update_user_locale",
@@ -2225,7 +2247,7 @@
     "frontendUrl": "",
     "acr.loa.map": "{}"
   },
-  "keycloakVersion": "24.0.2",
+  "keycloakVersion": "24.0.3",
   "userManagedAccessAllowed": false,
   "clientProfiles": {
     "profiles": []

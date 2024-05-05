@@ -48,7 +48,7 @@ public class BookController {
      * @param book Book to be updated
      * @return Book updated
      */
-    @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#book.id)")
+    @PreAuthorize("isAuthenticated() && (@sAuthService.userOwnsBook(#book.id) || @sAuthService.isAdmin())")
     @PutMapping("/update")
     public ResponseEntity<BookDTO> updateBook(@Valid @RequestBody EditBookRequest book) {
         return ResponseEntity.ok(bookService.updateBook(book));

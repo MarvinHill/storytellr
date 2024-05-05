@@ -43,7 +43,7 @@ public class GenreController {
      * @param genre Genre to be added
      * @return Genre added
      */
-    @PreAuthorize("isAuthenticated() && hasAuthority('GENRE_ADMIN')")
+    @PreAuthorize("isAuthenticated() && @sAuthService.isAdmin()")
     @PostMapping("/add")
     public ResponseEntity<GenreDTO> addGenre(@Valid @RequestBody AddGenreRequest genre) {
         return ResponseEntity.ok(genreService.createGenre(genre));
@@ -54,7 +54,7 @@ public class GenreController {
      * @param id If of the Genre to be updated
      * @return Genre updated
      */
-    @PreAuthorize("isAuthenticated() && hasAuthority('GENRE_ADMIN')")
+    @PreAuthorize("isAuthenticated() && @sAuthService.isAdmin()")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteGenre(@PathVariable String id) {
         genreService.deleteGenre(id);
