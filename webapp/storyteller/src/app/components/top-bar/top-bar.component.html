@@ -1,4 +1,4 @@
-<div class="flex flex-row items-center border border-b-2 border-l-0 border-r-0 border-t-0 z-10 font-playfair sticky">
+<div class="flex flex-row items-center border border-b-2 border-l-0 border-r-0 border-t-0 z-40 font-playfair sticky">
   <div class="flex-none mr-4">
     <img src="assets/images/favicon.svg" alt="logo" width="40" height="40" class="ml-3">
   </div>
@@ -13,19 +13,35 @@
     <button class="my-5 mx-7 z-10" [routerLink]="'/discovery'">Discover</button>
     <button class="my-5 mx-7">Library</button>
   </div>
-  <div class="flex absolute w-full z-0">
-    <input type="text" placeholder="Search" class="h-10 mx-auto p-4 border border-gray-300 rounded-lg placeholder-padded">
+  <div class="flex z-0 grow">
+    <input type="text" placeholder="Search" class="h-10 max-w-56 mx-auto p-4 border border-gray-300 rounded-lg placeholder-padded">
   </div>
   <div class="flex flex-row items-center ml-auto p-3 z-10">
     <button class="mx-3 px-4 py-1 shadow-[0_3px_6px_rgb(0,0,0,0.2)] rounded  hidden lg:flex" [routerLink]="'/write'">
       <span class="material-symbols-outlined text-base">
         edit
       </span>
-      <p>write</p>
+      <p class="pl-2">write</p>
     </button>
-    <div class="flex items-center justify-center h-12 w-12 mx-2 bg-gray-200 rounded-full">
-      <div class="text-2xl">A</div>
-    </div>
+    @if(keycloak.isLoggedIn()) {
+      <app-avatar [username]="username">
+        <app-avatar-menu-item>
+          <div class="size-full flex" (click)="keycloak.logout()">
+            <img src="assets/icons/logout.svg" alt="">
+            <p class="pl-2">Logout</p>
+          </div>
+        </app-avatar-menu-item>
+      </app-avatar>
+    }
+    @else {
+      <button class="mx-3 px-4 py-1 shadow-[0_3px_6px_rgb(0,0,0,0.2)] rounded flex" (click)="login()">
+        <span class="material-symbols-outlined text-base pr-2">
+          login
+        </span>
+        <p>login</p>
+      </button>
+    }
+    
 
   </div>
 </div>
