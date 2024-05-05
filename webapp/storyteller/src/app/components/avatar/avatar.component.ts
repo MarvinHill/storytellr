@@ -15,12 +15,8 @@ export class AvatarComponent implements OnDestroy  {
 
   toggleMenu(event : MouseEvent){
     event.stopPropagation();
-    if(this.showMenu && this.removeListener){
-      this.removeListener();
-    }
     if(!this.removeListener){
       this.removeListener = this.renderer.listen("document", "click", event => {
-        console.log(event);
         this.showMenu = false;
       });
     }
