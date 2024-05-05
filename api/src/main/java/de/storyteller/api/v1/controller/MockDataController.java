@@ -19,7 +19,7 @@ public class MockDataController {
   @Autowired
   ExampleDataGenerator exampleDataGenerator;
 
-  @PreAuthorize("isAuthenticated() && hasAuthority('MOCK_ADMIN')")
+  @PreAuthorize("isAuthenticated() && @sAuthService.isAdmin()")
   @GetMapping("/gen")
   public ResponseEntity<HttpStatusCode> generateMockData(){
     exampleDataGenerator.generate();
