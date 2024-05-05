@@ -30,6 +30,18 @@ public class ChapterController {
         return ResponseEntity.ok(chapterService.getAllChapters());
     }
 
+    @PreAuthorize("isAuthenticated() && @sAuthService.userOwnsBook(#bookId)")
+    @GetMapping("/all/{bookId}")
+    public ResponseEntity<?> getChaptersByBookId(@PathVariable String bookId){
+        return ResponseEntity.ok(chapterService.getChaptersByBookId(bookId));
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{bookId}/published")
+    public ResponseEntity<?> getPublishedChaptersByBookId(@PathVariable String bookId){
+        return ResponseEntity.ok(chapterService.getPublishedChaptersByBookId(bookId));
+    }
+
     /**
      * Add a new chapter if the user is authenticated and owns the book
      * @param chapter Chapter to be added

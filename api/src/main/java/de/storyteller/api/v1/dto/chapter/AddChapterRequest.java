@@ -20,4 +20,6 @@ public class AddChapterRequest {
     private String chapterTitle;
     @NotNull(message = "Last modified is required")
     private LocalDateTime lastModified;
+
+    private boolean published;
 }
