@@ -46,6 +46,7 @@ export class ChapterEditComponent implements OnInit{
     this.saving = true;
     this.savingError = false;
     this.chapter.content = event;
+    this.chapter.lastModified = new Date();
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
