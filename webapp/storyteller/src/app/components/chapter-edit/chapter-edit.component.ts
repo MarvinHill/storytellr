@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Chapter} from "../../model/chapter";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ChapterService} from "../../service/chapter.service";
 import {ChapterMapperService} from "../../service/chapter-mapper.service";
 
@@ -17,7 +17,8 @@ export class ChapterEditComponent implements OnInit{
   savingError: boolean = false;
 
 
-  constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
+  constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -90,5 +91,9 @@ export class ChapterEditComponent implements OnInit{
         console.error(error.message);
       }
     });
+  }
+
+  closeEditor() {
+    this.router.navigate(['/edit-details'], {queryParams: {bookId: this.chapter.bookId}});
   }
 }
