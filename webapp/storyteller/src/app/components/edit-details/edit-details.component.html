@@ -120,7 +120,7 @@
 
                 <div class="flex mx-12 my-3">
                   <select [(ngModel)]="book.genreId" (change)="updateGenre()"
-                          class="text-md lg:w-72 w-72 text-center lg:text-right">
+                          class="bg-white text-md lg:w-72 w-72 text-center lg:text-right">
                     @for (genre of genres; track genre; ) {
                       <option [ngValue]="genre.id">{{ genre.name }}</option>
                     }

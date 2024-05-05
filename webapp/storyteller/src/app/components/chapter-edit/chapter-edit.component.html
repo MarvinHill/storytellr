@@ -1,39 +1,64 @@
-<div class="font-playfair bg-gray-100 ">
-  <div class="px-4">
-    @if (saving) {
-      <div class="text-yellow-400 flex">
+<div class="font-playfair bg-gray-100">
+  <div class="flex flex-row w-full items-center">
+    <div class="px-4">
+      @if (saving) {
+        <div class="text-yellow-400 flex">
       <span class="material-symbols-outlined animate-spin">
-autorenew
-</span>
-        <p class="px-2">Saving...</p>
-      </div>
-    } @else if (saved) {
-      <div class="text-green-400">
-      <span class="material-symbols-outlined">
-done_all
-</span>
-      </div>
-    } @else if (savingError) {
-      <div class="text-red-400">
-      <span class="material-symbols-outlined">
-error
-</span>
-      </div>
-    }
-
-    <div class="flex flex-col w-full">
-      <div class="w-[88ch] mx-auto px-10 pt-5">
-        <input type="text" placeholder="Chapter Title"
-               class="outline-none mx-auto mb-0 text-3xl px-14 pt-8 pb-3 m-3 w-full"
-               maxlength="36" [(ngModel)]="chapter.chapterTitle" (ngModelChange)="updateChapterTitle()">
-
-        <div class="w-full">
-          <div class="bg-white mt-0 text-justify">
-            <app-editor (contentEmitter)="updateContent($event)" [chapter]="chapter"></app-editor>
-          </div>
+      autorenew
+      </span>
+          <p class="px-2">Saving...</p>
         </div>
-      </div>
+      } @else if (saved) {
+        <div class="text-green-400">
+      <span class="material-symbols-outlined">
+        done_all
+      </span>
+        </div>
+      } @else if (savingError) {
+        <div class="text-red-400">
+      <span class="material-symbols-outlined">
+        error
+      </span>
+        </div>
+      }
+    </div>
+    <div class="ml-auto">
+      <button class="bg-white text-black font-bold rounded m-1 p-1" (click)="closeEditor()">
+    <span class="material-symbols-outlined flex m-auto">
+      close
+    </span>
+      </button>
+      @if (!this.chapter.published){
+        <button class="bg-blue-500 text-white font-bold rounded m-1 p-1" (click)="publishChapter()">
+    <span class="material-symbols-outlined flex m-auto">
+      publish
+    </span>
+        </button>
+      }
+      @else {
+      <button class="bg-blue-500 text-white font-bold rounded m-1 p-1" (click)="unpublishChapter()">
+<span class="material-symbols-outlined flex m-auto">
+unpublished
+</span>
+</button>
+      }
+
     </div>
 
   </div>
+  <div class="flex flex-col w-full">
+    <div class="w-[88ch] mx-auto px-10 pt-5">
+      <input type="text" placeholder="Chapter Title"
+             class="outline-none mx-auto mb-0 text-3xl px-14 pt-8 pb-3 m-3 w-full"
+             maxlength="36" [(ngModel)]="chapter.chapterTitle" (ngModelChange)="updateChapterTitle()">
+
+      <div class="w-full">
+        <div class="bg-white mt-0 text-justify">
+          <app-editor (contentEmitter)="updateContent($event)" [chapter]="chapter"></app-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

@@ -34,7 +34,8 @@ export class ChapterEditListComponent implements OnInit{
         chapterTitle: 'New Chapter',
         content: '',
         lastModified: new Date(),
-        bookId: this.book.id
+        bookId: this.book.id,
+        published: false
         };
 
     this.chapterService.addChapter(chapter).subscribe({

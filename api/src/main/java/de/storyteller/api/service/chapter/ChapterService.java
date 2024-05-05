@@ -40,4 +40,8 @@ public interface ChapterService {
      * @return a list of all chapters
      */
     List<ChapterDTO> getAllChapters();
+
+    List<ChapterDTO> getChaptersByBookId(String bookId);
+
+    List<ChapterDTO> getPublishedChaptersByBookId(String bookId);
 }
