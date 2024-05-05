@@ -23,9 +23,18 @@
       </span>
       <p>write</p>
     </button>
-    <div class="flex items-center justify-center h-12 w-12 mx-2 bg-gray-200 rounded-full">
-      <div class="text-2xl">A</div>
-    </div>
+    @if(keycloak.isLoggedIn()) {
+      <app-avatar [username]="username"></app-avatar>
+    }
+    @else {
+      <button class="mx-3 px-4 py-1 shadow-[0_3px_6px_rgb(0,0,0,0.2)] rounded hidden lg:flex" (click)="login()">
+        <span class="material-symbols-outlined text-base pr-2">
+          login
+        </span>
+        <p>login</p>
+      </button>
+    }
+    
 
   </div>
 </div>

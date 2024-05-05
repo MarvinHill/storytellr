@@ -1,0 +1,8 @@
+<div class="relative flex items-center justify-center h-12 w-12 mx-2 bg-gray-200 rounded-full select-none cursor-pointer" (click)="toggleMenu($event)">
+    <div class="text-2xl">{{username}}</div>
+    @if(showMenu){
+        <div class="min-w-32 min-h-52 max-w-full p-2 bg-gray-100 absolute top-full mt-1 right-0 rounded-lg shadow-lg">
+            <slot></slot>
+        </div>
+    }
+</div>

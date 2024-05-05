@@ -24,6 +24,7 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { ChapterEditComponent } from './components/chapter-edit/chapter-edit.component';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -62,7 +63,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     SearchResultComponent,
     PaginationComponent,
     EditorComponent,
-    ChapterEditComponent
+    ChapterEditComponent,
+    AvatarComponent
   ],
   imports: [
     BrowserModule,
