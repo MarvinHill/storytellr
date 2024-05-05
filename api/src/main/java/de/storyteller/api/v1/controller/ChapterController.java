@@ -30,7 +30,7 @@ public class ChapterController {
         return ResponseEntity.ok(chapterService.getAllChapters());
     }
 
-    @PreAuthorize("isAuthenticated() && (@sAuthService.userOwnsBook(#chapter.bookId) || @sAuthService.isAdmin())")
+    @PreAuthorize("isAuthenticated() && (@sAuthService.userOwnsBook(#bookId) || @sAuthService.isAdmin())")
     @GetMapping("/all/{bookId}")
     public ResponseEntity<?> getChaptersByBookId(@PathVariable String bookId){
         return ResponseEntity.ok(chapterService.getChaptersByBookId(bookId));
