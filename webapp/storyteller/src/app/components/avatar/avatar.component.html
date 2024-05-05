@@ -2,7 +2,7 @@
     <div class="text-2xl">{{username}}</div>
     @if(showMenu){
         <div class="min-w-32 min-h-52 max-w-full p-2 bg-gray-100 absolute top-full mt-1 right-0 rounded-lg shadow-lg">
-            <slot></slot>
+            <ng-content></ng-content>
         </div>
     }
 </div>
