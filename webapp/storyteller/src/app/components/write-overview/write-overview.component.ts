@@ -17,18 +17,10 @@ export class WriteOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bookService.getBooksByAuthor(this.getAuthorId()).subscribe((books) => {
+    this.bookService.getBooksByAuthor().subscribe((books) => {
       this.books = books;
       console.log(books);
     });
-  }
-
-  getAuthorId(){
-    let userId = this.keycloakService.getKeycloakInstance().tokenParsed?.sub;
-    if(!userId){
-      return "no user id";
-    }
-    return userId;
   }
 
   addBook() {
@@ -37,7 +29,6 @@ export class WriteOverviewComponent implements OnInit {
       description: 'New Description',
       genreId: 'New Genre',
       catchphrase: 'New Catchphrase',
-      author: this.getAuthorId(),
       chapterIds: [],
       tags: [],
       public: false,

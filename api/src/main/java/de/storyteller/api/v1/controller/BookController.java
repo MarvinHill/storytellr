@@ -79,9 +79,9 @@ public class BookController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<BookDTO>> getBooksByAuthor(@PathVariable String userId){
-        return ResponseEntity.ok(bookService.getBooksByAuthor(userId));
+    @GetMapping("/user")
+    public ResponseEntity<List<BookDTO>> getBooksByAuthor(){
+        return ResponseEntity.ok(bookService.getBooksByAuthor());
     }
 
 }

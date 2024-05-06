@@ -50,5 +50,5 @@ public interface BookService {
 
     void updateBookCover(String id, CoverUriDTO coverUriDTO);
 
-    List<BookDTO> getBooksByAuthor(String userId);
+    List<BookDTO> getBooksByAuthor();
 }

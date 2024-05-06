@@ -31,7 +31,7 @@ export class BookService {
     return this.http.put<EditBookRequest>(`${environment.apiUrl}/books/update`, editBook);
   }
 
-  getBooksByAuthor(authorId: string): Observable<Book[]> {
-    return this.http.get<Book[]>(`${environment.apiUrl}/books/user/${authorId}`);
+  getBooksByAuthor(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${environment.apiUrl}/books/user`);
   }
 }
