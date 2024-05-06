@@ -18,4 +18,8 @@ export class GenreService {
   getGenreById(genreId: string): Observable<Genre> {
     return this.http.get<Genre>(`${environment.apiUrl}/genres/${genreId}`);
   }
+
+  getGenres(){
+    return this.http.get<Genre[]>(`${environment.apiUrl}/genres/all`);
+  }
 }

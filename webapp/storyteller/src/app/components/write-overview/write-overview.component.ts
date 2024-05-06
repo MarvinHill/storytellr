@@ -3,6 +3,8 @@ import {BookService} from "../../service/book.service";
 import {AddBookRequest, Book} from "../../model/book";
 import {Router} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
+import {GenreService} from "../../service/genre.service";
+import {Genre} from "../../model/genre";
 
 
 @Component({
@@ -12,8 +14,10 @@ import {KeycloakService} from "keycloak-angular";
 })
 export class WriteOverviewComponent implements OnInit {
   books: Book[] = [];
+  genre!: Genre;
 
-  constructor(private bookService: BookService, private router: Router, private keycloakService: KeycloakService) {
+  constructor(private bookService: BookService, private router: Router, private keycloakService: KeycloakService,
+              private genreService: GenreService) {
   }
 
   ngOnInit() {
@@ -21,13 +25,20 @@ export class WriteOverviewComponent implements OnInit {
       this.books = books;
       console.log(books);
     });
+    this.getGenre();
+  }
+
+  getGenre(){
+    this.genreService.getGenres().subscribe((genres) => {
+      this.genre =  genres[0];
+    });
   }
 
   addBook() {
     const addBook: AddBookRequest = {
       title: 'New Book',
       description: 'New Description',
-      genreId: 'New Genre',
+      genreId: this.genre.id,
       catchphrase: 'New Catchphrase',
       chapterIds: [],
       tags: [],
