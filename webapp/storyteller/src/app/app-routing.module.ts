@@ -6,7 +6,7 @@ import { ApiTestComponent } from './components/api-test/api-test.component';
 import {BookDetailComponent} from "./components/book-detail/book-detail.component";
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
 import {ChapterEditComponent} from "./components/chapter-edit/chapter-edit.component";
-import {WriteOverviewComponent} from "./write-overview/write-overview.component";
+import {WriteOverviewComponent} from "./components/write-overview/write-overview.component";
 
 
 const routes: Routes = [

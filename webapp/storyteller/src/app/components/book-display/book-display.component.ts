@@ -18,6 +18,7 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
   @Input() placeholder: boolean = false;
   @Input() showDetails: boolean = true;
+  @Input() justify: boolean = true;
 
   @ViewChild("bookContainerWrapper") wrapper: ElementRef | undefined;
   @ViewChild("element") element: ElementRef | undefined;

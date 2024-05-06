@@ -1,0 +1,20 @@
+<h1 class="text-4xl font-playfair my-6 mx-12">Write or Edit</h1>
+<div class="flex mx-12">
+
+  <div class="grid gap-2 grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 w-full p-4">
+    <div class="border-dashed border-2 border-gray-400 w-[200px] h-[320px] rounded-xl flex my-2">
+      <button class="text-gray-400 mx-auto" (click)="addBook()">
+      <span class="material-symbols-outlined text-4xl">
+add
+</span>
+      </button>
+    </div>
+  @for (book of books; track book.id){
+    <app-book-display class="col-span-1 row-span-1 h-[20rem] my-2" [book]="book" [justify]=false></app-book-display>
+  }
+  </div>
+
+</div>
+
+
+
