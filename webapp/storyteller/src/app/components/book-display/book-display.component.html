@@ -1,4 +1,4 @@
-<div class="flex size-full justify-center cursor-pointer" [ngClass]="{'items-end': align == 'bottom', 'items-start': align == 'top'}" (click) = "openBookDetails()" #bookContainerWrapper>
+<div class="flex size-full cursor-pointer" [ngClass]="{'items-end': align == 'bottom', 'items-start': align == 'top', 'justify-center': justify}" (click) = "openBookDetails()" #bookContainerWrapper>
     @if(placeholder == true){
         <div class="w-72 aspect-[1/1.6] rounded-lg bg-gray-300 animate-pulse" #element></div>
     }

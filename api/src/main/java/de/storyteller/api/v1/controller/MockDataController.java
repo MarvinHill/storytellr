@@ -26,4 +26,10 @@ public class MockDataController {
     return ResponseEntity.ok().build();
   }
 
+  @PreAuthorize("isAuthenticated() && @sAuthService.isAdmin()")
+  @GetMapping("/gen/genres")
+    public ResponseEntity<HttpStatusCode> generateGenres(){
+      exampleDataGenerator.generateGenres();
+      return ResponseEntity.ok().build();
+    }
 }

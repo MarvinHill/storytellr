@@ -26,8 +26,6 @@ public class EditBookRequest {
     private String title;
     @NotNull(message = "A genre must be set")
     private String genreId;
-    @NotBlank(message = "Author should not be blank")
-    private String author;
     @NotBlank(message = "Description should not be blank")
     private String description;
     private String catchphrase;

@@ -1,5 +1,6 @@
 package de.storyteller.api.service.book;
 
+import de.storyteller.api.service.UserService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;
@@ -17,10 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.swing.text.html.Option;
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -29,6 +28,7 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
     private final ChapterRepository chapterRepository;
     private final ChapterMapper chapterMapper;
+    private final UserService userService;
 
     public List<BookDTO> getAllBooks() {
         List<Book> books = bookRepository.findAll();
@@ -53,6 +53,7 @@ public class BookServiceImpl implements BookService {
                 "assets/images/cover-sm.png",
                 "assets/images/cover-lg.png")
             );
+        bookEntity.setAuthor(userService.getUserId());
         BookDTO dto = bookMapper.toBookDTO(bookRepository.save(bookEntity));
         log.info("Create book with id: {}", dto.getId());
         return dto;
@@ -67,6 +68,7 @@ public class BookServiceImpl implements BookService {
         log.info("Update book with id: {}", book.getId());
         Book updatedBook = bookMapper.toBook(book);
         updatedBook.setCover(currentBook.get().getCover());
+        updatedBook.setAuthor(currentBook.get().getAuthor());
         return bookMapper.toBookDTO( bookRepository.save(updatedBook));
     }
 
@@ -88,6 +90,15 @@ public class BookServiceImpl implements BookService {
             book.setCover(coverUriDTO);
             bookRepository.save(book);
         }
+    }
+
+    @Override
+    public List<BookDTO> getBooksByAuthor() {
+        String userId = userService.getUserId();
+        List<Book> books = bookRepository.findByAuthor(userId);
+        return books.stream()
+                .map(bookMapper::toBookDTO)
+                .collect(Collectors.toList());
     }
 
 }

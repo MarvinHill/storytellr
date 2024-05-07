@@ -19,7 +19,6 @@ export interface Book {
 export interface AddBookRequest {
   title: string;
   genreId: string;
-  author: string;
   description: string;
   catchphrase?: string;
   chapterIds: string[];
@@ -34,7 +33,6 @@ export interface EditBookRequest {
   id: string;
   title: string;
   genreId: string;
-  author: string;
   description: string;
   catchphrase?: string;
   chapterIds: string[];

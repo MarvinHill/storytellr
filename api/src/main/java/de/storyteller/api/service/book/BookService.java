@@ -8,7 +8,6 @@ import de.storyteller.api.v1.dto.cover.CoverUriDTO;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Service for books
@@ -50,4 +49,6 @@ public interface BookService {
     List<ChapterDTO> getAllChapters(String bookId);
 
     void updateBookCover(String id, CoverUriDTO coverUriDTO);
+
+    List<BookDTO> getBooksByAuthor();
 }

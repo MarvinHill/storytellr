@@ -4,15 +4,16 @@ import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;
 import de.storyteller.api.service.book.BookService;
+import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import jakarta.validation.Valid;
+
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 /**
  * Controller for handling book related requests
@@ -30,7 +31,7 @@ public class BookController {
      */
     @PreAuthorize("permitAll()")
     @GetMapping("/all")
-    public ResponseEntity<?> getAllBooks(){
+    public ResponseEntity<List<BookDTO>> getAllBooks(){
         return ResponseEntity.ok(bookService.getAllBooks());
     }
     /**
@@ -73,7 +74,14 @@ public class BookController {
      */
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}/chapters")
-    public ResponseEntity<?> getBookChapters(@PathVariable String id){
+    public ResponseEntity<List<ChapterDTO>> getBookChapters(@PathVariable String id){
         return ResponseEntity.ok(bookService.getAllChapters(id));
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/user")
+    public ResponseEntity<List<BookDTO>> getBooksByAuthor(){
+        return ResponseEntity.ok(bookService.getBooksByAuthor());
+    }
+
 }

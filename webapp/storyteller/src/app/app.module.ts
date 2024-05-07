@@ -27,6 +27,7 @@ import { ChapterEditComponent } from './components/chapter-edit/chapter-edit.com
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { AvatarMenuItemComponent } from './components/avatar-menu-item/avatar-menu-item.component';
 import { PageWrapperComponent } from './components/page-wrapper/page-wrapper.component';
+import { WriteOverviewComponent } from './components/write-overview/write-overview.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -68,7 +69,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ChapterEditComponent,
     AvatarComponent,
     AvatarMenuItemComponent,
-    PageWrapperComponent
+    PageWrapperComponent,
+    WriteOverviewComponent
   ],
   imports: [
     BrowserModule,
