@@ -49,4 +49,10 @@ export class ApiTestComponent {
   private requestBooks(): Observable<Book[]> {
     return this.http.get<Book[]>('/api/v1/books/all');
   }
+
+  createGenres() {
+    this.http.get('/api/v1/mock/gen/genres').subscribe((response) => {
+      console.log('Genres created:', response);
+    });
+  }
 }
