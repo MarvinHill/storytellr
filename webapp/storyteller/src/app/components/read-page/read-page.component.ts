@@ -4,18 +4,18 @@ import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
-import {switchMap} from "rxjs";
+import {of, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-read-page',
   templateUrl: './read-page.component.html',
   styleUrl: './read-page.component.scss'
 })
-export class ReadPageComponent implements OnInit {
+export class ReadPageComponent implements OnInit, AfterViewInit {
   bookId!: string;
   book!: Book;
   chapters: Chapter[] = [];
-  counter: number = 1;
+  counter: number = 0;
 
   @ViewChild('chapterContainer') chapterContainer!: ElementRef;
 
@@ -31,8 +31,12 @@ export class ReadPageComponent implements OnInit {
       })
     ).subscribe((book: Book) => {
       this.book = book;
-      this.getFirstChapter();
+      this.getNextChapter();
+
     });
+  }
+
+  ngAfterViewInit() {
     this.observe();
   }
 
@@ -63,40 +67,28 @@ export class ReadPageComponent implements OnInit {
     }
     this.chapterService.getChapterById(this.book?.chapterIds[this.counter]).subscribe((chapter: Chapter) => {
       // Skip unpublished chapters
-      if(chapter.published === false) {
+      if(!chapter.published) {
         this.counter++;
         this.getNextChapter();
       }
       this.chapters.push(chapter);
-      console.log(chapter);
+      console.log(this.chapters);
       this.counter++;
     });
   }
 
-  getFirstChapter() {
-    let i = 0;
-    this.chapterService.getChapterById(this.book?.chapterIds[i]).subscribe((chapter: Chapter) => {
-
-      console.log(chapter);
-      if(!chapter.published){
-        i++;
-        this.getFirstChapter();
-      }
-      this.chapters.push(chapter);
-      console.log(this.chapters);
-    });
-  }
 
   observe(): void {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 1.0
+      threshold: 0.1
     };
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          console.log('Intersecting');
+          console.log('intersecting');
+          this.getNextChapter();
         }
       });
     }, options);
