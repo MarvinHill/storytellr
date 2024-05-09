@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 
@@ -12,7 +12,7 @@ export class BookDetailComponent implements OnInit{
   bookId!: string;
   book?: Book;
 
-  constructor(private route: ActivatedRoute, private bookService: BookService) {}
+  constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -33,6 +33,7 @@ export class BookDetailComponent implements OnInit{
   }
 
 
-
-
+  navigatetoReadPage() {
+    this.router.navigate(['/read'], {queryParams: {bookId: this.bookId}});
+  }
 }
