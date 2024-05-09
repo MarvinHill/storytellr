@@ -84,4 +84,11 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBooksByAuthor());
     }
 
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{bookId}/chapters/published")
+    public ResponseEntity<List<String>> getPublishedChapterIdsByBookId(@PathVariable String bookId){
+        return ResponseEntity.ok(bookService.getPublishedChapterIdsByBookId(bookId));
+    }
+
+
 }

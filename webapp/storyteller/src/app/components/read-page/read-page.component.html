@@ -1,1 +1,19 @@
-<p>read-page works!</p>
+<div class="font-playfair bg-gray-100 m-0 w-full flex">
+  @for(chapter of chapters; track chapter.id){
+    <div class="bg-white w-[88ch] min-h-[112ch] mx-auto my-5" #chapterContainer>
+      <h1 class="text-3xl bg-white font-bold m-3">{{chapter?.chapterTitle}}</h1>
+<!--      @for (block of getBlocks(chapter); track block){-->
+<!--        @switch (block.type){-->
+<!--          @case("paragraph"){-->
+<!--            <p class="my-2 mx-4 text-justify">{{block.data.text}}</p>-->
+<!--          }-->
+<!--          @case("header"){-->
+<!--            <h2 class="text-xl font-bold my-3 mx-4 text-justify">{{block.data.text}}</h2>-->
+<!--          }-->
+<!--        }-->
+<!--      }-->
+    </div>
+  }
+</div>
+
+
