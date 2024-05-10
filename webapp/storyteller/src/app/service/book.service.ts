@@ -34,4 +34,8 @@ export class BookService {
   getBooksByAuthor(): Observable<Book[]> {
     return this.http.get<Book[]>(`${environment.apiUrl}/books/user`);
   }
+
+  getBookWithPublishedChapters(bookId: string): Observable<Book> {
+    return this.http.get<Book>(`${environment.apiUrl}/books/${bookId}/published`);
+  }
 }

@@ -101,4 +101,19 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public BookDTO getBookWithPublishedChapters(String bookId) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if(bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            List<Chapter> chapters = book.getChapters();
+            List<Chapter> publishedChapters = chapters.stream()
+                    .filter(Chapter::isPublished)
+                    .collect(Collectors.toList());
+            book.setChapters(publishedChapters);
+            return bookMapper.toBookDTO(book);
+        }
+        return null;
+    }
+
 }

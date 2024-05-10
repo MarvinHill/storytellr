@@ -27,7 +27,7 @@ export class ReadPageComponent implements OnInit, AfterViewInit {
     this.route.queryParams.pipe(
       switchMap(params => {
         this.bookId = params['bookId'];
-        return this.bookService.getBookById(this.bookId);
+        return this.bookService.getBookWithPublishedChapters(this.bookId);
       })
     ).subscribe((book: Book) => {
       this.book = book;
@@ -40,37 +40,12 @@ export class ReadPageComponent implements OnInit, AfterViewInit {
     this.observe();
   }
 
-  // getPublishedChapters(book: Book) {
-  //   this.chapterService.getPublishedChaptersByBookId(book.id).pipe(
-  //     switchMap((chapters: Chapter[]) => {
-  //       this.chapters = chapters;
-  //       return chapters;
-  //     })
-  //   ).subscribe((chapter: Chapter) => {
-  //     this.chapter = chapter;
-  //     this.loadChapter(this.counter)
-  //   });
-  // }
-
-  loadChapter(counter: number) {
-    // this.chapter = this.chapters[counter];
-    // JSON.parse(this.chapter.content).blocks.forEach((block: any) => {
-    //   this.blocks.push(block);
-    // });
-    // console.log(this.blocks);
-  }
-
   getNextChapter() {
     // No more chapters
     if(this.counter > this.book.chapterIds.length) {
       return;
     }
     this.chapterService.getChapterById(this.book?.chapterIds[this.counter]).subscribe((chapter: Chapter) => {
-      // Skip unpublished chapters
-      if(!chapter.published) {
-        this.counter++;
-        this.getNextChapter();
-      }
       this.chapters.push(chapter);
       console.log(this.chapters);
       this.counter++;
