@@ -1,10 +1,10 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
-import {of, switchMap} from "rxjs";
+import {switchMap} from "rxjs";
 
 @Component({
   selector: 'app-read-page',
