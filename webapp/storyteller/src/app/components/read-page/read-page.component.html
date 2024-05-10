@@ -1,6 +1,6 @@
 <div class="font-playfair bg-gray-100 m-0 w-full flex flex-col">
   @for(chapter of chapters; track chapter.id){
-    <div class="bg-white w-[88ch] min-h-[112ch] mx-auto my-5" >
+    <div class="bg-white w-[88ch] min-h-[112ch] mx-auto my-5 p-6" >
       <h1 class="text-3xl bg-white font-bold m-3">{{chapter?.chapterTitle}}</h1>
       @for (block of getBlocks(chapter); track block.id){
         @switch (block.type){
