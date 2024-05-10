@@ -5,10 +5,10 @@
       @for (block of getBlocks(chapter); track block.id){
         @switch (block.type){
           @case("paragraph"){
-            <p class="my-2 mx-4 text-justify">{{block.data.text}}</p>
+            <app-paragraph [content]="block.data.text"></app-paragraph>
           }
           @case("header"){
-            <h2 class="text-xl font-bold my-3 mx-4 text-justify">{{block.data.text}}</h2>
+            <app-heading [content]="block.data.text"></app-heading>
           }
         }
       }

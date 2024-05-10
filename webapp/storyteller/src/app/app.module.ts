@@ -29,6 +29,8 @@ import { AvatarMenuItemComponent } from './components/avatar-menu-item/avatar-me
 import { PageWrapperComponent } from './components/page-wrapper/page-wrapper.component';
 import { WriteOverviewComponent } from './components/write-overview/write-overview.component';
 import { ReadPageComponent } from './components/read-page/read-page.component';
+import { HeadingComponent } from './components/blocks/heading/heading.component';
+import { ParagraphComponent } from './components/blocks/paragraph/paragraph.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -72,7 +74,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AvatarMenuItemComponent,
     PageWrapperComponent,
     WriteOverviewComponent,
-    ReadPageComponent
+    ReadPageComponent,
+    HeadingComponent,
+    ParagraphComponent
   ],
   imports: [
     BrowserModule,
