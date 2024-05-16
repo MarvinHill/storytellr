@@ -7,6 +7,7 @@ import {BookDetailComponent} from "./components/book-detail/book-detail.componen
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
 import {ChapterEditComponent} from "./components/chapter-edit/chapter-edit.component";
 import {WriteOverviewComponent} from "./components/write-overview/write-overview.component";
+import {ReadPageComponent} from "./components/read-page/read-page.component";
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'book-details', component: BookDetailComponent},
   { path: 'edit-details', component: EditDetailsComponent},
   { path: 'editor', component: ChapterEditComponent},
-  { path: 'write', component: WriteOverviewComponent}
+  { path: 'write', component: WriteOverviewComponent},
+  { path: 'read', component: ReadPageComponent}
 ];
 
 @NgModule({

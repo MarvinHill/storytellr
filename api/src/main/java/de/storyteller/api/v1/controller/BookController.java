@@ -67,6 +67,13 @@ public class BookController {
         return bookDTO.isPresent() ? ResponseEntity.ok(bookDTO.get()) : ResponseEntity.notFound().build();
     }
 
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{id}/published")
+    public ResponseEntity<BookDTO> getBookWithPublishedChapters(@PathVariable String id){
+        return ResponseEntity.ok(bookService.getBookWithPublishedChapters(id));
+    }
+
     /**
      * Get all chapters of a book
      * @param id Id of the book
@@ -83,5 +90,7 @@ public class BookController {
     public ResponseEntity<List<BookDTO>> getBooksByAuthor(){
         return ResponseEntity.ok(bookService.getBooksByAuthor());
     }
+
+
 
 }
