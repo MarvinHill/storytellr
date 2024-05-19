@@ -45,7 +45,14 @@ public class LibraryServiceImpl implements LibraryService {
             libraryRepository.save(library);
             return bookDTO.get();
         }
-        throw new RuntimeException("Library not found");
+        else {
+            Library library = new Library();
+            library.setUserId(userId);
+            BookDTO book = bookService.getBookById(bookId).get();
+            library.getBooks().add(bookMapper.toBook(book));
+            libraryRepository.save(library);
+            return book;
+        }
     }
 
     @Override
