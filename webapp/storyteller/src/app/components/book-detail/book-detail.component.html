@@ -39,9 +39,15 @@
                    height="86">
 
               <div class="flex flex-col absolute">
-                <button>
-                  <span class="material-symbols-outlined">library_add</span>
-                </button>
+                @if(isBookInLibrary()) {
+                  <button (click)="removeFromLibrary()">
+                    <span class="material-symbols-outlined">library_add_check</span>
+                  </button>
+                } @else {
+                  <button (click)="addToLibrary()">
+                    <span class="material-symbols-outlined">library_add</span>
+                  </button>
+                }
                 <button>
                   <span class="material-symbols-outlined">star</span>
                 </button>

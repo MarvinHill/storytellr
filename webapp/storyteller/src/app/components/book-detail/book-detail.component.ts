@@ -36,4 +36,16 @@ export class BookDetailComponent implements OnInit{
   navigatetoReadPage() {
     this.router.navigate(['/read'], {queryParams: {bookId: this.bookId}});
   }
+
+  addToLibrary() {
+
+  }
+
+  isBookInLibrary() {
+
+  }
+
+  removeFromLibrary() {
+
+  }
 }
