@@ -1,0 +1,63 @@
+package de.storyteller.api.service.library;
+
+import de.storyteller.api.model.Library;
+import de.storyteller.api.repository.LibraryRepository;
+import de.storyteller.api.service.UserService;
+import de.storyteller.api.service.book.BookService;
+import de.storyteller.api.v1.dto.book.BookDTO;
+import de.storyteller.api.v1.mapper.BookMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@RequiredArgsConstructor
+@Service
+public class LibraryServiceImpl implements LibraryService {
+    private final UserService userService;
+    private final LibraryRepository libraryRepository;
+    private final BookMapper bookMapper;
+    private final BookService bookService;
+
+    @Override
+    public List<BookDTO> getAllBooksFromLibrary() {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        if (libraryOptional.isPresent()) {
+            return libraryOptional.get().getBooks().stream().map(bookMapper::toBookDTO).toList();
+        } else {
+            Library library = new Library();
+            library.setUserId(userId);
+            libraryRepository.save(library);
+            return library.getBooks().stream().map(bookMapper::toBookDTO).toList();
+        }
+    }
+
+    @Override
+    public BookDTO addBookToLibrary(String bookId) {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        if (libraryOptional.isPresent()) {
+            Library library = libraryOptional.get();
+            Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
+            library.getBooks().add(bookMapper.toBook(bookDTO.get()));
+            libraryRepository.save(library);
+            return bookDTO.get();
+        }
+        throw new RuntimeException("Library not found");
+    }
+
+    @Override
+    public BookDTO removeBookFromLibrary(String bookId) {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        if (libraryOptional.isPresent()) {
+            Library library = libraryOptional.get();
+            library.getBooks().removeIf(book -> book.getId().equals(bookId));
+            libraryRepository.save(library);
+            return bookService.getBookById(bookId).get();
+        }
+        throw new RuntimeException("Library not found");
+    }
+}
