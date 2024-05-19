@@ -8,4 +8,6 @@ public interface LibraryService {
     List<BookDTO> getAllBooksFromLibrary();
     BookDTO addBookToLibrary(String bookId);
     BookDTO removeBookFromLibrary(String bookId);
+
+    boolean containsBook(String bookId);
 }

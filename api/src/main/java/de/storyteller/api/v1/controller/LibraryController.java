@@ -19,8 +19,19 @@ public class LibraryController {
         return ResponseEntity.ok(libraryService.getAllBooksFromLibrary());
     }
 
-    @PostMapping("/add/{bookId}")
+    @PutMapping("/add/{bookId}")
     public ResponseEntity<BookDTO> addBookToLibrary(@PathVariable String bookId){
         return ResponseEntity.ok(libraryService.addBookToLibrary(bookId));
     }
+
+    @PutMapping("/remove/{bookId}")
+    public ResponseEntity<BookDTO> removeBookFromLibrary(@PathVariable String bookId){
+        return ResponseEntity.ok(libraryService.removeBookFromLibrary(bookId));
+    }
+
+    @GetMapping("/contains/{bookId}")
+    public ResponseEntity<Boolean> containsBook(@PathVariable String bookId){
+        return ResponseEntity.ok(libraryService.containsBook(bookId));
+    }
+
 }

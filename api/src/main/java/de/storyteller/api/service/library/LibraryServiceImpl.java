@@ -67,4 +67,15 @@ public class LibraryServiceImpl implements LibraryService {
         }
         throw new RuntimeException("Library not found");
     }
+
+    @Override
+    public boolean containsBook(String bookId) {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        if (libraryOptional.isPresent()) {
+            Library library = libraryOptional.get();
+            return library.getBooks().stream().anyMatch(book -> book.getId().equals(bookId));
+        }
+        return false;
+    }
 }
