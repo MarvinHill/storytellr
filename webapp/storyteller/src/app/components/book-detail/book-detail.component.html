@@ -39,7 +39,7 @@
                    height="86">
 
               <div class="flex flex-col absolute">
-                @if(isBookInLibrary()) {
+                @if(bookInLibrary) {
                   <button (click)="removeFromLibrary()">
                     <span class="material-symbols-outlined">library_add_check</span>
                   </button>
