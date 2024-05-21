@@ -29,13 +29,14 @@ public class LibraryServiceImpl implements LibraryService {
         } else {
             Library library = new Library();
             library.setUserId(userId);
+            library.setBooks(List.of());
             libraryRepository.save(library);
             return library.getBooks().stream().map(bookMapper::toBookDTO).toList();
         }
     }
 
     @Override
-    public BookDTO addBookToLibrary(String bookId) {
+    public Library addBookToLibrary(String bookId) {
         String userId = userService.getUserId();
         Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
         if (libraryOptional.isPresent()) {
@@ -43,7 +44,7 @@ public class LibraryServiceImpl implements LibraryService {
             Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
             library.getBooks().add(bookMapper.toBook(bookDTO.get()));
             libraryRepository.save(library);
-            return bookDTO.get();
+            return library;
         }
         else {
             Library library = new Library();
@@ -51,19 +52,20 @@ public class LibraryServiceImpl implements LibraryService {
             BookDTO book = bookService.getBookById(bookId).get();
             library.getBooks().add(bookMapper.toBook(book));
             libraryRepository.save(library);
-            return book;
+            return library;
         }
     }
 
     @Override
-    public BookDTO removeBookFromLibrary(String bookId) {
+    public Library removeBookFromLibrary(String bookId) {
         String userId = userService.getUserId();
+        System.out.println(libraryRepository.findByUserId(userId));
         Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             library.getBooks().removeIf(book -> book.getId().equals(bookId));
             libraryRepository.save(library);
-            return bookService.getBookById(bookId).get();
+            return library;
         }
         throw new RuntimeException("Library not found");
     }
