@@ -22,4 +22,8 @@ export class LibraryService {
   removeBookFromLibrary(bookId: string): Observable<Book> {
     return this.http.put<any>(`${environment.apiUrl}/library/remove/${bookId}`, {});
   }
+
+  getLibrary(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${environment.apiUrl}/library/all`);
+  }
 }

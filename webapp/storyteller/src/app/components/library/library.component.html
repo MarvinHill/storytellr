@@ -1,1 +1,17 @@
-<p>library works!</p>
+<h1 class="text-4xl font-playfair my-6 mx-12">Library</h1>
+<div class="flex mx-12">
+
+  <div class="flex flex-wrap w-full p-4 gap-5">
+    @for (book of books; track book.id){
+      <div class="h-[320px] aspect-[1/1.6] my-2">
+        <app-book-display [book]="book" [justify]=false></app-book-display>
+      </div>
+
+    }
+  </div>
+
+</div>
+
+
+
+
