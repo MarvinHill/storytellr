@@ -11,4 +11,6 @@ public interface LibraryService {
     Library removeBookFromLibrary(String bookId);
 
     boolean containsBook(String bookId);
+
+    List<BookDTO> getRandomBooks();
 }

@@ -9,8 +9,7 @@ import de.storyteller.api.v1.mapper.BookMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -79,5 +78,19 @@ public class LibraryServiceImpl implements LibraryService {
             return library.getBooks().stream().anyMatch(book -> book.getId().equals(bookId));
         }
         return false;
+    }
+
+    @Override
+    public List<BookDTO> getRandomBooks() {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        if (libraryOptional.isPresent()) {
+            Library library = libraryOptional.get();
+            List<BookDTO> books = new java.util.ArrayList<>(library.getBooks().stream().map(bookMapper::toBookDTO).toList());
+            Collections.shuffle(books);
+            return books.subList(0, Math.min(5, books.size()));
+
+        }
+        throw new RuntimeException("Library not found");
     }
 }
