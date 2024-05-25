@@ -88,7 +88,7 @@ public class LibraryServiceImpl implements LibraryService {
             Library library = libraryOptional.get();
             List<BookDTO> books = new java.util.ArrayList<>(library.getBooks().stream().map(bookMapper::toBookDTO).toList());
             Collections.shuffle(books);
-            return books.subList(0, Math.min(5, books.size()));
+            return books;
 
         }
         throw new RuntimeException("Library not found");
