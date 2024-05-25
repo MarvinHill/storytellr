@@ -31,6 +31,7 @@ import { WriteOverviewComponent } from './components/write-overview/write-overvi
 import { ReadPageComponent } from './components/read-page/read-page.component';
 import { HeadingComponent } from './components/blocks/heading/heading.component';
 import { ParagraphComponent } from './components/blocks/paragraph/paragraph.component';
+import { LibraryComponent } from './components/library/library.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -76,7 +77,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     WriteOverviewComponent,
     ReadPageComponent,
     HeadingComponent,
-    ParagraphComponent
+    ParagraphComponent,
+    LibraryComponent
   ],
   imports: [
     BrowserModule,
