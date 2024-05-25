@@ -26,4 +26,8 @@ export class LibraryService {
   getLibrary(): Observable<Book[]> {
     return this.http.get<Book[]>(`${environment.apiUrl}/library/all`);
   }
+
+  getRandomBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${environment.apiUrl}/library/random`);
+  }
 }
