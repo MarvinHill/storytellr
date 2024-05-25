@@ -40,4 +40,11 @@ public class LibraryController {
         return ResponseEntity.ok(libraryService.containsBook(bookId));
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/random")
+    public ResponseEntity<List<BookDTO>> getRandomBooks(){
+        return ResponseEntity.ok(libraryService.getRandomBooks());
+    }
+
+
 }

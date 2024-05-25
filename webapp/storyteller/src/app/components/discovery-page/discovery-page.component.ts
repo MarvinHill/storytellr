@@ -4,6 +4,7 @@ import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import { Genre } from '../../model/genre';
 import { GenreService } from '../../service/genre.service';
+import {LibraryService} from "../../service/library.service";
 
 @Component({
     selector: 'app-discovery-page',
@@ -13,23 +14,37 @@ import { GenreService } from '../../service/genre.service';
 export class DiscoveryPageComponent implements OnInit {
     books: Book[] | null = null;
     genres: Genre[] = [];
+    libraryBooks: Book[] = [];
 
     pageSize : number = 5;
     currentPage : number = 1;
     mostLikedBooks : Book[] = [];
     displayedBooks : Book[] = [];
 
-    constructor(private router: Router, private bookService: BookService, private genreService: GenreService) {
+    constructor(private router: Router, private bookService: BookService, private genreService: GenreService, private libraryService: LibraryService) {
         this.genreService.getAllGenres().subscribe(genres => {
             this.genres = genres;
         });
     }
     ngOnInit() {
+        this.libraryService.getRandomBooks().subscribe(books => {
+            this.libraryBooks = books;
+            this.pageChanged(1);
+        });
         this.bookService.getBooks().subscribe(books => {
-            this.books = books;
             this.mostLikedBooks = books;
             this.pageChanged(1);
         });
+        this.bookService.getBooks().subscribe({
+            next: (resp: Book[]) => {
+                this.books = resp;
+                this.pageChanged(1);
+            },
+            error: (error: any) => {
+                console.error(error.message);
+            }
+        });
+
     }
 
     pageChanged(pageNumber : number){
