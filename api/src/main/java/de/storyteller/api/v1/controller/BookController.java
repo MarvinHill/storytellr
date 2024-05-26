@@ -91,6 +91,20 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBooksByAuthor());
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/progress/increase/{id}")
+    public ResponseEntity<?> increaseProgress(@PathVariable String id){
+        bookService.increaseProgress(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/progress/{id}")
+    public ResponseEntity<Integer> getBookProgress(@PathVariable String id){
+        return ResponseEntity.ok(bookService.getBookProgress(id));
+    }
+
+
 
 
 }
