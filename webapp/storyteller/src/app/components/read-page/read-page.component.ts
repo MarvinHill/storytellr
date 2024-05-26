@@ -50,6 +50,8 @@ export class ReadPageComponent implements OnInit, AfterViewInit {
       console.log(this.chapters);
       this.counter++;
     });
+    this.bookService.increaseBookProgress(this.bookId).subscribe();
+
   }
 
 

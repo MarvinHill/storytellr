@@ -13,6 +13,7 @@ export class BookDetailComponent implements OnInit{
   bookId!: string;
   book?: Book;
   bookInLibrary: boolean = false;
+  progress: number = 0;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router, private libraryService: LibraryService) {}
 
@@ -69,6 +70,17 @@ export class BookDetailComponent implements OnInit{
       next: (resp: Book) => {
         console.log(resp);
         this.isBookInLibrary();
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  getBookProgress() {
+    this.bookService.getBookProgress(this.bookId).subscribe({
+      next: (resp: number) => {
+        this.progress = resp;
       },
       error: (error: any) => {
         console.error(error.message);

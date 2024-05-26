@@ -38,4 +38,12 @@ export class BookService {
   getBookWithPublishedChapters(bookId: string): Observable<Book> {
     return this.http.get<Book>(`${environment.apiUrl}/books/${bookId}/published`);
   }
+
+  getBookProgress(bookId: string): Observable<number> {
+    return this.http.get<number>(`${environment.apiUrl}/books/progress/${bookId}`);
+  }
+
+  increaseBookProgress(bookId: string): Observable<number> {
+    return this.http.put<number>(`${environment.apiUrl}/books/progress/${bookId}`, {});
+  }
 }
