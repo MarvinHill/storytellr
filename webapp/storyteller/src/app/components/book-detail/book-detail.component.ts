@@ -11,7 +11,7 @@ import {LibraryService} from "../../service/library.service";
 })
 export class BookDetailComponent implements OnInit{
   bookId!: string;
-  book?: Book;
+  book!: Book;
   bookInLibrary: boolean = false;
   progress: number = 0;
 
@@ -29,6 +29,7 @@ export class BookDetailComponent implements OnInit{
     this.bookService.getBookById(this.bookId).subscribe({
       next: (resp: Book) => {
         this.book = resp;
+        this.getBookProgress();
       },
       error: (error: any) => {
         console.error(error.message);
@@ -37,7 +38,7 @@ export class BookDetailComponent implements OnInit{
   }
 
 
-  navigatetoReadPage() {
+  navigateToReadPage() {
     this.router.navigate(['/read'], {queryParams: {bookId: this.bookId}});
   }
 
@@ -80,7 +81,11 @@ export class BookDetailComponent implements OnInit{
   getBookProgress() {
     this.bookService.getBookProgress(this.bookId).subscribe({
       next: (resp: number) => {
-        this.progress = resp;
+        let totalChapters = this.book.chapterIds.length;
+        this.progress = Math.round((resp / totalChapters) * 100);
+        console.log("Progress: " + this.progress);
+        console.log("Total chapters: " + totalChapters);
+        console.log("Read chapters: " + resp);
       },
       error: (error: any) => {
         console.error(error.message);

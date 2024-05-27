@@ -6,7 +6,7 @@
           <app-lazy-image [cover]="book?.cover" [width]="'w-72'" [size]="'lg'"></app-lazy-image>
           <div class="w-72 mx-auto bg-gray-200 mt-4">
             <div class="bg-black text-white px-4" [style.width.%]="progress">
-              23%
+              {{ progress }}%
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
                   }
 
                 </div>
-                <button class="bg-[#E14237] rounded-3xl w-28 h-16 -rotate-45 my-7" (click)="navigatetoReadPage()">
+                <button class="bg-[#E14237] rounded-3xl w-28 h-16 -rotate-45 my-7" (click)="navigateToReadPage()">
                   <p class="text-white text-lg rotate-45">Read</p>
                 </button>
               </div>
