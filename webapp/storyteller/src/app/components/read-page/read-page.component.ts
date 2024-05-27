@@ -1,21 +1,22 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
-import {switchMap} from "rxjs";
+import {firstValueFrom, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-read-page',
   templateUrl: './read-page.component.html',
   styleUrl: './read-page.component.scss'
 })
-export class ReadPageComponent implements OnInit, AfterViewInit {
+export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecked {
   bookId!: string;
   book!: Book;
   chapters: Chapter[] = [];
   counter: number = 0;
+  currentChapter: number = 0;
 
   @ViewChild('chapterContainer') chapterContainer!: ElementRef;
 
@@ -27,17 +28,49 @@ export class ReadPageComponent implements OnInit, AfterViewInit {
     this.route.queryParams.pipe(
       switchMap(params => {
         this.bookId = params['bookId'];
+        this.currentChapter = params['progress'];
         return this.bookService.getBookWithPublishedChapters(this.bookId);
       })
     ).subscribe((book: Book) => {
       this.book = book;
-      this.getNextChapter();
+      this.loadChaptersUpToCurrent();
 
     });
   }
 
   ngAfterViewInit() {
     this.observe();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToCurrentChapter();
+  }
+
+  /**
+   * Should scroll to the current chapter
+   */
+  scrollToCurrentChapter() {
+    if (this.chapters[this.currentChapter] == undefined) {
+      return;
+    }
+    const element = document.getElementById(this.chapters[this.currentChapter].id);
+    if(element) {
+      element.scrollIntoView();
+    }
+  }
+
+  async loadChaptersUpToCurrent() {
+    if(this.currentChapter == 0) {
+      this.getNextChapter();
+      return;
+    }
+    for (let i = 0; i <= this.currentChapter; i++) {
+      const chapter = await firstValueFrom(this.chapterService.getChapterById(this.book.chapterIds[i]));
+      this.chapters.push(chapter);
+      this.counter++;
+    }
+
+
   }
 
   getNextChapter() {
