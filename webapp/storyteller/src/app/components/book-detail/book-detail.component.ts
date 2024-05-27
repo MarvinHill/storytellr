@@ -26,7 +26,7 @@ export class BookDetailComponent implements OnInit{
   }
 
   getBookById(): void {
-    this.bookService.getBookById(this.bookId).subscribe({
+    this.bookService.getBookWithPublishedChapters(this.bookId).subscribe({
       next: (resp: Book) => {
         this.book = resp;
         this.getBookProgress();
@@ -83,9 +83,6 @@ export class BookDetailComponent implements OnInit{
       next: (resp: number) => {
         let totalChapters = this.book.chapterIds.length;
         this.progress = Math.round((resp / totalChapters) * 100);
-        console.log("Progress: " + this.progress);
-        console.log("Total chapters: " + totalChapters);
-        console.log("Read chapters: " + resp);
       },
       error: (error: any) => {
         console.error(error.message);
