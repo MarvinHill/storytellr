@@ -130,6 +130,10 @@ public class BookServiceImpl implements BookService {
         Optional<Progress> progressOptional = this.progressRepository.findByBookIdAndUserId(bookId, userService.getUserId());
         if(progressOptional.isPresent()) {
             Progress progress = progressOptional.get();
+            int maxChapters = getBookWithPublishedChapters(bookId).getChapterIds().size();
+            if (progress.getReadChapters() >= maxChapters) {
+                return;
+            }
             progress.setReadChapters(progress.getReadChapters() + 1);
             this.progressRepository.save(progress);
         } else {
