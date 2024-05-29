@@ -43,7 +43,7 @@ export class BookService {
     return this.http.get<number>(`${environment.apiUrl}/books/progress/${bookId}`);
   }
 
-  increaseBookProgress(bookId: string): Observable<number> {
-    return this.http.put<number>(`${environment.apiUrl}/books/progress/increase/${bookId}`, {});
+  increaseBookProgress(bookId: string, progress: number): Observable<number> {
+    return this.http.put<number>(`${environment.apiUrl}/books/progress/increase/${bookId}/${progress}`, {});
   }
 }

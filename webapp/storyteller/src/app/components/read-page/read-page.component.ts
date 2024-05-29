@@ -47,28 +47,37 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   /**
-   * Should scroll to the current chapter
+   * Scroll to the current chapter
    */
   scrollToCurrentChapter() {
+    // If the current chapter is undefined, do nothing
     if (this.chapters[this.currentChapter] == undefined) {
       return;
     }
+    // If the counter is greater than the current chapter, do nothing
+    else if(this.counter > this.currentChapter + 1) {
+      return;
+    }
+    // Scroll to the current chapter
     const element = document.getElementById(this.chapters[this.currentChapter].id);
     if(element) {
       element.scrollIntoView();
     }
   }
 
-  async loadChaptersUpToCurrent() {
+  /**
+   * Load chapters up to the current chapter
+   */
+  loadChaptersUpToCurrent() {
     if(this.currentChapter == 0) {
       this.getNextChapter();
       return;
     }
-    for (let i = 0; i <= this.currentChapter; i++) {
-      const chapter = await firstValueFrom(this.chapterService.getChapterById(this.book.chapterIds[i]));
-      this.chapters.push(chapter);
+    this.chapterService.getNPublishedChaptersByBookId(this.bookId, this.currentChapter + 1).subscribe((chapters: Chapter[]) => {
+      this.chapters = chapters;
+      this.counter = this.currentChapter;
       this.counter++;
-    }
+    });
 
 
   }
@@ -80,10 +89,9 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
     this.chapterService.getChapterById(this.book?.chapterIds[this.counter]).subscribe((chapter: Chapter) => {
       this.chapters.push(chapter);
-      console.log(this.chapters);
       this.counter++;
     });
-    this.bookService.increaseBookProgress(this.bookId).subscribe();
+    this.bookService.increaseBookProgress(this.bookId, this.counter + 1).subscribe();
 
   }
 
