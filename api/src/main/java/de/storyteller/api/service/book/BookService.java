@@ -56,5 +56,5 @@ public interface BookService {
 
     int getBookProgress(String bookId);
 
-    void increaseProgress(String bookId);
+    void increaseProgress(String bookId, int progress);
 }

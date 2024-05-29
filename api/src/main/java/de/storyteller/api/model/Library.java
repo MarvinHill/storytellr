@@ -16,6 +16,6 @@ import java.util.List;
 public class Library {
     @Id
     private String id;
-    private String userId;
+    private String ownerId;
     private List<Book> books = new ArrayList<>();
 }

@@ -121,27 +121,27 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public int getBookProgress(String bookId) {
-        Optional<Progress> progress = this.progressRepository.findByBookIdAndUserId(bookId, userService.getUserId());
+        Optional<Progress> progress = this.progressRepository.findByBookIdAndUser(bookId, userService.getUserId());
         return progress.map(Progress::getReadChapters).orElse(0);
     }
 
     @Override
-    public void increaseProgress(String bookId) {
-        Optional<Progress> progressOptional = this.progressRepository.findByBookIdAndUserId(bookId, userService.getUserId());
+    public void increaseProgress(String bookId, int progress) {
+        Optional<Progress> progressOptional = this.progressRepository.findByBookIdAndUser(bookId, userService.getUserId());
         if(progressOptional.isPresent()) {
-            Progress progress = progressOptional.get();
+            Progress progressObject = progressOptional.get();
             int maxChapters = getBookWithPublishedChapters(bookId).getChapterIds().size();
-            if (progress.getReadChapters() >= maxChapters) {
+            if (progressObject.getReadChapters() >= maxChapters) {
                 return;
             }
-            progress.setReadChapters(progress.getReadChapters() + 1);
-            this.progressRepository.save(progress);
+            progressObject.setReadChapters(progress);
+            this.progressRepository.save(progressObject);
         } else {
-            Progress progress = new Progress();
-            progress.setBookId(bookId);
-            progress.setUserId(userService.getUserId());
-            progress.setReadChapters(1);
-            this.progressRepository.save(progress);
+            Progress progressObject = new Progress();
+            progressObject.setBookId(bookId);
+            progressObject.setUser(userService.getUserId());
+            progressObject.setReadChapters(1);
+            this.progressRepository.save(progressObject);
         }
     }
 }

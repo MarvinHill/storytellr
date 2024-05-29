@@ -92,9 +92,9 @@ public class BookController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PutMapping("/progress/increase/{id}")
-    public ResponseEntity<?> increaseProgress(@PathVariable String id){
-        bookService.increaseProgress(id);
+    @PutMapping("/progress/increase/{id}/{progress}")
+    public ResponseEntity<?> increaseProgress(@PathVariable String id, @PathVariable int progress){
+        bookService.increaseProgress(id, progress);
         return ResponseEntity.ok().build();
     }
 

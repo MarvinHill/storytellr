@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface ProgressRepository extends MongoRepository<Progress, String> {
 
-    Optional<Progress> findByBookIdAndUserId(String bookId, String userId);
+    Optional<Progress> findByBookIdAndUser(String bookId, String userId);
 }

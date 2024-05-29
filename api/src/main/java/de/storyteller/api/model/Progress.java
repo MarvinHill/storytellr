@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Progress {
     @Id
     private String id;
-    private String userId;
+    private String user;
     private String bookId;
     private int readChapters = 0;
 }
