@@ -5,6 +5,7 @@ import {Book} from "../../model/book";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
 import {firstValueFrom, switchMap} from "rxjs";
+import {comment} from "postcss";
 
 @Component({
   selector: 'app-read-page',
@@ -17,6 +18,7 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   chapters: Chapter[] = [];
   counter: number = 0;
   currentChapter: number = 0;
+  scrolling: boolean = true;
 
   @ViewChild('chapterContainer') chapterContainer!: ElementRef;
 
@@ -50,18 +52,25 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
    * Scroll to the current chapter
    */
   scrollToCurrentChapter() {
+    if(!this.scrolling) {
+      return;
+    }
+    let currentChapter = this.currentChapter;
+    currentChapter++;
     // If the current chapter is undefined, do nothing
     if (this.chapters[this.currentChapter] == undefined) {
       return;
     }
     // If the counter is greater than the current chapter, do nothing
-    else if(this.counter > this.currentChapter + 1) {
+    else if(this.counter > currentChapter) {
+
       return;
     }
     // Scroll to the current chapter
     const element = document.getElementById(this.chapters[this.currentChapter].id);
     if(element) {
       element.scrollIntoView();
+      this.scrolling = false;
     }
   }
 
@@ -73,7 +82,9 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
       this.getNextChapter();
       return;
     }
-    this.chapterService.getNPublishedChaptersByBookId(this.bookId, this.currentChapter + 1).subscribe((chapters: Chapter[]) => {
+    let n = this.currentChapter;
+    n++;
+    this.chapterService.getNPublishedChaptersByBookId(this.bookId, n).subscribe((chapters: Chapter[]) => {
       this.chapters = chapters;
       this.counter = this.currentChapter;
       this.counter++;
@@ -84,14 +95,17 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   getNextChapter() {
     // No more chapters
+    console.log("Counter in next " + this.counter);
+
     if(this.counter > this.book.chapterIds.length) {
+      console.log("No more chapters");
       return;
     }
     this.chapterService.getChapterById(this.book?.chapterIds[this.counter]).subscribe((chapter: Chapter) => {
       this.chapters.push(chapter);
-      this.counter++;
     });
-    this.bookService.increaseBookProgress(this.bookId, this.counter + 1).subscribe();
+    this.bookService.increaseBookProgress(this.bookId, this.counter).subscribe();
+    this.counter++;
 
   }
 
