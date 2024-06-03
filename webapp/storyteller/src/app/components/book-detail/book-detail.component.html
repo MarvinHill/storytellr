@@ -49,12 +49,12 @@
                   </button>
                 }
                 @if (bookLiked){
-                  <button>
-                    <span class="material-symbols-outlined">star</span>
+                  <button (click)="unlikeBook()">
+                    <span class="material-symbols-outlined text-amber-400">star</span>
                   </button>
                 } @else {
-                  <button>
-                    <span class="material-symbols-outlined">star_border</span>
+                  <button (click)="likeBook()">
+                    <span class="material-symbols-outlined text-gray-500">star_border</span>
                   </button>
                 }
 

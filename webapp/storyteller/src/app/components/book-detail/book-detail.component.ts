@@ -21,8 +21,7 @@ export class BookDetailComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.bookId = params['bookId'];
     });
-    this.getBookById();
-    this.isBookInLibrary();
+    this.updateView();
   }
 
   getBookById(): void {
@@ -36,6 +35,12 @@ export class BookDetailComponent implements OnInit{
     });
   }
 
+  updateView() {
+    this.getBookById();
+    this.isBookInLibrary();
+    this.isBookLiked();
+  }
+
 
   navigatetoReadPage() {
     this.router.navigate(['/read'], {queryParams: {bookId: this.bookId}});
@@ -45,7 +50,7 @@ export class BookDetailComponent implements OnInit{
     this.libraryService.addBookToLibrary(this.bookId).subscribe({
       next: (resp: Book) => {
         console.log("Book added" + resp);
-        this.isBookInLibrary();
+        this.updateView();
       },
       error: (error: any) => {
         console.error(error.message);
@@ -69,7 +74,7 @@ export class BookDetailComponent implements OnInit{
     this.libraryService.removeBookFromLibrary(this.bookId).subscribe({
       next: (resp: Book) => {
         console.log(resp);
-        this.isBookInLibrary();
+        this.updateView();
       },
       error: (error: any) => {
         console.error(error.message);
@@ -81,6 +86,7 @@ export class BookDetailComponent implements OnInit{
     this.libraryService.likeBook(this.bookId).subscribe({
       next: (resp: Book) => {
         console.log(resp);
+        this.updateView();
       },
       error: (error: any) => {
         console.error(error.message);
@@ -92,6 +98,7 @@ export class BookDetailComponent implements OnInit{
     this.libraryService.unlikeBook(this.bookId).subscribe({
       next: (resp: Book) => {
         console.log(resp);
+        this.updateView();
       },
       error: (error: any) => {
         console.error(error.message);
