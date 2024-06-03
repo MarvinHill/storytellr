@@ -13,4 +13,7 @@ public interface LibraryService {
     boolean containsBook(String bookId);
 
     List<BookDTO> getRandomBooks();
+    Library likeBook(String bookId);
+    Library unlikeBook(String bookId);
+    boolean isBookLiked(String bookId);
 }

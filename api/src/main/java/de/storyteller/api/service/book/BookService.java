@@ -53,4 +53,8 @@ public interface BookService {
     List<BookDTO> getBooksByAuthor();
 
     BookDTO getBookWithPublishedChapters(String bookId);
+
+    void increaseBookLikes(String bookId);
+    void decreaseBookLikes(String bookId);
+
 }
