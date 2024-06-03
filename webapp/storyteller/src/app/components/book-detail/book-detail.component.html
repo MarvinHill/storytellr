@@ -22,7 +22,7 @@
               <span class="material-symbols-outlined text-amber-400">
                 star
               </span>
-                <p>250</p>
+                <p>{{book?.likes}}</p>
               </div>
               <div class="flex flex-row mt-2">
               <span class="material-symbols-outlined">
@@ -48,9 +48,16 @@
                     <span class="material-symbols-outlined">library_add</span>
                   </button>
                 }
-                <button>
-                  <span class="material-symbols-outlined">star</span>
-                </button>
+                @if (bookLiked){
+                  <button>
+                    <span class="material-symbols-outlined">star</span>
+                  </button>
+                } @else {
+                  <button>
+                    <span class="material-symbols-outlined">star_border</span>
+                  </button>
+                }
+
               </div>
               <img class="hidden lg:block mt-24" src="assets/images/like.svg" alt="Like" width="155" height="68">
             </div>

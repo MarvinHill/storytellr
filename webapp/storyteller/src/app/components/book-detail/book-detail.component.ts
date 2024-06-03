@@ -13,6 +13,7 @@ export class BookDetailComponent implements OnInit{
   bookId!: string;
   book?: Book;
   bookInLibrary: boolean = false;
+  bookLiked: boolean = false;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router, private libraryService: LibraryService) {}
 
@@ -69,6 +70,39 @@ export class BookDetailComponent implements OnInit{
       next: (resp: Book) => {
         console.log(resp);
         this.isBookInLibrary();
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  likeBook() {
+    this.libraryService.likeBook(this.bookId).subscribe({
+      next: (resp: Book) => {
+        console.log(resp);
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  unlikeBook() {
+    this.libraryService.unlikeBook(this.bookId).subscribe({
+      next: (resp: Book) => {
+        console.log(resp);
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  isBookLiked() {
+    this.libraryService.isBookLiked(this.bookId).subscribe({
+      next: (resp: boolean) => {
+        this.bookLiked = resp;
       },
       error: (error: any) => {
         console.error(error.message);

@@ -30,4 +30,16 @@ export class LibraryService {
   getRandomBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(`${environment.apiUrl}/library/random`);
   }
+
+  likeBook(bookId: string): Observable<Book> {
+    return this.http.put<Book>(`${environment.apiUrl}/library/like/${bookId}`, {});
+  }
+
+  unlikeBook(bookId: string): Observable<Book> {
+    return this.http.put<Book>(`${environment.apiUrl}/library/unlike/${bookId}`, {});
+  }
+
+  isBookLiked(bookId: string): Observable<boolean> {
+    return this.http.get<boolean>(`${environment.apiUrl}/library/isLiked/${bookId}`);
+  }
 }
