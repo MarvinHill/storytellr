@@ -27,4 +27,8 @@ export class ChapterService {
   getPublishedChaptersByBookId(bookId: string): Observable<Chapter[]> {
     return this.http.get<Chapter[]>(`${environment.apiUrl}/chapters/${bookId}/published`);
   }
+
+  getNPublishedChaptersByBookId(bookId: string, n: number): Observable<Chapter[]> {
+    return this.http.get<Chapter[]>(`${environment.apiUrl}/chapters/${bookId}/published/${n}`);
+  }
 }

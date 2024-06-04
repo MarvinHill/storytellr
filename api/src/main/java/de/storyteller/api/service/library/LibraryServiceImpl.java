@@ -22,12 +22,12 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<BookDTO> getAllBooksFromLibrary() {
         String userId = userService.getUserId();
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             return libraryOptional.get().getBooks().stream().map(bookMapper::toBookDTO).toList();
         } else {
             Library library = new Library();
-            library.setUserId(userId);
+            library.setOwnerId(userId);
             library.setBooks(List.of());
             libraryRepository.save(library);
             return library.getBooks().stream().map(bookMapper::toBookDTO).toList();
@@ -37,7 +37,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public Library addBookToLibrary(String bookId) {
         String userId = userService.getUserId();
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
@@ -47,7 +47,7 @@ public class LibraryServiceImpl implements LibraryService {
         }
         else {
             Library library = new Library();
-            library.setUserId(userId);
+            library.setOwnerId(userId);
             BookDTO book = bookService.getBookById(bookId).get();
             library.getBooks().add(bookMapper.toBook(book));
             libraryRepository.save(library);
@@ -58,8 +58,8 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public Library removeBookFromLibrary(String bookId) {
         String userId = userService.getUserId();
-        System.out.println(libraryRepository.findByUserId(userId));
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        System.out.println(libraryRepository.findByOwnerId(userId));
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             library.getBooks().removeIf(book -> book.getId().equals(bookId));
@@ -72,7 +72,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public boolean containsBook(String bookId) {
         String userId = userService.getUserId();
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             return library.getBooks().stream().anyMatch(book -> book.getId().equals(bookId));
@@ -83,7 +83,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<BookDTO> getRandomBooks() {
         String userId = userService.getUserId();
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             List<BookDTO> books = new java.util.ArrayList<>(library.getBooks().stream().map(bookMapper::toBookDTO).toList());
