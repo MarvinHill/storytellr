@@ -74,4 +74,12 @@ public class ChapterController {
     public ResponseEntity<?> getChapterById(@PathVariable String id){
         return ResponseEntity.ok(chapterService.getChapterById(id));
     }
+
+
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{bookId}/published/{count}")
+    public ResponseEntity<?> getFirstNPublishedChapters(@PathVariable String bookId, @PathVariable int count){
+        return ResponseEntity.ok(chapterService.getFirstNPublishedChapters(bookId, count));
+    }
 }

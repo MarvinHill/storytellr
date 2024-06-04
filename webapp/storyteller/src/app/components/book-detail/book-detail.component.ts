@@ -11,8 +11,10 @@ import {LibraryService} from "../../service/library.service";
 })
 export class BookDetailComponent implements OnInit{
   bookId!: string;
-  book?: Book;
+  book!: Book;
   bookInLibrary: boolean = false;
+  progress: number = 0;
+  readChapter: number = 0;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router, private libraryService: LibraryService) {}
 
@@ -25,9 +27,10 @@ export class BookDetailComponent implements OnInit{
   }
 
   getBookById(): void {
-    this.bookService.getBookById(this.bookId).subscribe({
+    this.bookService.getBookWithPublishedChapters(this.bookId).subscribe({
       next: (resp: Book) => {
         this.book = resp;
+        this.getBookProgress();
       },
       error: (error: any) => {
         console.error(error.message);
@@ -36,8 +39,8 @@ export class BookDetailComponent implements OnInit{
   }
 
 
-  navigatetoReadPage() {
-    this.router.navigate(['/read'], {queryParams: {bookId: this.bookId}});
+  navigateToReadPage() {
+    this.router.navigate(['/read'], {queryParams: {bookId: this.bookId, progress: this.readChapter}});
   }
 
   addToLibrary() {
@@ -69,6 +72,23 @@ export class BookDetailComponent implements OnInit{
       next: (resp: Book) => {
         console.log(resp);
         this.isBookInLibrary();
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  getBookProgress() {
+    this.bookService.getBookProgress(this.bookId).subscribe({
+      next: (resp: number) => {
+        let totalChapters = this.book.chapterIds.length;
+        this.readChapter = resp;
+        this.progress = Math.round((this.readChapter / totalChapters) * 100);
+        // If progress is Nan, set it to 0
+        if(isNaN(this.progress)) {
+          this.progress = 0;
+        }
       },
       error: (error: any) => {
         console.error(error.message);

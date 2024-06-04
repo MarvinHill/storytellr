@@ -1,5 +1,7 @@
 package de.storyteller.api.service.book;
 
+import de.storyteller.api.model.Progress;
+import de.storyteller.api.repository.ProgressRepository;
 import de.storyteller.api.service.UserService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
@@ -29,6 +31,7 @@ public class BookServiceImpl implements BookService {
     private final ChapterRepository chapterRepository;
     private final ChapterMapper chapterMapper;
     private final UserService userService;
+    private final ProgressRepository progressRepository;
 
     public List<BookDTO> getAllBooks() {
         List<Book> books = bookRepository.findAll();
@@ -116,4 +119,29 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
+    @Override
+    public int getBookProgress(String bookId) {
+        Optional<Progress> progress = this.progressRepository.findByBookIdAndUser(bookId, userService.getUserId());
+        return progress.map(Progress::getReadChapters).orElse(0);
+    }
+
+    @Override
+    public void increaseProgress(String bookId, int progress) {
+        Optional<Progress> progressOptional = this.progressRepository.findByBookIdAndUser(bookId, userService.getUserId());
+        if(progressOptional.isPresent()) {
+            Progress progressObject = progressOptional.get();
+            int maxChapters = getBookWithPublishedChapters(bookId).getChapterIds().size();
+            if (progressObject.getReadChapters() >= maxChapters) {
+                return;
+            }
+            progressObject.setReadChapters(progress);
+            this.progressRepository.save(progressObject);
+        } else {
+            Progress progressObject = new Progress();
+            progressObject.setBookId(bookId);
+            progressObject.setUser(userService.getUserId());
+            progressObject.setReadChapters(1);
+            this.progressRepository.save(progressObject);
+        }
+    }
 }
