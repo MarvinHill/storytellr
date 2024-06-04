@@ -97,7 +97,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public Library likeBook(String bookId) {
         String userId = userService.getUserId();
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             Optional<BookDTO> bookDTOOptional = bookService.getBookById(bookId);
@@ -108,7 +108,7 @@ public class LibraryServiceImpl implements LibraryService {
         }
         else {
             Library library = new Library();
-            library.setUserId(userId);
+            library.setOwnerId(userId);
             BookDTO book = bookService.getBookById(bookId).get();
             library.getLikedBooks().add(bookMapper.toBook(book));
             bookService.increaseBookLikes(bookId);
@@ -121,7 +121,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public Library unlikeBook(String bookId) {
         String userId = userService.getUserId();
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             library.getLikedBooks().removeIf(book -> book.getId().equals(bookId));
@@ -135,7 +135,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public boolean isBookLiked(String bookId) {
         String userId = userService.getUserId();
-        Optional<Library> libraryOptional = libraryRepository.findByUserId(userId);
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
         if (libraryOptional.isPresent()) {
             Library library = libraryOptional.get();
             return library.getLikedBooks().stream().anyMatch(book -> book.getId().equals(bookId));
