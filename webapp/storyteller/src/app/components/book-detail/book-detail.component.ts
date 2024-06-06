@@ -15,6 +15,7 @@ export class BookDetailComponent implements OnInit{
   bookInLibrary: boolean = false;
   progress: number = 0;
   readChapter: number = 0;
+  bookLiked: boolean = false;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router, private libraryService: LibraryService) {}
 
@@ -22,8 +23,7 @@ export class BookDetailComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.bookId = params['bookId'];
     });
-    this.getBookById();
-    this.isBookInLibrary();
+    this.updateView();
   }
 
   getBookById(): void {
@@ -38,6 +38,12 @@ export class BookDetailComponent implements OnInit{
     });
   }
 
+  updateView() {
+    this.getBookById();
+    this.isBookInLibrary();
+    this.isBookLiked();
+  }
+
 
   navigateToReadPage() {
     this.router.navigate(['/read'], {queryParams: {bookId: this.bookId, progress: this.readChapter}});
@@ -47,7 +53,7 @@ export class BookDetailComponent implements OnInit{
     this.libraryService.addBookToLibrary(this.bookId).subscribe({
       next: (resp: Book) => {
         console.log("Book added" + resp);
-        this.isBookInLibrary();
+        this.updateView();
       },
       error: (error: any) => {
         console.error(error.message);
@@ -71,7 +77,42 @@ export class BookDetailComponent implements OnInit{
     this.libraryService.removeBookFromLibrary(this.bookId).subscribe({
       next: (resp: Book) => {
         console.log(resp);
-        this.isBookInLibrary();
+        this.updateView();
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  likeBook() {
+    this.libraryService.likeBook(this.bookId).subscribe({
+      next: (resp: Book) => {
+        console.log(resp);
+        this.updateView();
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  unlikeBook() {
+    this.libraryService.unlikeBook(this.bookId).subscribe({
+      next: (resp: Book) => {
+        console.log(resp);
+        this.updateView();
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  isBookLiked() {
+    this.libraryService.isBookLiked(this.bookId).subscribe({
+      next: (resp: boolean) => {
+        this.bookLiked = resp;
       },
       error: (error: any) => {
         console.error(error.message);

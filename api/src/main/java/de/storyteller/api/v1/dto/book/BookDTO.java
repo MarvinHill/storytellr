@@ -27,4 +27,5 @@ public class BookDTO {
     private boolean adultContent;
     private boolean commentsDeactivated;
     private boolean finished;
+    private int likes;
 }

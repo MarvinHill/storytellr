@@ -120,6 +120,26 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void increaseBookLikes(String bookId) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if(bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            book.setLikes(book.getLikes() + 1);
+            bookRepository.save(book);
+        }
+    }
+
+    @Override
+    public void decreaseBookLikes(String bookId) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if(bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            book.setLikes(book.getLikes() - 1);
+            bookRepository.save(book);
+        }
+    }
+
+    @Override
     public int getBookProgress(String bookId) {
         Optional<Progress> progress = this.progressRepository.findByBookIdAndUser(bookId, userService.getUserId());
         return progress.map(Progress::getReadChapters).orElse(0);

@@ -93,4 +93,53 @@ public class LibraryServiceImpl implements LibraryService {
         }
         throw new RuntimeException("Library not found");
     }
+
+    @Override
+    public Library likeBook(String bookId) {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
+        if (libraryOptional.isPresent()) {
+            Library library = libraryOptional.get();
+            Optional<BookDTO> bookDTOOptional = bookService.getBookById(bookId);
+            bookDTOOptional.ifPresent(bookDTO -> library.getLikedBooks().add(bookMapper.toBook(bookDTO)));
+            bookService.increaseBookLikes(bookId);
+            libraryRepository.save(library);
+            return library;
+        }
+        else {
+            Library library = new Library();
+            library.setOwnerId(userId);
+            BookDTO book = bookService.getBookById(bookId).get();
+            library.getLikedBooks().add(bookMapper.toBook(book));
+            bookService.increaseBookLikes(bookId);
+            libraryRepository.save(library);
+            return library;
+        }
+
+    }
+
+    @Override
+    public Library unlikeBook(String bookId) {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
+        if (libraryOptional.isPresent()) {
+            Library library = libraryOptional.get();
+            library.getLikedBooks().removeIf(book -> book.getId().equals(bookId));
+            bookService.decreaseBookLikes(bookId);
+            libraryRepository.save(library);
+            return library;
+        }
+        throw new RuntimeException("Library not found");
+    }
+
+    @Override
+    public boolean isBookLiked(String bookId) {
+        String userId = userService.getUserId();
+        Optional<Library> libraryOptional = libraryRepository.findByOwnerId(userId);
+        if (libraryOptional.isPresent()) {
+            Library library = libraryOptional.get();
+            return library.getLikedBooks().stream().anyMatch(book -> book.getId().equals(bookId));
+        }
+        return false;
+    }
 }

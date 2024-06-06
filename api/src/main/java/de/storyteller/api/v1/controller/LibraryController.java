@@ -46,5 +46,23 @@ public class LibraryController {
         return ResponseEntity.ok(libraryService.getRandomBooks());
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/like/{bookId}")
+    public ResponseEntity<Library> likeBook(@PathVariable String bookId){
+        return ResponseEntity.ok(libraryService.likeBook(bookId));
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/unlike/{bookId}")
+    public ResponseEntity<Library> unlikeBook(@PathVariable String bookId){
+        return ResponseEntity.ok(libraryService.unlikeBook(bookId));
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/isLiked/{bookId}")
+    public ResponseEntity<Boolean> isBookLiked(@PathVariable String bookId){
+        return ResponseEntity.ok(libraryService.isBookLiked(bookId));
+    }
+
 
 }

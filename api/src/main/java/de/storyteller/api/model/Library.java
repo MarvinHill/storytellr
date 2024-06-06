@@ -18,4 +18,5 @@ public class Library {
     private String id;
     private String ownerId;
     private List<Book> books = new ArrayList<>();
+    private List<Book> likedBooks = new ArrayList<>();
 }

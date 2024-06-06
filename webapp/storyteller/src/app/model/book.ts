@@ -14,6 +14,7 @@ export interface Book {
   adultContent: boolean;
   commentsDeactivated: boolean;
   finished: boolean;
+  likes: number;
 }
 
 export interface AddBookRequest {
