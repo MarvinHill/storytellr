@@ -3,12 +3,15 @@ package de.storyteller.api.model;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
-    public String id;
-    public String content;
-    public String author;
-    public String chapterId;
-    public String blockId;
+    private String id;
+    private String content;
+    private String author;
+    private String chapterId;
+    private String blockId;
+    private LocalDateTime createdAt;
 }
