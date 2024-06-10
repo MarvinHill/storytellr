@@ -1,12 +1,13 @@
 package de.storyteller.api.v1.dto.chapter;
 
+import de.storyteller.api.model.Comment;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data transfer object for a chapter
@@ -21,4 +22,5 @@ public class ChapterDTO {
     private String content;
     private LocalDateTime lastModified;
     private boolean published;
+    List<Comment> comments = new ArrayList<>();
 }
