@@ -4,7 +4,6 @@ import de.storyteller.api.model.Comment;
 import de.storyteller.api.service.UserService;
 import de.storyteller.api.v1.dto.comment.AddCommentRequest;
 import de.storyteller.api.v1.dto.comment.CommentDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
