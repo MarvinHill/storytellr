@@ -1,8 +1,13 @@
 export interface Comment {
-  id: string;
   chapterId: string;
   author: string;
   content: string;
   blockId: string;
   createdAt: Date;
+}
+
+export interface AddCommentRequest {
+  content: string;
+  chapterId: string;
+  blockId: string;
 }
