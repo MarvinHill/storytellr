@@ -17,7 +17,6 @@ public class CommentMapper {
     protected UserService userService;
     public Comment toComment(AddCommentRequest addCommentRequest) {
         Comment comment = new Comment();
-        comment.setId(addCommentRequest.getId());
         comment.setContent(addCommentRequest.getContent());
         comment.setAuthor(userService.getUserId());
         comment.setChapterId(addCommentRequest.getChapterId());
@@ -27,7 +26,6 @@ public class CommentMapper {
     }
     public CommentDTO toDTO(Comment comment) {
         CommentDTO commentDTO = new CommentDTO();
-        commentDTO.setId(comment.getId());
         commentDTO.setContent(comment.getContent());
         commentDTO.setAuthor(comment.getAuthor());
         commentDTO.setChapterId(comment.getChapterId());
