@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddCommentRequest {
-    private String id;
     @NotBlank(message = "Content is required")
     private String content;
     @NotBlank(message = "Chapter is required")

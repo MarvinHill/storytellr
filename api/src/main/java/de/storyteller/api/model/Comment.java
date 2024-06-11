@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class Comment {
-    private String id;
     private String content;
     private String author;
     private String chapterId;
