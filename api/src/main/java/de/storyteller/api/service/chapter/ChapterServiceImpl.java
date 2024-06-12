@@ -74,6 +74,59 @@ public class ChapterServiceImpl implements ChapterService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ChapterDTO> getChaptersByBookId(String bookId) {
+        Optional<Book> book = bookRepository.findById(bookId);
+        if(book.isEmpty()){
+            throw new RuntimeException("Book with id: " + bookId + " doesn't exist");
+        }
+        Book book1 = book.get();
+        List<Chapter> chapterIds = book1.getChapters();
+        return chapterIds.stream()
+                .map(chapterMapper::toChapterDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ChapterDTO> getPublishedChaptersByBookId(String bookId) {
+        Optional<Book> book = bookRepository.findById(bookId);
+        if (book.isEmpty()) {
+            throw new RuntimeException("Book with id: " + bookId + " doesn't exist");
+        }
+        Book book1 = book.get();
+        List<Chapter> chapters = book1.getChapters();
+
+        // Filter published chapters
+        List<Chapter> publishedChapters = chapters.stream()
+                .filter(Chapter::isPublished)
+                .toList();
+
+        return publishedChapters.stream()
+                .map(chapterMapper::toChapterDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ChapterDTO> getFirstNPublishedChapters(String bookId, int count) {
+        Optional<Book> book = bookRepository.findById(bookId);
+        if (book.isEmpty()) {
+            throw new RuntimeException("Book with id: " + bookId + " doesn't exist");
+        }
+        Book book1 = book.get();
+        List<Chapter> chapters = book1.getChapters();
+
+        // Filter published chapters
+        List<Chapter> publishedChapters = chapters.stream()
+                .filter(Chapter::isPublished)
+                .toList();
+
+        // Return the first N published chapters
+        return publishedChapters.stream()
+                .limit(count)
+                .map(chapterMapper::toChapterDTO)
+                .collect(Collectors.toList());
+    }
+
     public static boolean isValidJSON(String chapterContent) {
         boolean valid = true;
         if (chapterContent == null || chapterContent.isEmpty()) {

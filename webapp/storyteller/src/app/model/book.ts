@@ -15,12 +15,12 @@ export interface Book {
   adultContent: boolean;
   commentsDeactivated: boolean;
   finished: boolean;
+  likes: number;
 }
 
 export interface AddBookRequest {
   title: string;
   genreId: string;
-  author: string;
   description: string;
   catchphrase?: string;
   chapterIds: string[];
@@ -35,7 +35,6 @@ export interface EditBookRequest {
   id: string;
   title: string;
   genreId: string;
-  author: string;
   description: string;
   catchphrase?: string;
   chapterIds: string[];

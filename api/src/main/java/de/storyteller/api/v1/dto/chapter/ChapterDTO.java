@@ -20,4 +20,5 @@ public class ChapterDTO {
     private String chapterTitle;
     private String content;
     private LocalDateTime lastModified;
+    private boolean published;
 }

@@ -4,6 +4,7 @@ export interface Chapter{
     content: string;
     lastModified: Date;
     bookId: string;
+    published: boolean;
 }
 
 export interface AddChapterRequest{
@@ -11,6 +12,7 @@ export interface AddChapterRequest{
     content: string;
     lastModified: Date;
     bookId: string;
+    published: boolean;
 }
 
 export interface EditChapterRequest{
@@ -19,4 +21,5 @@ export interface EditChapterRequest{
     content: string;
     lastModified: Date;
     bookId: string;
+    published: boolean;
 }

@@ -3,10 +3,10 @@
     <div class="flex flex-col lg:flex-row gap-32">
       <div class="lg:mr-0 mx-auto">
         <div class="mx-8 lg:mx-0">
-          <app-lazy-image [cover]="book?.cover" [width]="'w-72'" [size]="'lg'"></app-lazy-image>
+          <app-lazy-image [cover]="book.cover" [width]="'w-72'" [size]="'lg'"></app-lazy-image>
           <div class="w-72 mx-auto bg-gray-200 mt-4">
-            <div class="bg-black text-white px-4" [style.width.%]="23">
-              23%
+            <div class="bg-black text-white px-4" [style.width.%]="progress">
+              {{ progress }}%
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
               <span class="material-symbols-outlined text-amber-400">
                 star
               </span>
-                <p>250</p>
+                <p>{{book?.likes}}</p>
               </div>
               <div class="flex flex-row mt-2">
               <span class="material-symbols-outlined">
@@ -39,12 +39,25 @@
                    height="86">
 
               <div class="flex flex-col absolute">
-                <button>
-                  <span class="material-symbols-outlined">library_add</span>
-                </button>
-                <button>
-                  <span class="material-symbols-outlined">star</span>
-                </button>
+                @if(bookInLibrary) {
+                  <button (click)="removeFromLibrary()">
+                    <span class="material-symbols-outlined">library_add_check</span>
+                  </button>
+                } @else {
+                  <button (click)="addToLibrary()">
+                    <span class="material-symbols-outlined">library_add</span>
+                  </button>
+                }
+                @if (bookLiked){
+                  <button (click)="unlikeBook()">
+                    <span class="material-symbols-outlined text-amber-400">star</span>
+                  </button>
+                } @else {
+                  <button (click)="likeBook()">
+                    <span class="material-symbols-outlined text-gray-500">star_border</span>
+                  </button>
+                }
+
               </div>
               <img class="hidden lg:block mt-24" src="assets/images/like.svg" alt="Like" width="155" height="68">
             </div>
@@ -64,7 +77,7 @@
                   }
 
                 </div>
-                <button class="bg-[#E14237] rounded-3xl w-28 h-16 -rotate-45 my-7">
+                <button class="bg-[#E14237] rounded-3xl w-28 h-16 -rotate-45 my-7" (click)="navigateToReadPage()">
                   <p class="text-white text-lg rotate-45">Read</p>
                 </button>
               </div>

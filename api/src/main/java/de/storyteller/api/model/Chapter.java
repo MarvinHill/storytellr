@@ -30,5 +30,7 @@ public class Chapter {
 
     private String bookId;
 
+    private boolean published;
+
 
 }

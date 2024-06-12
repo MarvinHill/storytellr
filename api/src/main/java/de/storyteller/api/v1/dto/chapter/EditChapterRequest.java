@@ -25,4 +25,6 @@ public class EditChapterRequest {
     private String content;
     @NotNull(message = "Last modified is required")
     private LocalDateTime lastModified;
+
+    private boolean published;
 }

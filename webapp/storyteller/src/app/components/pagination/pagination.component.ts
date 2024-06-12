@@ -9,12 +9,14 @@ export class PaginationComponent{
 
   @Output() pageChanged : EventEmitter<number> = new EventEmitter<number>();
 
+  //The page we are currently on
   currentPage : number = 1;
+  // Page count is the total number of pages
   @Input() pageCount : number | undefined;
   state : "first" | "last" | "middle" = "first";
 
 
-  previousePage(){
+  previousPage(){
     this.state = "middle";
     if(this.currentPage > 1){
       this.currentPage--;

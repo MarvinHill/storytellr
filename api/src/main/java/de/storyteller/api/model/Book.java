@@ -38,4 +38,5 @@ public class Book {
     private boolean adultContent;
     private boolean commentsDeactivated;
     private boolean finished;
+    private int likes;
 }

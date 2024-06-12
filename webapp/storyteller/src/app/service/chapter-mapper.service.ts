@@ -14,7 +14,8 @@ export class ChapterMapperService {
       chapterTitle: chapter.chapterTitle,
       content: chapter.content,
       lastModified: chapter.lastModified,
-      bookId: chapter.bookId
+      bookId: chapter.bookId,
+      published: chapter.published
     };
   }
 }

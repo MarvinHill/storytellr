@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Chapter} from "../../model/chapter";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ChapterService} from "../../service/chapter.service";
 import {ChapterMapperService} from "../../service/chapter-mapper.service";
 
@@ -16,7 +16,9 @@ export class ChapterEditComponent implements OnInit{
   saved: boolean = true;
   savingError: boolean = false;
 
-  constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
+
+  constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class ChapterEditComponent implements OnInit{
     this.saving = true;
     this.savingError = false;
     this.chapter.content = event;
+    this.chapter.lastModified = new Date();
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
@@ -62,5 +65,35 @@ export class ChapterEditComponent implements OnInit{
         this.savingError = true;
       }
     });
+  }
+
+  publishChapter() {
+    this.chapter.published = true;
+    const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
+    this.chapterService.updateChapter(editChapter).subscribe({
+      next: (resp: Chapter) => {
+        console.log(resp);
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  unpublishChapter() {
+    this.chapter.published = false;
+    const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
+    this.chapterService.updateChapter(editChapter).subscribe({
+      next: (resp: Chapter) => {
+        console.log(resp);
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
+  }
+
+  closeEditor() {
+    this.router.navigate(['/edit-details'], {queryParams: {bookId: this.chapter.bookId}});
   }
 }

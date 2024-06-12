@@ -13,7 +13,6 @@ export class BookMapperService {
       id: book.id,
       title: book.title,
       genreId: book.genreId,
-      author: book.author,
       description: book.description,
       catchphrase: book.catchphrase,
       chapterIds: book.chapterIds,

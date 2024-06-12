@@ -30,6 +30,18 @@ public class ChapterController {
         return ResponseEntity.ok(chapterService.getAllChapters());
     }
 
+    @PreAuthorize("isAuthenticated() && (@sAuthService.userOwnsBook(#bookId) || @sAuthService.isAdmin())")
+    @GetMapping("/all/{bookId}")
+    public ResponseEntity<?> getChaptersByBookId(@PathVariable String bookId){
+        return ResponseEntity.ok(chapterService.getChaptersByBookId(bookId));
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{bookId}/published")
+    public ResponseEntity<?> getPublishedChaptersByBookId(@PathVariable String bookId){
+        return ResponseEntity.ok(chapterService.getPublishedChaptersByBookId(bookId));
+    }
+
     /**
      * Add a new chapter if the user is authenticated and owns the book
      * @param chapter Chapter to be added
@@ -61,5 +73,13 @@ public class ChapterController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getChapterById(@PathVariable String id){
         return ResponseEntity.ok(chapterService.getChapterById(id));
+    }
+
+
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{bookId}/published/{count}")
+    public ResponseEntity<?> getFirstNPublishedChapters(@PathVariable String bookId, @PathVariable int count){
+        return ResponseEntity.ok(chapterService.getFirstNPublishedChapters(bookId, count));
     }
 }

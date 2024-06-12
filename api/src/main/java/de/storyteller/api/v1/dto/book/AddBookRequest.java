@@ -1,17 +1,13 @@
 package de.storyteller.api.v1.dto.book;
 
-import de.storyteller.api.model.Chapter;
-import de.storyteller.api.model.Genre;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * Request object to add a book
@@ -21,14 +17,15 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AddBookRequest {
     @NotBlank(message = "Title should not be blank")
+    @Size(max = 100, message = "Catchphrase should not be longer than 100 characters")
     private String title;
 
     @NotNull(message = "A genre must be set")
     private String genreId;
-    @NotBlank(message = "Author should not be blank")
-    private String author;
     @NotBlank(message = "Description should not be blank")
+    @Size(max = 500, message = "Catchphrase should not be longer than 500 characters")
     private String description;
+    @Size(max = 200, message = "Catchphrase should not be longer than 200 characters")
     private String catchphrase;
     private List<String> chapterIds;
     private List<String> tags;

@@ -22,6 +22,8 @@ export class EditDetailsComponent implements OnInit{
   tagsEdit = false;
   genres: Genre[] = [];
   newTags!: string;
+  showErrorTitle = false;
+  showErrorDescription = false;
 
   constructor(private coverService: CoverService, private bookService: BookService, private route: ActivatedRoute,
               private bookMapperService: BookMapperService, private genreService: GenreService) {
@@ -60,6 +62,11 @@ export class EditDetailsComponent implements OnInit{
 
 
   updateTitle() {
+    if(this.book.title.trim() == "" || this.book.title == null ) {
+      this.showErrorTitle = true;
+      return;
+    }
+    this.showErrorTitle = false;
     this.titleEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
@@ -75,6 +82,11 @@ export class EditDetailsComponent implements OnInit{
   }
 
   updateDescription() {
+    if(this.book.description.trim() == "" || this.book.description == null ) {
+      this.showErrorDescription = true;
+      return;
+    }
+    this.showErrorDescription = false;
     this.descriptionEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
