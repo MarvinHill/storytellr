@@ -30,8 +30,12 @@ services:
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
 
       API_DEBUG_LEVEL: ${API_DEBUG_LEVEL}
+      BACKEND_CLIENT_SECRET: ${BACKEND_CLIENT_SECRET}
+      BACKEND_CLIENT_USERNAME: ${BACKEND_CLIENT_USERNAME}
+      KEYCLOAK_HOST_URL: ${KEYCLOAK_ISSUER_URI}
     volumes:
       - public_data:/www/html
+      - ../api/scripts:/var/scripts
 
   webapp-prod:
     container_name: webapp
@@ -91,6 +95,8 @@ services:
     image: quay.io/keycloak/keycloak:24.0
     restart: unless-stopped
     command: start-dev --import-realm --proxy-headers xforwarded
+    depends_on: 
+      - keycloakdb
     environment:
       KC_DB: ${KEYCLOAK_DATABASE_VENDOR}
       KC_DB_URL_DATABASE: ${KEYCLOAK_DATABASE_NAME}
@@ -110,7 +116,7 @@ services:
       KC_HTTP_RELATIVE_PATH: ${KEYCLOAK_HTTP_RELATIVE_PATH}
     volumes:
       - ../keycloak/providers:/opt/keycloak/providers
-      - ../keycloak/import:/opt/keycloak/data/import
+      - ../keycloak/import/processed_storyteller.json:/opt/keycloak/data/import/stroyteller.json
 
   publicdata:
     build: ../publicdata

@@ -1,6 +1,7 @@
 package de.storyteller.api.v1.mapper;
 
 import de.storyteller.api.model.Chapter;
+import de.storyteller.api.service.auth.KeycloakService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;
@@ -10,6 +11,7 @@ import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
 import de.storyteller.api.repository.GenreRepository;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public abstract class BookMapper {
     @Autowired
     protected GenreRepository genreRepository;
 
+    @Autowired
+    protected KeycloakService keycloakService;
+
     /**
      * Maps a book to a bookDTO
      * @param book the book to map
@@ -43,7 +48,12 @@ public abstract class BookMapper {
      */
     @Mapping(target = "genreId", source = "genre.id")
     @Mapping(target = "chapterIds", source = "chapters")
+    @Mapping(target = "authorName", expression = "java(getAuthorName(book.getAuthor()))")
     public abstract BookDTO toBookDTO(Book book);
+
+    protected String getAuthorName(String author) {
+        return keycloakService.getUsername(author);
+    }
 
     /**
      * Maps a bookDTO to a book
@@ -66,6 +76,7 @@ public abstract class BookMapper {
     public abstract Book toBook(AddBookRequest addBookRequest);
 
     @Mapping(target = "cover", ignore = true)
+    @Mapping(target = "authorName", expression = "java(getAuthorName(editBookRequest.getAuthor()))")
     public abstract BookDTO toBookDTO(EditBookRequest editBookRequest);
 
     private String toGenreId(Genre genre){
