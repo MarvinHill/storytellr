@@ -25,7 +25,7 @@ export class SearchResultComponent{
 
   openBookDetails(){
     if(this.book == null || this.book == undefined) return;
-    this.access.toEditOrDetailPage(this.book);
+    this.access.toBookDetailsPage(this.book);
   }
   
 
