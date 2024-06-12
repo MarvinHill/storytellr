@@ -4,8 +4,9 @@ import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
-import {firstValueFrom, switchMap} from "rxjs";
-import {comment} from "postcss";
+import {switchMap} from "rxjs";
+import {CommentService} from "../../service/comment.service";
+import {AddCommentRequest} from "../../model/comment";
 
 @Component({
   selector: 'app-read-page',
@@ -23,7 +24,8 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   @ViewChild('chapterContainer') chapterContainer!: ElementRef;
 
 
-  constructor(private route: ActivatedRoute, private bookService: BookService, private chapterService: ChapterService) {
+  constructor(private route: ActivatedRoute, private bookService: BookService, private chapterService: ChapterService,
+              private commentService: CommentService) {
   }
 
   ngOnInit() {
@@ -129,5 +131,36 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   getBlocks(chapter: Chapter) {
     return JSON.parse(chapter.content).blocks;
+  }
+
+  addComment(chapterId: string, blockId: string) {
+    let comment : AddCommentRequest = {
+      chapterId: chapterId,
+      content: "Test comment",
+      blockId: blockId
+    }
+    this.commentService.addComment(comment).subscribe(
+      {
+        next: (comment) => {
+          console.log(comment);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      }
+    )
+  }
+
+  getComments(chapterId: string) {
+    this.commentService.getCommentsByChapterId(chapterId).subscribe(
+      {
+        next: (comments) => {
+          console.log(comments);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      }
+    )
   }
 }

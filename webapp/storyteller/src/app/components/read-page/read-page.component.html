@@ -1,17 +1,26 @@
 <div class="font-playfair bg-gray-100 m-0 w-full flex flex-col">
-  @for(chapter of chapters; track chapter.id){
-    <div class="bg-white w-[88ch] min-h-[112ch] mx-auto my-5 p-6" id="{{chapter.id}}">
-      <h1 class="text-3xl bg-white font-bold m-3">{{chapter?.chapterTitle}}</h1>
-      @for (block of getBlocks(chapter); track block.id){
-        @switch (block.type){
-          @case("paragraph"){
-            <app-paragraph [content]="block.data.text"></app-paragraph>
+  @for (chapter of chapters; track chapter.id) {
+    <div class="flex flex-row">
+      <div class="bg-white w-[88ch] min-h-[112ch] mx-auto my-5 p-6" id="{{chapter.id}}">
+        <h1 class="text-3xl bg-white font-bold m-3">{{ chapter?.chapterTitle }}</h1>
+        @for (block of getBlocks(chapter); track block.id) {
+          @switch (block.type) {
+            @case ("paragraph") {
+              <app-paragraph [content]="block.data.text"></app-paragraph>
+            }
+            @case ("header") {
+              <app-heading [content]="block.data.text"></app-heading>
+            }
+
           }
-          @case("header"){
-            <app-heading [content]="block.data.text"></app-heading>
-          }
+          <button class="bg-white rounded-3xl w-16 h-16 my-7"
+                  (click)="addComment(chapter.id, block.id)">
+            <span class="material-symbols-outlined">
+add_comment
+</span>
+          </button>
         }
-      }
+      </div>
     </div>
   }
   <div class="bg-gray-100 w-[88ch] mx-auto">
@@ -19,11 +28,11 @@
     <div class="flex mx-auto w-full justify-center" #chapterContainer>
       <img ngSrc="assets/images/end.png" height="267" width="310" priority>
       <div class="flex flex-col items-center justify-center">
-        <div class="text-center text-xl my-3" >Sadly, there are no more chapters! </div>
+        <div class="text-center text-xl my-3">Sadly, there are no more chapters!</div>
         <button class="bg-yellow-200 rounded-3xl w-28 h-16 -rotate-45 my-7" [routerLink]="'/discovery'">
           <p class="text-black text-lg rotate-45">More</p>
         </button>
-    </div>
+      </div>
 
     </div>
 
