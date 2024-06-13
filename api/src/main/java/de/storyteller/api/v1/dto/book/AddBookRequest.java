@@ -19,7 +19,6 @@ public class AddBookRequest {
     @NotBlank(message = "Title should not be blank")
     @Size(max = 100, message = "Catchphrase should not be longer than 100 characters")
     private String title;
-
     @NotNull(message = "A genre must be set")
     private String genreId;
     @NotBlank(message = "Description should not be blank")

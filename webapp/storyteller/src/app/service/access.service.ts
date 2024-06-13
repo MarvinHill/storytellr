@@ -8,26 +8,13 @@ import { Book } from '../model/book';
 })
 export class AccessService {
 
-  constructor(private keycloak: KeycloakService, private router: Router) { }
+  constructor(private router: Router) { }
 
-  toEditOrDetailPage(book: Book) {
-    if(!this.keycloak.isLoggedIn()) this.router.navigate(['/book-details'], {queryParams: {bookId: book.id}});
+  toBookDetailsPage(book: Book) {
+    this.router.navigate(['/book-details'], {queryParams: {bookId: book.id}});
+  }
 
-    try {
-      this.keycloak.loadUserProfile().then((p) => {
-        if(p == null || p == undefined || book == undefined) return;
-  
-        if(p.id == book?.author){
-          this.router.navigate(['/edit-details'], {queryParams: {bookId: book.id}})
-          return
-        }
-        this.router.navigate(['/book-details'], {queryParams: {bookId: book.id}})
-      });
-    }
-    catch(e){
-      // Fix Bug with Unauthorized Error when session expires
-      this.router.navigate(['/book-details'], {queryParams: {bookId: book.id}})
-    }
-   
+  toBookEditPage( book: Book) {
+    this.router.navigate(['/edit-details'], {queryParams: {bookId: book.id}})
   }
 }

@@ -31,10 +31,14 @@ Current existing Scopes in Storytellr
 - The **webapp folder** contains the angular frontend projekt.
 - The **api folder** contains a spring boot backend api service that is consumed by the webapp.
 
+### Build Project
+- injects client secret into keycloak conf
+`docker compose -p buildstep -f build.yml --profile dev up -d `
+
 ### Local Development
 
 - create a `.env` file in the same folder as the `docker-compose.yml` file
-- run `docker compose --profile dev up -d`.
+- run `docker compose -p storytellr --profile dev up -d`.
 
 **.env File Content**
 
@@ -67,4 +71,4 @@ MONGODB_PORT
 ### Production Deployment
 
 - create a env file like in dev mode
-- run `docker compose --profile prod up -d`
+- run `docker compose -p storytellr --profile prod up -d`

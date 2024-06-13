@@ -50,13 +50,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDTO createBook(AddBookRequest book) {
         Book bookEntity = bookMapper.toBook(book);
-        bookEntity.setCover(
-            new CoverUriDTO(
-                "assets/images/cover-original.png",
-                "assets/images/cover-sm.png",
-                "assets/images/cover-lg.png")
-            );
-        bookEntity.setAuthor(userService.getUserId());
         BookDTO dto = bookMapper.toBookDTO(bookRepository.save(bookEntity));
         log.info("Create book with id: {}", dto.getId());
         return dto;
@@ -70,8 +63,6 @@ public class BookServiceImpl implements BookService {
         }
         log.info("Update book with id: {}", book.getId());
         Book updatedBook = bookMapper.toBook(book);
-        updatedBook.setCover(currentBook.get().getCover());
-        updatedBook.setAuthor(currentBook.get().getAuthor());
         return bookMapper.toBookDTO( bookRepository.save(updatedBook));
     }
 

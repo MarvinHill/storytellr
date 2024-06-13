@@ -14,6 +14,8 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
   @Input() book: Book | undefined;
   @Output() imageLoaded = new EventEmitter<HTMLImageElement>();
 
+  @Input() edit : boolean = false;
+
   @Input() align : "top" | "bottom" = "bottom";
 
   @Input() placeholder: boolean = false;
@@ -48,7 +50,11 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
     console.log("current route", window.location.href)
 
-    this.access.toEditOrDetailPage(this.book);
+    if(this.edit){
+      this.access.toBookEditPage(this.book);
+      return
+    }
+    this.access.toBookDetailsPage(this.book);
 
   }
 
