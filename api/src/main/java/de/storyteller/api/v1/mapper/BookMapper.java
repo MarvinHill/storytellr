@@ -3,7 +3,6 @@ package de.storyteller.api.v1.mapper;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.service.UserService;
 import de.storyteller.api.service.auth.KeycloakService;
-import de.storyteller.api.service.book.BookService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;
@@ -14,8 +13,6 @@ import de.storyteller.api.repository.ChapterRepository;
 import de.storyteller.api.repository.GenreRepository;
 import de.storyteller.api.v1.dto.cover.CoverUtils;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +75,11 @@ public abstract class BookMapper {
     @Mapping(target = "likes", constant = "0")
     public abstract Book toBook(AddBookRequest addBookRequest);
 
+    /**
+     * Maps the genre to a genreId
+     * @param genre the genre to map
+     * @return the mapped genreId
+     */
     private String toGenreId(Genre genre){
         return genre.getId();
     }
