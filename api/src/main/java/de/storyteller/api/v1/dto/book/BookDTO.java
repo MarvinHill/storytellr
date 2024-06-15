@@ -18,6 +18,7 @@ public class BookDTO {
     private String title;
     private String genreId;
     private String author;
+    private String authorName;
     private String description;
     private String catchphrase;
     private List<String> chapterIds;

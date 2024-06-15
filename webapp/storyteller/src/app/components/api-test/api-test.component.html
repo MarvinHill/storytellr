@@ -4,6 +4,7 @@
     <div>{{book.title}}</div>
 }
 
+<button class="btn bg-blue-500 m-2 p-2" (click)="genApi()">generate api content</button>
 <input type="file" class="file-upload mb-2 mt-10" (change)="getPreview($event)">
 @if((this.file | async) != null) {
     <img src="{{this.file | async}}" alt="">

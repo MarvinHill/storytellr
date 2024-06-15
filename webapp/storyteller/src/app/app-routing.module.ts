@@ -16,11 +16,11 @@ const routes: Routes = [
   { path: 'testApi', component: ApiTestComponent, canActivate: [AuthGuard]},
   { path: 'discovery', component: DiscoveryPageComponent },
   { path: 'book-details', component: BookDetailComponent},
-  { path: 'edit-details', component: EditDetailsComponent},
-  { path: 'editor', component: ChapterEditComponent},
-  { path: 'write', component: WriteOverviewComponent},
+  { path: 'edit-details', component: EditDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'editor', component: ChapterEditComponent, canActivate: [AuthGuard]},
+  { path: 'write', component: WriteOverviewComponent, canActivate: [AuthGuard]},
   { path: 'read', component: ReadPageComponent},
-  { path: 'library', component: LibraryComponent}
+  { path: 'library', component: LibraryComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

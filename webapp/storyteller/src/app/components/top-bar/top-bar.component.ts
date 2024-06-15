@@ -1,4 +1,5 @@
 import { AfterViewChecked, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 
 @Component({
@@ -10,7 +11,7 @@ export class TopBarComponent implements AfterViewChecked{
 
   protected username : string | undefined;
 
-  constructor(protected keycloak : KeycloakService){}
+  constructor(protected keycloak : KeycloakService, protected router: Router){}
 
   ngAfterViewChecked(): void {
     if(!this.username && this.keycloak.isLoggedIn()){
@@ -25,6 +26,11 @@ export class TopBarComponent implements AfterViewChecked{
       burgerMenu.classList.toggle("hidden");
       console.log(burgerMenu.classList)
     }
+  }
+
+  logout(){
+    this.router.navigate(['/discovery']);
+    setTimeout(()=>{this.keycloak.logout()})
   }
 
   login(){

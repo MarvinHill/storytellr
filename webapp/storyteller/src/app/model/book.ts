@@ -5,6 +5,7 @@ export interface Book {
   title: string;
   genreId: string;
   author: string;
+  authorName: string
   description: string;
   catchphrase?: string;
   chapterIds: string[];

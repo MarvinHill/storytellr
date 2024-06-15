@@ -11,7 +11,7 @@ add
     </div>
   @for (book of books; track book.id){
     <div class="h-[320px] aspect-[1/1.6] my-2">
-      <app-book-display [book]="book" [justify]=false></app-book-display>
+      <app-book-display [book]="book" [justify]=false [edit]="true"></app-book-display>
     </div>
 
   }

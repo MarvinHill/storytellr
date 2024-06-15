@@ -37,6 +37,12 @@ export class ApiTestComponent {
     }
   }
 
+  genApi(){
+    this.http.get('/api/v1/mock/gen').subscribe(response => {
+      console.log(JSON.stringify(response));
+    });
+  }
+
   public getPreview(event : any) {
     if(event.target.files.item(0) == null) return;
     const formData = new FormData();
