@@ -8,4 +8,5 @@ import java.util.List;
 public interface CommentService {
      CommentDTO addComment(AddCommentRequest addCommentRequest);
      List<CommentDTO> getCommentsByChapter(String chapterId);
+        List<CommentDTO> getCommentsByBlockId(String chapterId, String blockId);
 }

@@ -36,5 +36,11 @@ public class CommentServiceImpl implements CommentService {
         return chapter.getComments().stream().map(this.commentMapper::toDTO).toList();
     }
 
+    @Override
+    public List<CommentDTO> getCommentsByBlockId(String chapterId, String blockId) {
+        Chapter chapter = this.chapterRepository.findById(chapterId).orElseThrow(() -> new RuntimeException("Chapter not found"));
+        return chapter.getComments().stream().filter(comment -> comment.getBlockId().equals(blockId)).map(this.commentMapper::toDTO).toList();
+    }
+
 
 }

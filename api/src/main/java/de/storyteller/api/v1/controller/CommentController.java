@@ -18,13 +18,19 @@ public class CommentController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/{chapterId}")
-    public ResponseEntity<List<CommentDTO>> getCommentsByChapterId(@PathVariable String chapterId){
+    public ResponseEntity<List<CommentDTO>> getCommentsByChapterId(@PathVariable String chapterId) {
         return ResponseEntity.ok(commentService.getCommentsByChapter(chapterId));
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{chapterId}/{blockId}")
+    public ResponseEntity<List<CommentDTO>> getCommentsByBlockId(@PathVariable String chapterId, @PathVariable String blockId) {
+        return ResponseEntity.ok(commentService.getCommentsByBlockId(chapterId, blockId));
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/add")
-    public ResponseEntity<CommentDTO> addComment(@RequestBody AddCommentRequest addCommentRequest){
+    public ResponseEntity<CommentDTO> addComment(@RequestBody AddCommentRequest addCommentRequest) {
         return ResponseEntity.ok(commentService.addComment(addCommentRequest));
     }
 }
