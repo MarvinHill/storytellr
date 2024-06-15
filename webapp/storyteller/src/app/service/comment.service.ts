@@ -11,10 +11,14 @@ export class CommentService {
   constructor(private http: HttpClient) { }
 
   getCommentsByChapterId(chapterId: string) {
-    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/${chapterId}`);
+    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/chapter/${chapterId}`);
   }
 
   addComment(comment: AddCommentRequest) {
     return this.http.post<Comment>(`${environment.apiUrl}/comments/add`, comment);
+  }
+
+  getCommentsByBlockId(blockId: string) {
+    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/block/${blockId}`);
   }
 }
