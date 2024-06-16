@@ -1,4 +1,5 @@
 <div class="font-playfair bg-gray-100 m-0 w-full flex flex-col">
+  <ng-template class="flex w-full" #dynamicComponentContainer></ng-template>
   @for (chapter of chapters; track chapter.id) {
     <div class="bg-white w-[88ch] min-h-[112ch] mx-auto my-5 p-6" id="{{chapter.id}}">
       <h1 class="text-3xl bg-white font-bold m-3">{{ chapter?.chapterTitle }}</h1>
@@ -11,8 +12,8 @@
               <button class="invisible bg-white rounded-3xl aspect-square size-12 flex-none my-7 drop-shadow-md flex group-hover:visible"
                       (click)="openCommentModal(chapter.id, block.id)">
             <span class="material-symbols-outlined m-auto">
-add_comment
-</span>
+              add_comment
+            </span>
               </button>
             }
             @case ("header") {
@@ -20,7 +21,7 @@ add_comment
             }
 
           }
-          <ng-template #dynamicComponentContainer></ng-template>
+
 
         </div>
       }
@@ -44,6 +45,5 @@ add_comment
   </div>
 
 </div>
-
 
 
