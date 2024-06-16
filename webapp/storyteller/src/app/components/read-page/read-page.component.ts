@@ -181,6 +181,9 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
    * @param blockId the id of the block
    */
   openCommentModal(chapterId: string, blockId: string) {
+    // Clear the container
+    this.modalContainerRef.clear();
+
     // Create the component dynamically
     const commentModalRef = this.modalContainerRef.createComponent(CommentModalComponent, {
       injector: this.injector,
