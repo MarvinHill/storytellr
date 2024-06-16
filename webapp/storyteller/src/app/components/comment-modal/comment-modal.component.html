@@ -1,1 +1,12 @@
-<p>comment-modal works!</p>
+<div class="bg-white rounded shadow-2xl">
+  <div class="p-4">
+    <h2 class="text-2xl font-bold text-gray-800">Comments</h2>
+    @for(comment of comments; track comment.content){
+      <p>{{comment.author}}</p>
+      <p>{{comment.content}}</p>
+    }
+    <input type="text" placeholder="Type your comment" [ngModel]="commentContent">
+    <button (click)="addComment()">Submit</button>
+
+  </div>
+</div>
