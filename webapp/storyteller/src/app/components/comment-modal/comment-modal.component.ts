@@ -18,13 +18,13 @@ export class CommentModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.blockId) {
-      this.getCommentsByBlockId(this.blockId);
+    if (this.blockId && this.chapterId) {
+      this.getCommentsByBlockId(this.chapterId, this.blockId);
     }
   }
 
-  getCommentsByBlockId(blockId: string) {
-    this.commentService.getCommentsByBlockId(blockId).subscribe({
+  getCommentsByBlockId(chapterId:string, blockId: string) {
+    this.commentService.getCommentsByBlockId(chapterId, blockId).subscribe({
       next: (comments) => {
         this.comments = comments;
       },
