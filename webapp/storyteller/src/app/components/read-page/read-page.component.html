@@ -9,7 +9,7 @@
               <app-paragraph [content]="block.data.text" class="shrink grow"></app-paragraph>
 
               <button class="invisible bg-white rounded-3xl aspect-square size-12 flex-none my-7 drop-shadow-md flex group-hover:visible"
-                      (click)="openCommentModal()">
+                      (click)="openCommentModal(chapter.id, block.id)">
             <span class="material-symbols-outlined m-auto">
 add_comment
 </span>
@@ -20,7 +20,8 @@ add_comment
             }
 
           }
-          <app-comment-modal [blockId]="block.id" [chapterId]="chapter.id" (addCommentEvent)="addComment($event)"></app-comment-modal>
+          <ng-template #dynamicComponentContainer></ng-template>
+
         </div>
       }
     </div>
