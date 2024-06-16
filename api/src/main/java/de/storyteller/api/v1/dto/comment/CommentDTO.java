@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CommentDTO {
     private String content;
-    private String author;
+    private String authorId;
+    private String authorName;
     private String chapterId;
     private String blockId;
     private LocalDateTime createdAt;

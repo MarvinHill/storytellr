@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 @Data
 public class Comment {
     private String content;
-    private String author;
+    private String authorId;
+    private String authorName;
     private String chapterId;
     private String blockId;
     private LocalDateTime createdAt;
