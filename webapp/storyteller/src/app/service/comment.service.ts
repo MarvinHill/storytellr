@@ -11,7 +11,7 @@ export class CommentService {
   constructor(private http: HttpClient) { }
 
   getCommentsByChapterId(chapterId: string) {
-    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/chapter/${chapterId}`);
+    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/${chapterId}`);
   }
 
   addComment(comment: AddCommentRequest) {
@@ -19,6 +19,6 @@ export class CommentService {
   }
 
   getCommentsByBlockId(chapterId: string, blockId: string) {
-    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/block/${chapterId}/${blockId}`);
+    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/${chapterId}/${blockId}`);
   }
 }
