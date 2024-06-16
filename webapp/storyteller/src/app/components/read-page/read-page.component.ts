@@ -20,6 +20,7 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   counter: number = 0;
   currentChapter: number = 0;
   scrolling: boolean = true;
+  commentModal: boolean = false;
 
   @ViewChild('chapterContainer') chapterContainer!: ElementRef;
 
@@ -133,12 +134,8 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
     return JSON.parse(chapter.content).blocks;
   }
 
-  addComment(chapterId: string, blockId: string) {
-    let comment : AddCommentRequest = {
-      chapterId: chapterId,
-      content: "Test comment",
-      blockId: blockId
-    }
+  addComment(event: AddCommentRequest) {
+    let comment = event;
     this.commentService.addComment(comment).subscribe(
       {
         next: (comment) => {
@@ -163,4 +160,13 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
       }
     )
   }
+
+  openCommentModal() {
+    this.commentModal = true;
+  }
+
+  closeCommentModal() {
+    this.commentModal = false;
+  }
+
 }
