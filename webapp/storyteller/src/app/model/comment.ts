@@ -1,6 +1,7 @@
 export interface Comment {
   chapterId: string;
-  author: string;
+  authorId: string;
+  authorName: string;
   content: string;
   blockId: string;
   createdAt: Date;
