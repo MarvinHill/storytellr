@@ -20,7 +20,7 @@ add_comment
             }
 
           }
-          <app-comment-modal [blockId]="block.id" [chapterId]="chapter.id" (addCommentEvent)="addComment(event)"></app-comment-modal>
+          <app-comment-modal [blockId]="block.id" [chapterId]="chapter.id" (addCommentEvent)="addComment($event)"></app-comment-modal>
         </div>
       }
     </div>
