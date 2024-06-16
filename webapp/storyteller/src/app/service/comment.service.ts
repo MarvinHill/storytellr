@@ -18,7 +18,7 @@ export class CommentService {
     return this.http.post<Comment>(`${environment.apiUrl}/comments/add`, comment);
   }
 
-  getCommentsByBlockId(blockId: string) {
-    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/block/${blockId}`);
+  getCommentsByBlockId(chapterId: string, blockId: string) {
+    return this.http.get<Comment[]>(`${environment.apiUrl}/comments/block/${chapterId}/${blockId}`);
   }
 }
