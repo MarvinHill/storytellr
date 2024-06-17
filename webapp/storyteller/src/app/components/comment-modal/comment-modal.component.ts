@@ -43,6 +43,7 @@ export class CommentModalComponent implements OnInit {
         blockId: this.blockId
       };
       this.addCommentEvent.emit(comment);
+      this.getCommentsByBlockId(this.chapterId, this.blockId);
     }
 
   }
