@@ -13,6 +13,7 @@ export class CommentModalComponent implements OnInit {
   commentContent: string = '';
   comments: Comment[] = [];
   @Output() addCommentEvent: EventEmitter<AddCommentRequest> = new EventEmitter<AddCommentRequest>();
+  @Output() closeEvent: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private commentService: CommentService) {
   }
@@ -46,5 +47,9 @@ export class CommentModalComponent implements OnInit {
       this.getCommentsByBlockId(this.chapterId, this.blockId);
     }
 
+  }
+
+  closeComments() {
+    this.closeEvent.emit();
   }
 }

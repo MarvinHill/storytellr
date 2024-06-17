@@ -193,9 +193,12 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
     commentModalRef.instance.chapterId = chapterId;
     commentModalRef.instance.blockId = blockId;
 
-    // Subscribe to the event
+    // Subscribe to the events
     commentModalRef.instance.addCommentEvent.subscribe((event: AddCommentRequest) => {
       this.addComment(event);
+    });
+    commentModalRef.instance.closeEvent.subscribe(() => {
+      this.modalContainerRef.clear();
     });
   }
 
