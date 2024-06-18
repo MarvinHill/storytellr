@@ -1,20 +1,29 @@
 <div class="fixed flex flex-col z-10 top-0 left-0 right-0 bottom-0 p-12">
   <div class="bg-white rounded shadow-2xl">
     <div class="p-4">
-      <h2 class="text-2xl font-bold text-gray-800">Comments</h2>
+      <div class="flex flex-row justify-between">
+        <h2 class="text-2xl font-bold text-gray-800">Comments</h2>
+        <button (click)="closeComments()">
+          <span class="material-symbols-outlined">
+close
+</span>
+        </button>
+      </div>
+
       @for (comment of comments; track comment.content) {
-        <div class="p-3">
+        <div class="pt-2">
           <div class="flex flex-row">
             <p class="font-bold">{{ comment.authorName }}</p>
-            <p class="text-gray-600 pl-2">{{ comment.createdAt | date }}</p>
+            <p class="text-gray-600 pl-4">{{ comment.createdAt | date }}</p>
           </div>
 
-        <p>{{ comment.content }}</p>
+          <p>{{ comment.content }}</p>
         </div>
       }
-      <input type="text" placeholder="Type your comment" [(ngModel)]="commentContent">
-      <button (click)="addComment()">Submit</button>
-      <button (click)="closeComments()">Close</button>
+      <div class="flex flex-row justify-start">
+        <input type="text" placeholder="Type your comment" [(ngModel)]="commentContent" class="w-8/12 mx-6 border border-black">
+        <button (click)="addComment()">Send</button>
+      </div>
 
     </div>
   </div>

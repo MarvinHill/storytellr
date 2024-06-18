@@ -28,6 +28,7 @@ export class CommentModalComponent implements OnInit {
     this.commentService.getCommentsByBlockId(chapterId, blockId).subscribe({
       next: (comments) => {
         this.comments = comments;
+        console.log(this.comments);
       },
       error: (error) => {
         console.error(error);
@@ -36,6 +37,10 @@ export class CommentModalComponent implements OnInit {
     }
 
 
+  /**
+   * Add a comment to a chapter
+   * @param comment the comment to be added
+   */
   addComment() {
     if (this.blockId && this.chapterId) {
       let comment: AddCommentRequest = {
@@ -43,9 +48,20 @@ export class CommentModalComponent implements OnInit {
         chapterId: this.chapterId,
         blockId: this.blockId
       };
-      this.addCommentEvent.emit(comment);
-      this.commentContent = ""
-      this.getCommentsByBlockId(this.chapterId, this.blockId);
+      this.commentService.addComment(comment).subscribe(
+        {
+          next: (comment) => {
+            console.log(comment);
+            this.commentContent = "";
+            if(this.chapterId && this.blockId){
+              this.getCommentsByBlockId(this.chapterId, this.blockId);
+            }
+          },
+          error: (error: any) => {
+            console.error(error.message);
+          }
+        }
+      )
     }
 
   }
