@@ -40,7 +40,7 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   modalContainerRef!: ViewContainerRef;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private chapterService: ChapterService,
-              private commentService: CommentService, private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector,) {
+              private commentService: CommentService, private injector: Injector,) {
   }
 
   ngOnInit() {
@@ -159,23 +159,6 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   /**
-   * Add a comment to a chapter
-   * @param comment the comment to be added
-   */
-  addComment(comment: AddCommentRequest) {
-    this.commentService.addComment(comment).subscribe(
-      {
-        next: (comment) => {
-          console.log(comment);
-        },
-        error: (error: any) => {
-          console.error(error.message);
-        }
-      }
-    )
-  }
-
-  /**
    * Open the comment modal to show and add comments to a block
    * @param chapterId the id of the chapter containing the block
    * @param blockId the id of the block
@@ -193,12 +176,14 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
     commentModalRef.instance.chapterId = chapterId;
     commentModalRef.instance.blockId = blockId;
 
-    // Subscribe to the events
-    commentModalRef.instance.addCommentEvent.subscribe((event: AddCommentRequest) => {
-      this.addComment(event);
-    });
     commentModalRef.instance.closeEvent.subscribe(() => {
       this.modalContainerRef.clear();
+    });
+  }
+
+  hasBlockComments(chapterId: string, blockId: string) {
+    return this.commentService.getCommentsByBlockId(chapterId, blockId).subscribe((comments) => {
+      return comments.length > 0;
     });
   }
 
