@@ -1,3 +1,5 @@
+import { Comment } from './comment';
+
 export interface Chapter{
     id: string;
     chapterTitle: string;
@@ -5,6 +7,7 @@ export interface Chapter{
     lastModified: Date;
     bookId: string;
     published: boolean;
+    comments: Comment[];
 }
 
 export interface AddChapterRequest{
