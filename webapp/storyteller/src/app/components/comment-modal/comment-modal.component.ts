@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommentService} from "../../service/comment.service";
 import {AddCommentRequest, Comment} from "../../model/comment";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-comment-modal',
@@ -15,7 +16,7 @@ export class CommentModalComponent implements OnInit {
   @Output() addCommentEvent: EventEmitter<AddCommentRequest> = new EventEmitter<AddCommentRequest>();
   @Output() closeEvent: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private commentService: CommentService) {
+  constructor(private commentService: CommentService, private keycloakService: KeycloakService) {
   }
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class CommentModalComponent implements OnInit {
    * @param chapterId The id of the chapter which the comments belong to
    * @param blockId The id of the block which the comments belong to
    */
-  getCommentsByChapterIdAndBlockId(chapterId:string, blockId: string) {
+  getCommentsByChapterIdAndBlockId(chapterId: string, blockId: string) {
     this.commentService.getCommentsByBlockId(chapterId, blockId).subscribe({
       next: (comments) => {
         this.comments = comments;
@@ -39,7 +40,14 @@ export class CommentModalComponent implements OnInit {
         console.error(error);
       }
     });
-    }
+  }
+
+  /**
+   * Check if the user is logged in
+   */
+  isUserLoggedIn(): boolean {
+    return this.keycloakService.isLoggedIn();
+  }
 
 
   /**
@@ -58,7 +66,7 @@ export class CommentModalComponent implements OnInit {
           next: (comment) => {
             console.log(comment);
             this.commentContent = "";
-            if(this.chapterId && this.blockId){
+            if (this.chapterId && this.blockId) {
               this.getCommentsByChapterIdAndBlockId(this.chapterId, this.blockId);
             }
           },

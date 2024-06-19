@@ -20,15 +20,18 @@ close
           <p>{{ comment.content }}</p>
         </div>
       }
-      <div class="flex flex-row justify-start mt-4">
+      @if (isUserLoggedIn()){
+        <div class="flex flex-row justify-start mt-4">
         <textarea type="text" placeholder="Type your comment" [(ngModel)]="commentContent" class="w-8/12 mr-6 border border-black p-2 rounded-2xl">
         </textarea>
-        <button (click)="addComment()" class="self-end h-12">
+          <button (click)="addComment()" class="self-end h-12">
           <span class="material-symbols-outlined ">
 send
 </span>
-        </button>
-      </div>
+          </button>
+        </div>
+      }
+
 
     </div>
   </div>
