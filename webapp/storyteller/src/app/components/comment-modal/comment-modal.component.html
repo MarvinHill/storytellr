@@ -1,4 +1,4 @@
-<div class="fixed flex flex-col z-10 top-0 left-0 right-0 bottom-0 p-12">
+<div class="fixed flex flex-col z-40 top-20 left-0 right-0 bottom-0 p-12">
   <div class="bg-white rounded shadow-2xl">
     <div class="p-4">
       <div class="flex flex-row justify-between">
@@ -20,9 +20,14 @@ close
           <p>{{ comment.content }}</p>
         </div>
       }
-      <div class="flex flex-row justify-start">
-        <input type="text" placeholder="Type your comment" [(ngModel)]="commentContent" class="w-8/12 mx-6 border border-black">
-        <button (click)="addComment()">Send</button>
+      <div class="flex flex-row justify-start mt-4">
+        <textarea type="text" placeholder="Type your comment" [(ngModel)]="commentContent" class="w-8/12 mr-6 border border-black p-2 rounded-2xl">
+        </textarea>
+        <button (click)="addComment()" class="self-end h-12">
+          <span class="material-symbols-outlined ">
+send
+</span>
+        </button>
       </div>
 
     </div>

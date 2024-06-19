@@ -20,11 +20,16 @@ export class CommentModalComponent implements OnInit {
 
   ngOnInit() {
     if (this.blockId && this.chapterId) {
-      this.getCommentsByBlockId(this.chapterId, this.blockId);
+      this.getCommentsByChapterIdAndBlockId(this.chapterId, this.blockId);
     }
   }
 
-  getCommentsByBlockId(chapterId:string, blockId: string) {
+  /**
+   * Get comments by chapter id and block id
+   * @param chapterId The id of the chapter which the comments belong to
+   * @param blockId The id of the block which the comments belong to
+   */
+  getCommentsByChapterIdAndBlockId(chapterId:string, blockId: string) {
     this.commentService.getCommentsByBlockId(chapterId, blockId).subscribe({
       next: (comments) => {
         this.comments = comments;
@@ -54,7 +59,7 @@ export class CommentModalComponent implements OnInit {
             console.log(comment);
             this.commentContent = "";
             if(this.chapterId && this.blockId){
-              this.getCommentsByBlockId(this.chapterId, this.blockId);
+              this.getCommentsByChapterIdAndBlockId(this.chapterId, this.blockId);
             }
           },
           error: (error: any) => {
@@ -66,6 +71,9 @@ export class CommentModalComponent implements OnInit {
 
   }
 
+  /**
+   * Emits the close event to close the comment modal
+   */
   closeComments() {
     this.closeEvent.emit();
   }

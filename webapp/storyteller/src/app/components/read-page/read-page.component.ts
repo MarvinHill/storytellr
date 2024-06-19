@@ -2,7 +2,6 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Component,
-  ComponentFactoryResolver,
   ElementRef, Injector,
   OnInit,
   ViewChild, ViewContainerRef
@@ -14,7 +13,7 @@ import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
 import {switchMap} from "rxjs";
 import {CommentService} from "../../service/comment.service";
-import {AddCommentRequest} from "../../model/comment";
+import {Comment} from "../../model/comment";
 import {CommentModalComponent} from "../comment-modal/comment-modal.component";
 
 @Component({
@@ -181,10 +180,17 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
     });
   }
 
+  /**
+   * Check if a block has comments
+   * @param chapterId the id of the chapter containing the block
+   * @param blockId the id of the block
+   */
   hasBlockComments(chapterId: string, blockId: string) {
-    return this.commentService.getCommentsByBlockId(chapterId, blockId).subscribe((comments) => {
-      return comments.length > 0;
-    });
+    let comments: Comment[] | undefined = this.chapters.find(chapter => chapter.id === chapterId)?.comments;
+    if (comments) {
+      return comments.filter(comment => comment.blockId === blockId).length > 0;
+    }
+    return false;
   }
 
 
