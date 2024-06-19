@@ -10,6 +10,11 @@ close
         </button>
       </div>
 
+      @if (comments.length === 0){
+        <p>No comments yet</p>
+      }
+
+
       @for (comment of comments; track comment.content) {
         <div class="pt-2">
           <div class="flex flex-row">
