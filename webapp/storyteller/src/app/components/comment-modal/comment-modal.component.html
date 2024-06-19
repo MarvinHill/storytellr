@@ -1,0 +1,43 @@
+<div class="fixed flex flex-col z-40 top-20 left-0 right-0 bottom-0 p-12">
+  <div class="bg-white rounded shadow-2xl">
+    <div class="p-4">
+      <div class="flex flex-row justify-between">
+        <h2 class="text-2xl font-bold text-gray-800">Comments</h2>
+        <button (click)="closeComments()">
+          <span class="material-symbols-outlined">
+close
+</span>
+        </button>
+      </div>
+
+      @if (comments.length === 0){
+        <p>No comments yet</p>
+      }
+
+
+      @for (comment of comments; track comment.content) {
+        <div class="pt-2">
+          <div class="flex flex-row">
+            <p class="font-bold">{{ comment.authorName }}</p>
+            <p class="text-gray-600 pl-4">{{ comment.createdAt | date }}</p>
+          </div>
+
+          <p>{{ comment.content }}</p>
+        </div>
+      }
+      @if (isUserLoggedIn()){
+        <div class="flex flex-row justify-start mt-4">
+        <textarea type="text" placeholder="Type your comment" [(ngModel)]="commentContent" class="w-8/12 mr-6 border border-black p-2 rounded-2xl">
+        </textarea>
+          <button (click)="addComment()" class="self-end h-12">
+          <span class="material-symbols-outlined ">
+send
+</span>
+          </button>
+        </div>
+      }
+
+
+    </div>
+  </div>
+</div>

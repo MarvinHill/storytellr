@@ -1,17 +1,31 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef, Injector,
+  OnInit,
+  ViewChild, ViewContainerRef
+} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
-import {firstValueFrom, switchMap} from "rxjs";
-import {comment} from "postcss";
+import {switchMap} from "rxjs";
+import {CommentService} from "../../service/comment.service";
+import {Comment} from "../../model/comment";
+import {CommentModalComponent} from "../comment-modal/comment-modal.component";
 
 @Component({
   selector: 'app-read-page',
   templateUrl: './read-page.component.html',
   styleUrl: './read-page.component.scss'
 })
+
+/**
+ * ReadPageComponent is a component that displays the content of a book chapter by chapter.
+ * It allows the user to add comments to each chapter and view comments added by other users.
+ */
 export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecked {
   bookId!: string;
   book!: Book;
@@ -21,9 +35,11 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   scrolling: boolean = true;
 
   @ViewChild('chapterContainer') chapterContainer!: ElementRef;
+  @ViewChild('dynamicComponentContainer', {read: ViewContainerRef})
+  modalContainerRef!: ViewContainerRef;
 
-
-  constructor(private route: ActivatedRoute, private bookService: BookService, private chapterService: ChapterService) {
+  constructor(private route: ActivatedRoute, private bookService: BookService, private chapterService: ChapterService,
+              private commentService: CommentService, private injector: Injector,) {
   }
 
   ngOnInit() {
@@ -49,10 +65,10 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   /**
-   * Scroll to the current chapter
+   * Scrolls to the current chapter based on the current chapter number
    */
   scrollToCurrentChapter() {
-    if(!this.scrolling) {
+    if (!this.scrolling) {
       return;
     }
     let currentChapter = this.currentChapter;
@@ -62,13 +78,13 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
       return;
     }
     // If the counter is greater than the current chapter, do nothing
-    else if(this.counter > currentChapter) {
+    else if (this.counter > currentChapter) {
 
       return;
     }
     // Scroll to the current chapter
     const element = document.getElementById(this.chapters[this.currentChapter].id);
-    if(element) {
+    if (element) {
       element.scrollIntoView();
       this.scrolling = false;
     }
@@ -78,7 +94,7 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
    * Load chapters up to the current chapter
    */
   loadChaptersUpToCurrent() {
-    if(this.currentChapter == 0) {
+    if (this.currentChapter == 0) {
       this.getNextChapter();
       return;
     }
@@ -93,11 +109,14 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   }
 
+  /**
+   * Get the next chapter of the book
+   */
   getNextChapter() {
     // No more chapters
     console.log("Counter in next " + this.counter);
 
-    if(this.counter > this.book.chapterIds.length) {
+    if (this.counter > this.book.chapterIds.length) {
       console.log("No more chapters");
       return;
     }
@@ -110,6 +129,9 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
 
+  /**
+   * Observe the chapter container for intersection to dynamically load chapters
+   */
   observe(): void {
     const options = {
       root: null,
@@ -127,7 +149,49 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
     observer.observe(this.chapterContainer.nativeElement);
   }
 
+  /**
+   * Get the blocks of a chapter
+   * @param chapter the chapter which blocks should be loaded
+   */
   getBlocks(chapter: Chapter) {
     return JSON.parse(chapter.content).blocks;
   }
+
+  /**
+   * Open the comment modal to show and add comments to a block
+   * @param chapterId the id of the chapter containing the block
+   * @param blockId the id of the block
+   */
+  openCommentModal(chapterId: string, blockId: string) {
+    // Clear the container
+    this.modalContainerRef.clear();
+
+    // Create the component dynamically
+    const commentModalRef = this.modalContainerRef.createComponent(CommentModalComponent, {
+      injector: this.injector,
+    });
+
+    // Set the input properties
+    commentModalRef.instance.chapterId = chapterId;
+    commentModalRef.instance.blockId = blockId;
+
+    commentModalRef.instance.closeEvent.subscribe(() => {
+      this.modalContainerRef.clear();
+    });
+  }
+
+  /**
+   * Check if a block has comments
+   * @param chapterId the id of the chapter containing the block
+   * @param blockId the id of the block
+   */
+  hasBlockComments(chapterId: string, blockId: string) {
+    let comments: Comment[] | undefined = this.chapters.find(chapter => chapter.id === chapterId)?.comments;
+    if (comments) {
+      return comments.filter(comment => comment.blockId === blockId).length > 0;
+    }
+    return false;
+  }
+
+
 }
