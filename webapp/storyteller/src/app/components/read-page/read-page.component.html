@@ -33,6 +33,10 @@
               <app-heading [content]="block.data.text"></app-heading>
             }
 
+            @case ("poll"){
+              <app-poll></app-poll>
+            }
+
           }
 
         </div>

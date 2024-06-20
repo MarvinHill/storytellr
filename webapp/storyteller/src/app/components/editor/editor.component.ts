@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ChapterService} from "../../service/chapter.service";
 import {Chapter} from "../../model/chapter";
 import {ChapterMapperService} from "../../service/chapter-mapper.service";
+import { PollTool } from '../blocks/poll/tool/poll.tool';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class EditorComponent implements OnInit{
       holder: 'editorjs',
       placeholder: 'Let`s write an awesome story!',
       tools: {
-      header: Header
+      header: Header,
+      poll: PollTool
       },
       onChange: () => {
         setTimeout(() => {

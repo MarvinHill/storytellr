@@ -1,7 +1,7 @@
 package de.storyteller.api.v1.mapper;
 
 import de.storyteller.api.model.Chapter;
-import de.storyteller.api.service.UserService;
+import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.service.auth.KeycloakService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;

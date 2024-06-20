@@ -1,19 +1,18 @@
 package de.storyteller.api.v1.auth;
 
+import de.storyteller.api.service.poll.PollService;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.service.book.BookService;
 import de.storyteller.api.service.chapter.ChapterService;
 
-import java.text.ParseException;
+import de.storyteller.api.v1.dto.poll.PollDTO;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -26,6 +25,8 @@ public class CustomAuthorizationService {
     BookService bookService;
     ChapterService chapterService;
     AuthUtils authUtils;
+    UserService userService;
+    PollService PollService;
 
     public boolean userOwnsBook(String bookId){
       Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
@@ -87,4 +88,16 @@ public class CustomAuthorizationService {
     public boolean testLog(){
       return true;
     }
+
+  public boolean userOwnsPoll(String pollId) {
+      try {
+        String userId = userService.getCurrentUser();
+        PollDTO pollDTO = PollService.getPoll(pollId);
+        return pollDTO.getOwner().equals(userId);
+      }
+      catch (RuntimeException e){
+        return false;
+      }
+
+  }
 }

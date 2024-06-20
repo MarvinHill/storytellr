@@ -1,7 +1,7 @@
 package de.storyteller.api.v1.mapper;
 
 import de.storyteller.api.model.Comment;
-import de.storyteller.api.service.UserService;
+import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.service.auth.KeycloakService;
 import de.storyteller.api.v1.dto.comment.AddCommentRequest;
 import de.storyteller.api.v1.dto.comment.CommentDTO;
@@ -24,7 +24,7 @@ public class CommentMapper {
     public Comment toComment(AddCommentRequest addCommentRequest) {
         Comment comment = new Comment();
         comment.setContent(addCommentRequest.getContent());
-        comment.setAuthorId(userService.getUserId());
+        comment.setAuthorId(userService.getCurrentUser());
         comment.setAuthorName(keycloakService.getUsername(comment.getAuthorId()));
         comment.setChapterId(addCommentRequest.getChapterId());
         comment.setBlockId(addCommentRequest.getBlockId());
