@@ -10,26 +10,31 @@ import de.storyteller.api.v1.dto.poll.PollDTO;
 import de.storyteller.api.v1.dto.poll.PollOptionDTO;
 import de.storyteller.api.v1.dto.poll.UpdatePollOptionRequest;
 import de.storyteller.api.v1.dto.poll.UpdatePollRequest;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;
 
 /**
  * Mapper for the entity Poll and its DTO PollDTO.
  */
-@RequiredArgsConstructor
+
 @Component
 @Mapper(componentModel = "spring")
 public abstract class PollMapper {
-
-  private final UserService userService;
-  private final PollRepository pollRepository;
+  @Autowired
+  protected UserService userService;
+  @Autowired
+  protected PollRepository pollRepository;
+  @Autowired
+  protected MappingUtils mappingUtils;
 
 
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "owner", expression = "java(userService.getUserId())")
+  @Mapping(target = "owner", expression = "java(userService.getCurrentUser())")
   @Mapping(target = "question", constant = "CHANGE ME")
   @Mapping(target = "options", ignore = true)
   public abstract Poll toPoll(CreatePollRequest createRequest);
@@ -46,7 +51,12 @@ public abstract class PollMapper {
   public abstract PollOptionDTO toPollOptionDTO(PollOption pollOption);
 
   @Mapping(target = "pollOptionId", ignore = true)
+  @Mapping(target = "content", constant = "")
+  @Mapping(target = "voteCount", constant = "0l")
   public abstract PollOption toPollOption(CreatePollOptionRequest createPollOptionRequest);
 
+  @Mapping(target = "voteCount", expression = "java(mappingUtils.getPollOption(updatePollOptionRequest).getVoteCount())")
   public abstract PollOption toPollOption(UpdatePollOptionRequest updatePollOptionRequest);
+
+
 }

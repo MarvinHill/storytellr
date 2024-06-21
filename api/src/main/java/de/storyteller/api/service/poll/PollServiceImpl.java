@@ -4,8 +4,6 @@ import de.storyteller.api.model.Poll;
 import de.storyteller.api.model.PollOption;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.PollRepository;
-import de.storyteller.api.v1.auth.UserService;
-import de.storyteller.api.v1.auth.CustomAuthorizationService;
 import de.storyteller.api.v1.dto.poll.CreatePollOptionRequest;
 import de.storyteller.api.v1.dto.poll.CreatePollRequest;
 import de.storyteller.api.v1.dto.poll.DeletePollOptionRequest;
@@ -24,11 +22,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PollServiceImpl implements PollService {
 
-  private final UserService userService;
   private final BookRepository bookRepository;
   private final PollRepository pollRepository;
   private final PollMapper pollMapper;
-  private final CustomAuthorizationService customAuthorizationService;
 
   @Override
   public PollDTO createPoll(CreatePollRequest createRequest) {
