@@ -125,10 +125,17 @@ export class BookDetailComponent implements OnInit{
       next: (resp: number) => {
         let totalChapters = this.book.chapterIds.length;
         this.readChapter = resp;
+        if(totalChapters === 0) {
+          this.progress = 0;
+          return;
+        }
         this.progress = Math.round((this.readChapter / totalChapters) * 100);
         // If progress is Nan, set it to 0
-        if(isNaN(this.progress)) {
+        if(isNaN(this.progress) || this.progress === Infinity || !this.progress ) {
           this.progress = 0;
+        }
+        else if(this.progress > 100) {
+          this.progress = 100;
         }
       },
       error: (error: any) => {
