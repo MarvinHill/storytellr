@@ -8,6 +8,10 @@ import { AccessService } from '../../service/access.service';
   templateUrl: './book-display.component.html',
   styleUrl: './book-display.component.scss'
 })
+
+/**
+ * Component to display a book in Discovery page
+ */
 export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
 
@@ -38,10 +42,17 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
   }
 
+  /**
+   * Emit the image element to the parent component
+   * @param image HTMLImageElement to be emitted
+   */
   reemitImageElement(image : HTMLImageElement){
     this.imageLoaded.emit(image);
   }
 
+  /**
+   * Open the book details page
+   */
   async openBookDetails(){
     if(this.book == null || this.book == undefined){
       console.log("book is null or undefined");
@@ -58,6 +69,9 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
   }
 
+  /**
+   * Set the size of the book container
+   */
   recSize(){
 
     if(this.wrapper == undefined || this.element == undefined) return;
