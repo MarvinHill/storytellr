@@ -9,24 +9,25 @@
             @case ("paragraph") {
               <app-paragraph [content]="block.data.text" class="shrink grow"></app-paragraph>
 
-
-
-              @if (hasBlockComments(chapter.id, block.id)) {
-                <button class="bg-white rounded-3xl aspect-square size-12 flex-none my-7 drop-shadow-md flex"
-                        (click)="openCommentModal(chapter.id, block.id)">
+              @if (!book.commentsDeactivated){
+                @if (hasBlockComments(chapter.id, block.id)) {
+                  <button class="bg-white rounded-3xl aspect-square size-12 flex-none my-7 drop-shadow-md flex"
+                          (click)="openCommentModal(chapter.id, block.id)">
                   <span class="material-symbols-outlined m-auto">
                     chat
                   </span>
-                </button>
-              } @else {
+                  </button>
+                } @else {
 
-                <button class="invisible bg-white rounded-3xl aspect-square size-12 flex-none my-7 drop-shadow-md flex group-hover:visible"
-                        (click)="openCommentModal(chapter.id, block.id)">
+                  <button class="invisible bg-white rounded-3xl aspect-square size-12 flex-none my-7 drop-shadow-md flex group-hover:visible"
+                          (click)="openCommentModal(chapter.id, block.id)">
                   <span class="material-symbols-outlined m-auto">
                     add_comment
                   </span>
-                </button>
+                  </button>
+                }
               }
+
 
             }
             @case ("header") {
