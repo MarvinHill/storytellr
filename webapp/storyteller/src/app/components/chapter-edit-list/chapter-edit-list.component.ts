@@ -10,7 +10,7 @@ import {firstValueFrom} from "rxjs";
   templateUrl: './chapter-edit-list.component.html',
   styleUrl: './chapter-edit-list.component.scss'
 })
-export class ChapterEditListComponent implements OnInit{
+export class ChapterEditListComponent implements OnInit {
   @Input() book!: Book;
   chapters: Chapter[] = [];
 
@@ -20,37 +20,48 @@ export class ChapterEditListComponent implements OnInit{
   ngOnInit() {
     this.getChapters();
   }
-    async getChapters() {
-        for (let chapterId of this.book.chapterIds) {
-            console.log(chapterId);
-            const chapter = await firstValueFrom(this.chapterService.getChapterById(chapterId));
-            this.chapters.push(chapter);
-        }
+
+  /**
+   * Gets all chapters of the book
+   */
+  async getChapters() {
+    for (let chapterId of this.book.chapterIds) {
+      console.log(chapterId);
+      const chapter = await firstValueFrom(this.chapterService.getChapterById(chapterId));
+      this.chapters.push(chapter);
     }
+  }
 
 
+  /**
+   * Adds a new chapter to the book
+   */
   addChapter() {
     const chapter: AddChapterRequest = {
-        chapterTitle: 'New Chapter',
-        content: '',
-        lastModified: new Date(),
-        bookId: this.book.id,
-        published: false
-        };
+      chapterTitle: 'New Chapter',
+      content: '',
+      lastModified: new Date(),
+      bookId: this.book.id,
+      published: false
+    };
 
     this.chapterService.addChapter(chapter).subscribe({
-        next: (resp: Chapter) => {
-            this.router.navigate(['/editor'], {queryParams: {chapterId: resp.id}});
+      next: (resp: Chapter) => {
+        this.router.navigate(['/editor'], {queryParams: {chapterId: resp.id}});
 
-        },
-        error: (error: any) => {
-            console.error(error.message);
-        }
-        });
+      },
+      error: (error: any) => {
+        console.error(error.message);
+      }
+    });
 
-    }
+  }
 
-    updateChapterContent(chapter: Chapter) {
-      this.router.navigate(['/editor'], {queryParams: {chapterId: chapter.id}});
-    }
+  /**
+   * Navigates to the editor to update the content of the chapter
+   * @param chapter the chapter to update
+   */
+  updateChapterContent(chapter: Chapter) {
+    this.router.navigate(['/editor'], {queryParams: {chapterId: chapter.id}});
+  }
 }

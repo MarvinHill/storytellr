@@ -9,6 +9,10 @@ import {ChapterMapperService} from "../../service/chapter-mapper.service";
   templateUrl: './chapter-edit.component.html',
   styleUrl: './chapter-edit.component.scss'
 })
+
+/**
+ * Component for editing a chapter
+ */
 export class ChapterEditComponent implements OnInit{
   chapterId!: string;
   chapter!: Chapter;
@@ -30,6 +34,9 @@ export class ChapterEditComponent implements OnInit{
     });
   }
 
+  /**
+   * Updates the title of the chapter
+   */
   updateChapterTitle() {
     this.chapter.lastModified = new Date();
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
@@ -43,6 +50,10 @@ export class ChapterEditComponent implements OnInit{
     });
   }
 
+  /**
+   * Updates the content of the chapter
+   * @param event the content of the chapter
+   */
   updateContent(event: any) {
     this.saved = false;
     this.saving = true;
@@ -67,6 +78,9 @@ export class ChapterEditComponent implements OnInit{
     });
   }
 
+  /**
+   * Publishes the chapter to be visible to the public
+   */
   publishChapter() {
     this.chapter.published = true;
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
@@ -80,6 +94,9 @@ export class ChapterEditComponent implements OnInit{
     });
   }
 
+  /**
+   * Unpublishes the chapter to be hidden from the public
+   */
   unpublishChapter() {
     this.chapter.published = false;
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
@@ -93,6 +110,9 @@ export class ChapterEditComponent implements OnInit{
     });
   }
 
+  /**
+   * Closes the editor and navigates back to the edit details page
+   */
   closeEditor() {
     this.router.navigate(['/edit-details'], {queryParams: {bookId: this.chapter.bookId}});
   }
