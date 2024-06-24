@@ -20,6 +20,9 @@ export class EditorComponent implements OnInit{
   constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
   }
 
+  /**
+   * Initialize the editor with the header tool and render the content of the chapter
+   */
   ngOnInit() {
     this.editor = new EditorJS({
       holder: 'editorjs',
@@ -39,6 +42,9 @@ export class EditorComponent implements OnInit{
     });
   }
 
+  /**
+   * Save the content of the editor and emit the content to the parent component
+   */
   async saveContent() {
       const savedData = await this.editor.save();
       this.contentEmitter.emit(JSON.stringify(savedData));
