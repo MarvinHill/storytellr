@@ -13,6 +13,10 @@ import { CoverService } from '../../service/cover.service';
   templateUrl: './edit-details.component.html',
   styleUrl: './edit-details.component.scss'
 })
+
+/**
+ * Component for editing the details of a book
+ */
 export class EditDetailsComponent implements OnInit{
   book!: Book;
   bookId!: string;

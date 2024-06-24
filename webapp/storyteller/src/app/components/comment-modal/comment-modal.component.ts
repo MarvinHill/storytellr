@@ -8,6 +8,10 @@ import {KeycloakService} from "keycloak-angular";
   templateUrl: './comment-modal.component.html',
   styleUrl: './comment-modal.component.scss'
 })
+
+/**
+ * Component to display the comments of a chapter
+ */
 export class CommentModalComponent implements OnInit {
   @Input() blockId?: string;
   @Input() chapterId?: string;

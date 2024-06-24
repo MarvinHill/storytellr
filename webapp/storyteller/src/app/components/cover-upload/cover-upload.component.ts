@@ -8,6 +8,10 @@ import { CoverURI } from '../../model/cover';
   templateUrl: './cover-upload.component.html',
   styleUrls: ['./cover-upload.component.css']
 })
+
+/**
+ * Component to upload a cover image for a book
+ */
 export class CoverUploadComponent implements OnInit {
 
   @Input() public bookId : string = '';

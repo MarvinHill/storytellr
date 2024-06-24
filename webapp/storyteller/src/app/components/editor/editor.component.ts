@@ -12,6 +12,10 @@ import {ChapterMapperService} from "../../service/chapter-mapper.service";
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss',
 })
+
+/**
+ * Component for editing a chapter
+ */
 export class EditorComponent implements OnInit{
   editor: any;
   @Input() chapter!: Chapter;

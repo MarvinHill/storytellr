@@ -10,6 +10,10 @@ import {firstValueFrom} from "rxjs";
   templateUrl: './chapter-edit-list.component.html',
   styleUrl: './chapter-edit-list.component.scss'
 })
+
+/**
+ * Component to display the list of chapters of a book
+ */
 export class ChapterEditListComponent implements OnInit {
   @Input() book!: Book;
   chapters: Chapter[] = [];

@@ -7,6 +7,10 @@ import { CoverURI } from '../../model/cover';
   templateUrl: './lazy-image.component.html',
   styleUrl: './lazy-image.component.scss',
 })
+
+/**
+ * Component to display an image with lazy loading
+ */
 export class LazyImageComponent {
 
   @Output() imageLoaded = new EventEmitter();

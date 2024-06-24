@@ -11,6 +11,10 @@ import {LibraryService} from "../../service/library.service";
     templateUrl: './discovery-page.component.html',
     styleUrl: './discovery-page.component.scss'
 })
+
+/**
+ * Component for the discovery page
+ */
 export class DiscoveryPageComponent implements OnInit {
     books: Book[] | null = null;
     genres: Genre[] = [];
