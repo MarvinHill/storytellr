@@ -36,7 +36,7 @@ export class WriteOverviewComponent implements OnInit {
    * Get the genre
    */
   getGenre(){
-    this.genreService.getGenres().subscribe((genres) => {
+    this.genreService.getAllGenres().subscribe((genres) => {
       this.genre =  genres[0];
     });
   }
