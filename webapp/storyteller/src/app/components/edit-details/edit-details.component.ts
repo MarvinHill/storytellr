@@ -37,16 +37,27 @@ export class EditDetailsComponent implements OnInit{
     this.getGenres();
   }
 
+  /**
+   * Opens the cover upload dialog.
+   */
   openCoverUpload() {
       this.coverService.show()
   }
 
+  /**
+   * Updates the cover of the book.
+   * @param url The new cover URI.
+   */
   updateCover(url : CoverURI) {
     console.log("updateCoverEvent",url);
     this.book.cover = url;
   }
 
 
+  /**
+   * Gets the book by its id.
+   * @param bookId The id of the book.
+   */
   getBookById(bookId: string) {
     this.bookService.getBookById(bookId).subscribe({
       next: (resp: Book) => {
@@ -61,6 +72,9 @@ export class EditDetailsComponent implements OnInit{
   }
 
 
+  /**
+   * Updates the title of the book.
+   */
   updateTitle() {
     if(this.book.title.trim() == "" || this.book.title == null ) {
       this.showErrorTitle = true;
@@ -81,6 +95,9 @@ export class EditDetailsComponent implements OnInit{
 
   }
 
+  /**
+   * Updates the description of the book.
+   */
   updateDescription() {
     if(this.book.description.trim() == "" || this.book.description == null ) {
       this.showErrorDescription = true;
@@ -100,6 +117,9 @@ export class EditDetailsComponent implements OnInit{
     });
   }
 
+  /**
+   * Updates the catchphrase of the book.
+   */
   updateCatchphrase() {
     this.catchphraseEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
@@ -114,6 +134,9 @@ export class EditDetailsComponent implements OnInit{
     });
   }
 
+  /**
+   * Gets all genres.
+   */
   getGenres() {
     this.genreService.getAllGenres().subscribe({
       next: (resp: Genre[]) => {
@@ -126,6 +149,9 @@ export class EditDetailsComponent implements OnInit{
     });
   }
 
+  /**
+   * Updates the genre of the book.
+   */
   updateGenre() {
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
@@ -139,10 +165,17 @@ export class EditDetailsComponent implements OnInit{
     });
   }
 
+  /**
+   * Gets the tags from the input.
+   * @param tags The tags as a string.
+   */
   getTagsFromInput(tags: string) : string[] {
     return tags.split(" ").map(tag => tag.trim());
   }
 
+  /**
+   * Updates the tags of the book.
+   */
   updateTags() {
     this.tagsEdit = false;
     this.book.tags = this.getTagsFromInput(this.newTags);
