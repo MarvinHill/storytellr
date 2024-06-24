@@ -2,24 +2,18 @@ package de.storyteller.api.service.auth;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.util.IOUtils;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.text.MessageFormat;
 import java.util.Base64;
-import javax.print.attribute.standard.Media;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+/**
+ * This class is an implementation of the TokenService. It caches the token for a certain amount of time.
+ */
 @Slf4j
 @Service
 public class InMemoryTokenService implements TokenService {
@@ -36,6 +30,10 @@ public class InMemoryTokenService implements TokenService {
   String KEYCLOAK_ISSUER_URL;
 
 
+  /**
+   * This method sets the token to the given value.
+   * @param token the token to set
+   */
   @Override
   public void setToken(String token) {
     synchronized (this){
@@ -43,6 +41,10 @@ public class InMemoryTokenService implements TokenService {
     }
   }
 
+  /**
+   * This method returns the token. If the token is expired, it will renew it.
+   * @return the token
+   */
   @Override
   public String getToken() {
     synchronized (this){
@@ -51,6 +53,9 @@ public class InMemoryTokenService implements TokenService {
     }
   }
 
+  /**
+   * This method renews the token.
+   */
   @Override
   public void renewToken() {
     synchronized (this){
