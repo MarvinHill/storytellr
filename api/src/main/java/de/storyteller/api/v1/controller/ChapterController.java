@@ -30,12 +30,22 @@ public class ChapterController {
         return ResponseEntity.ok(chapterService.getAllChapters());
     }
 
+    /**
+     * Get all chapters of a book
+     * @param bookId Id of the book
+     * @return List of all chapters of the book
+     */
     @PreAuthorize("isAuthenticated() && (@sAuthService.userOwnsBook(#bookId) || @sAuthService.isAdmin())")
     @GetMapping("/all/{bookId}")
     public ResponseEntity<?> getChaptersByBookId(@PathVariable String bookId){
         return ResponseEntity.ok(chapterService.getChaptersByBookId(bookId));
     }
 
+    /**
+     * Get all published chapters of a book
+     * @param bookId Id of the book
+     * @return List of all published chapters of the book
+     */
     @PreAuthorize("permitAll()")
     @GetMapping("/{bookId}/published")
     public ResponseEntity<?> getPublishedChaptersByBookId(@PathVariable String bookId){
@@ -77,6 +87,12 @@ public class ChapterController {
 
 
 
+    /**
+     * Get the first n published chapters of a book
+     * @param bookId Id of the book
+     * @param count Number of chapters to get
+     * @return List of the first n published chapters of the book
+     */
     @PreAuthorize("permitAll()")
     @GetMapping("/{bookId}/published/{count}")
     public ResponseEntity<?> getFirstNPublishedChapters(@PathVariable String bookId, @PathVariable int count){
