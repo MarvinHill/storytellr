@@ -19,9 +19,11 @@ export class EditorComponent implements OnInit{
   @Output() contentEmitter = new EventEmitter<string>();
 
   constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
+
   }
 
   ngOnInit() {
+
     this.editor = new EditorJS({
       holder: 'editorjs',
       placeholder: 'Let`s write an awesome story!',
@@ -36,7 +38,9 @@ export class EditorComponent implements OnInit{
       }
     });
     this.editor.isReady.then(() => {
+      console.log(this.chapter.content)
       const chapterContent = JSON.parse(this.chapter.content);
+      console.log("Chapter content as json:" + JSON.stringify(chapterContent))
       this.editor.render(chapterContent);
     });
   }

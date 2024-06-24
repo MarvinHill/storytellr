@@ -1,4 +1,5 @@
 import {Poll, PollOption} from "../../../../model/poll";
+import {isEmpty} from "rxjs";
 
 export class PollTool {
   static get toolbox() {
@@ -9,20 +10,25 @@ export class PollTool {
     };
   }
 
-  constructor(data : {poll : Poll}) {
+  // @ts-ignore
+  constructor({api, data}) {
+    console.log("API", api);
     console.log("Data", data);
-    if (data) {
-      this.poll = data.poll;
-    }
+    this.poll = data;
+    this.api = api;
   }
 
   poll : Poll | undefined;
+  api : any
   element : HTMLElement | undefined;
 
   render() {
+    if(this.poll === undefined || this.poll.id === undefined ) {
+      this.poll = {owner:"", question:"NEW QUESTION1", options:[], id:""} as Poll;
+    }
 
-    if(this.poll === undefined) {
-      this.poll = {owner:"", question:"NEW QUESTION", options:[], id:""} as Poll;
+    if(this.poll.options == undefined){
+      this.poll.options = [];
     }
 
     this.element = document.createElement("div")
@@ -42,6 +48,14 @@ export class PollTool {
     </div>
     `
     console.log("Poll", this.poll);
+
+    // for (const pollOption of this.poll.options) {
+    //   this.addExistingOption(pollOption);
+    //   stop
+    // }
+
+    this.addExistingOption(this.poll.options);
+
     const questionInput : HTMLInputElement | null = this.element.querySelector("#questionInput");
     if(questionInput){
       questionInput.value = this.poll.question;
@@ -89,6 +103,10 @@ export class PollTool {
         newEl.remove();
         if(this.poll){
           this.poll.options = this.poll.options.filter(opt => opt.id !== option.id);
+          const index = this.api.blocks.getCurrentBlockIndex()
+          this.api.blocks.insert("paragraph", {text: " "}, {}, index + 1, false);
+          this.api.blocks.delete(index + 1);
+          console.log(this.poll.options);
         }
       });
     }
@@ -97,14 +115,29 @@ export class PollTool {
 
   addNewOption() {
     console.log("Editor: Add new Option")
-    let pollOption : PollOption = {content: "New Option", voteCount: 0, id: "REPLACE"} as PollOption;
+    let pollOption : PollOption = {content: "New Option", voteCount: 0, id: `REPLACE${Math.floor(Math.random() * 100000)}`} as PollOption;
     this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
     this.poll?.options.push(pollOption)
     console.log("Poll", this.poll)
   }
 
+  addExistingOption(options : PollOption[]) {
+    // console.log("Editor: Add existing Option")
+    // let pollOption : PollOption = {content: option.content, voteCount: option.voteCount, id: option.id} as PollOption;
+    // this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
+    // console.log("Poll", this.poll)
+    if(options.length == 0){
+      return;
+    }
+    for(let pollOption of options){
+      this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
+
+    }
+    console.log("Existing options was called")
+  }
+
   save(blockContent: any) {
-    return { poll: this.poll}
+    return this.poll
   }
 
 }

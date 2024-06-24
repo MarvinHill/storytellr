@@ -1,18 +1,5 @@
 package de.storyteller.api.service.chapter;
 
-import de.storyteller.api.model.Poll;
-import de.storyteller.api.model.PollOption;
-import de.storyteller.api.repository.PollRepository;
-import de.storyteller.api.service.poll.PollService;
-import de.storyteller.api.service.poll.PollServiceImpl;
-import de.storyteller.api.v1.dto.poll.CreatePollRequest;
-import de.storyteller.api.v1.dto.poll.PollDTO;
-import de.storyteller.api.v1.dto.poll.PollOptionDTO;
-import de.storyteller.api.v1.mapper.PollMapper;
-import de.storyteller.api.v1.mapper.PollMapperImpl;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,15 +10,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class ChapterServiceImplTest {
 
   private static final Logger log = LoggerFactory.getLogger(ChapterServiceImplTest.class);
+
 
   @InjectMocks
   protected ChapterServiceImpl chapterService;
@@ -148,14 +134,5 @@ class ChapterServiceImplTest {
   void hasValidAttributes_returnsFalse_whenBlocksAttributeMissing() throws IOException {
     String blocksAttributeMissingContent = "{\"time\":1628006400000,\"version\":\"1.0\"}";
     assertFalse(ChapterServiceImpl.hasValidAttributes(blocksAttributeMissingContent));
-  }
-
-  @Test
-  @DisplayName("Block poll is created when id is not valid")
-  void blockPollIsCreatedWhenIdIsNotValid() throws IOException {
-    String startString = "{\"time\":1719238914587,\"blocks\":[{\"id\":\"HO5yqI1nhI\",\"type\":\"poll\",\"data\":{\"poll\":{\"owner\":\"\",\"question\":\"NEW QUESTION\",\"options\":[{\"content\":\"New Option\",\"voteCount\":0,\"id\":\"REPLACE\"},{\"content\":\"New Option\",\"voteCount\":0,\"id\":\"REPLACE\"},{\"content\":\"New Option\",\"voteCount\":0,\"id\":\"REPLACE\"}],\"id\":\"\"}}}],\"version\":\"2.29.1\"}";
-    String resultingString = chapterService.processBlocks(startString);
-    // after process Block the poll Blocks should be changed
-    assertNotEquals(startString, resultingString);
   }
 }

@@ -13,7 +13,7 @@ export class PollComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("Poll", this.poll);
+    console.log("Poll Input", this.poll);
   }
 
   calculateProgress( option: PollOption | undefined): number {

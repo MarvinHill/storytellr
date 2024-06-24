@@ -25,6 +25,7 @@ export class ChapterEditComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.chapterId = params['chapterId'];
       this.chapterService.getChapterById(this.chapterId).subscribe((chapter: Chapter) => {
+        console.log(chapter)
         this.chapter = chapter;
       });
     });
