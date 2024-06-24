@@ -12,6 +12,10 @@ import {ChapterMapperService} from "../../service/chapter-mapper.service";
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss',
 })
+
+/**
+ * Component for editing a chapter
+ */
 export class EditorComponent implements OnInit{
   editor: any;
   @Input() chapter!: Chapter;
@@ -20,6 +24,9 @@ export class EditorComponent implements OnInit{
   constructor(private route: ActivatedRoute, private chapterService: ChapterService, private chapterMapperService: ChapterMapperService) {
   }
 
+  /**
+   * Initialize the editor with the header tool and render the content of the chapter
+   */
   ngOnInit() {
     this.editor = new EditorJS({
       holder: 'editorjs',
@@ -39,6 +46,9 @@ export class EditorComponent implements OnInit{
     });
   }
 
+  /**
+   * Save the content of the editor and emit the content to the parent component
+   */
   async saveContent() {
       const savedData = await this.editor.save();
       this.contentEmitter.emit(JSON.stringify(savedData));

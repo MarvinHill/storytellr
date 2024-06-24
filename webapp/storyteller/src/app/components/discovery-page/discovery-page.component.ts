@@ -11,6 +11,10 @@ import {LibraryService} from "../../service/library.service";
     templateUrl: './discovery-page.component.html',
     styleUrl: './discovery-page.component.scss'
 })
+
+/**
+ * Component for the discovery page
+ */
 export class DiscoveryPageComponent implements OnInit {
     books: Book[] | null = null;
     genres: Genre[] = [];
@@ -47,11 +51,18 @@ export class DiscoveryPageComponent implements OnInit {
 
     }
 
+    /**
+     * Gets the next page of books to be displayed.
+     * @param pageNumber The page number to be displayed.
+     */
     pageChanged(pageNumber : number){
         const start_index = (pageNumber - 1) * this.pageSize;
         this.displayedBooks = this.mostLikedBooks.slice(start_index, start_index + this.pageSize);
     }
 
+    /**
+     * Calculates the number of pages needed to display all the books.
+     */
     calculatePageCount(){
         return Math.ceil(this.mostLikedBooks?.length / this.pageSize);
     }

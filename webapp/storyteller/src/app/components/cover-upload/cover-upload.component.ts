@@ -8,6 +8,10 @@ import { CoverURI } from '../../model/cover';
   templateUrl: './cover-upload.component.html',
   styleUrls: ['./cover-upload.component.css']
 })
+
+/**
+ * Component to upload a cover image for a book
+ */
 export class CoverUploadComponent implements OnInit {
 
   @Input() public bookId : string = '';
@@ -33,6 +37,11 @@ export class CoverUploadComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Updates the URL subject with the preview of the file.
+   * @param file The file to be previewed.
+   * @private
+   */
   private updateURL(file : File | null) {
     if(file == null || file == undefined) {
       console.log("file is", file);
@@ -80,6 +89,10 @@ export class CoverUploadComponent implements OnInit {
     this.previewLoaded = false;
   }
 
+  /**
+   * Checks if the image is too small and sets the imageIsToSmall flag accordingly.
+   * @param file The file to be checked.
+   */
   async checkImageSize(file : File) : Promise<boolean> {
     let img = new Image();
 
@@ -97,6 +110,10 @@ export class CoverUploadComponent implements OnInit {
     return promise;
   }
 
+  /**
+   * Checks if the file is too big and sets the fileIsToBig flag accordingly.
+   * @param file The file to be checked.
+   */
   async checkFileIsToBig(file : File) : Promise<boolean>{
     file.size > 10_000_000 ? this.fileIsToBig = true : this.fileIsToBig = false;
     if(this.fileIsToBig) this.file.next(null);

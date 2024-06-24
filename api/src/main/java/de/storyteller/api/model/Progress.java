@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Model class to save the progress of a user in a book
+ */
 @Document(collection = "library")
 @Data
 @NoArgsConstructor

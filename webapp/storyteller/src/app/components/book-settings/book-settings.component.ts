@@ -11,6 +11,10 @@ import {BookMapperService} from "../../service/book-mapper.service";
   templateUrl: './book-settings.component.html',
   styleUrl: './book-settings.component.scss'
 })
+
+/**
+ * Component to display the settings of a book
+ */
 export class BookSettingsComponent implements OnInit, AfterContentInit{
   settingsForm!: FormGroup;
   @Input() book!: Book;
@@ -30,6 +34,9 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
     this.settingsForm.get('commentsDeactivated')?.setValue(this.book.commentsDeactivated);
   }
 
+  /**
+   * Update the public status of the book
+   */
   updatePublic() {
     this.book.public = this.settingsForm.get('public')?.value;
     this.bookMapperService.toEditBookRequest(this.book);
@@ -44,6 +51,9 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
     });
   }
 
+  /**
+   * Update the adult content status of the book
+   */
   updateAdultContent() {
     this.book.adultContent = this.settingsForm.get('adultContent')?.value;
     this.bookMapperService.toEditBookRequest(this.book);
@@ -58,6 +68,9 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
     });
   }
 
+  /**
+   * Update the finished status of the book
+   */
   updateFinished() {
     this.book.finished = this.settingsForm.get('finished')?.value;
     this.bookMapperService.toEditBookRequest(this.book);
@@ -72,6 +85,9 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
     });
   }
 
+  /**
+   * Update the comments deactivated status of the book
+   */
   updateCommentsDeactivated() {
     this.book.commentsDeactivated = this.settingsForm.get('commentsDeactivated')?.value;
     this.bookMapperService.toEditBookRequest(this.book);

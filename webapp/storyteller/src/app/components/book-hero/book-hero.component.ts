@@ -10,6 +10,10 @@ import { AccessService } from '../../service/access.service';
   templateUrl: './book-hero.component.html',
   styleUrl: './book-hero.component.scss'
 })
+
+/**
+ * Component to display a book in Hero section
+ */
 export class BookHeroComponent implements AfterViewInit {
 
   @Input() book: Book | undefined;
@@ -40,6 +44,10 @@ export class BookHeroComponent implements AfterViewInit {
     }
   }
 
+  /**
+   * Update the primary and secondary colors of the book for the background
+   * @param img HTMLImageElement to extract colors from
+   */
   async updateColors(img : HTMLImageElement){
 
     if(img == null) return;
@@ -54,6 +62,9 @@ export class BookHeroComponent implements AfterViewInit {
     console.log("secondary color", this.secondaryColor)
   }
 
+  /**
+   * Open the book details page
+   */
   openBookDetails(){
     if(this.book == null || this.book == undefined) return;
     this.access.toBookDetailsPage(this.book);

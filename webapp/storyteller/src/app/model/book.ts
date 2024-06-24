@@ -1,5 +1,8 @@
 import { CoverURI } from "./cover";
 
+/**
+ * Book model class
+ */
 export interface Book {
   id: string;
   title: string;

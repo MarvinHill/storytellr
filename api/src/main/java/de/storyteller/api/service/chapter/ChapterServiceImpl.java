@@ -22,6 +22,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of the ChapterService
+ */
 @RequiredArgsConstructor
 @Service
 public class ChapterServiceImpl implements ChapterService {
@@ -30,6 +33,11 @@ public class ChapterServiceImpl implements ChapterService {
     private final ChapterMapper chapterMapper;
     static ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * Create a chapter
+     * @param chapter the chapter to create
+     * @return the created chapter as a ChapterDTO
+     */
     @Override
     public ChapterDTO createChapter(AddChapterRequest chapter) {
         if (!bookRepository.existsById(chapter.getBookId())) {
@@ -42,12 +50,22 @@ public class ChapterServiceImpl implements ChapterService {
         return savedChapter;
     }
 
+    /**
+     * Get a chapter by its id
+     * @param chapterId the id of the chapter
+     * @return the chapter with the given id as a ChapterDTO
+     */
     @Override
     public Optional<ChapterDTO> getChapterById(String chapterId) {
         Optional<Chapter> chapterOptional = chapterRepository.findById(chapterId);
         return chapterOptional.isPresent() ? Optional.of(chapterMapper.toChapterDTO(chapterOptional.get())) : Optional.empty();
     }
 
+    /**
+     * Update a chapter
+     * @param chapter the chapter to update
+     * @return the updated chapter as a ChapterDTO
+     */
     @Override
     public ChapterDTO updateChapter(EditChapterRequest chapter) {
         if (!chapterRepository.existsById(chapter.getId())) {
@@ -61,11 +79,13 @@ public class ChapterServiceImpl implements ChapterService {
         } catch (IOException e) {
             throw new RuntimeException("Chapter content is not valid JSON");
         }
-
-
         return chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
     }
 
+    /**
+     * Get all chapters
+     * @return a list of all chapters as ChapterDTOs
+     */
     @Override
     public List<ChapterDTO> getAllChapters() {
         List<Chapter> chapters = chapterRepository.findAll();
@@ -74,6 +94,11 @@ public class ChapterServiceImpl implements ChapterService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get all chapters of a book
+     * @param bookId the id of the book
+     * @return a list of all chapters of the book as ChapterDTOs
+     */
     @Override
     public List<ChapterDTO> getChaptersByBookId(String bookId) {
         Optional<Book> book = bookRepository.findById(bookId);
@@ -87,6 +112,11 @@ public class ChapterServiceImpl implements ChapterService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get all published chapters of a book
+     * @param bookId the id of the book
+     * @return a list of all published chapters of the book as ChapterDTOs
+     */
     @Override
     public List<ChapterDTO> getPublishedChaptersByBookId(String bookId) {
         Optional<Book> book = bookRepository.findById(bookId);
@@ -106,6 +136,12 @@ public class ChapterServiceImpl implements ChapterService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get the first n published chapters of a book
+     * @param bookId the id of the book
+     * @param count the number of chapters to get
+     * @return a list of the first n published chapters of the book as ChapterDTOs
+     */
     @Override
     public List<ChapterDTO> getFirstNPublishedChapters(String bookId, int count) {
         Optional<Book> book = bookRepository.findById(bookId);
@@ -127,6 +163,11 @@ public class ChapterServiceImpl implements ChapterService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Check if a given string is a valid JSON
+     * @param chapterContent the string to check
+     * @return true if the string is a valid JSON, false otherwise
+     */
     public static boolean isValidJSON(String chapterContent) {
         boolean valid = true;
         if (chapterContent == null || chapterContent.isEmpty()) {
@@ -140,6 +181,12 @@ public class ChapterServiceImpl implements ChapterService {
         return valid;
     }
 
+    /**
+     * Check if a given string is a valid chapter content
+     * @param chapterContent the string to check
+     * @return true if the string is a valid chapter content, false otherwise
+     * @throws IOException if the string is not a valid JSON
+     */
     public static boolean isValidChapterContent(String chapterContent) throws IOException {
 
         if (!isValidJSON(chapterContent)) {
@@ -149,9 +196,15 @@ public class ChapterServiceImpl implements ChapterService {
         } else if (!isValidChapterType(chapterContent)) {
             return false;
         }
-        return isValidChapterId(chapterContent);
+        return isValidBlockId(chapterContent);
     }
 
+    /**
+     * Check if a given string has a valid block type
+     * @param chapterContent the string to check
+     * @return true if the string has a valid block type, false otherwise
+     * @throws IOException if the string is not a valid JSON
+     */
     public static boolean isValidChapterType(final String chapterContent) throws IOException {
         boolean valid = true;
         JsonNode jsonNode = objectMapper.readTree(chapterContent);
@@ -174,7 +227,13 @@ public class ChapterServiceImpl implements ChapterService {
         return valid;
     }
 
-    public static boolean isValidChapterId(final String chapterContent) throws IOException {
+    /**
+     * Check if a given string has a valid chapter id
+     * @param chapterContent the string to check
+     * @return true if the string has a valid chapter id, false otherwise
+     * @throws IOException if the string is not a valid JSON
+     */
+    public static boolean isValidBlockId(final String chapterContent) throws IOException {
         boolean valid = true;
         JsonNode jsonNode = objectMapper.readTree(chapterContent);
         JsonNode blocksNode = jsonNode.get("blocks");
@@ -191,6 +250,12 @@ public class ChapterServiceImpl implements ChapterService {
         return valid;
     }
 
+    /**
+     * Check if a given string has valid attributes
+     * @param chapterContent the string to check
+     * @return true if the string has valid attributes, false otherwise
+     * @throws IOException if the string is not a valid JSON
+     */
     public static boolean hasValidAttributes(final String chapterContent) throws IOException {
         JsonNode jsonNode = objectMapper.readTree(chapterContent);
 

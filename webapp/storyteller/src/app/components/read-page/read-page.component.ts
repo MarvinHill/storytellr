@@ -114,10 +114,7 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
    */
   getNextChapter() {
     // No more chapters
-    console.log("Counter in next " + this.counter);
-
     if (this.counter > this.book.chapterIds.length) {
-      console.log("No more chapters");
       return;
     }
     this.chapterService.getChapterById(this.book?.chapterIds[this.counter]).subscribe((chapter: Chapter) => {

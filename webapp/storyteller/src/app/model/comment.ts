@@ -1,3 +1,7 @@
+/**
+ * Comment model class
+ */
+
 export interface Comment {
   chapterId: string;
   authorId: string;

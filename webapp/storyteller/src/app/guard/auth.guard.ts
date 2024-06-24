@@ -6,6 +6,10 @@ import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * AuthGuard class is used to check if the user is authenticated or not.
+ */
 export class AuthGuard extends KeycloakAuthGuard {
   
   constructor(
@@ -14,7 +18,13 @@ export class AuthGuard extends KeycloakAuthGuard {
   ) {
     super(router, keycloak);
   }
-  
+
+  /**
+   * isAccessAllowed method is used to check if the user is authenticated or not.
+   * @param route the route to be checked
+   * @param state the state to be checked
+   * @returns
+   */
   async isAccessAllowed(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean | UrlTree> {

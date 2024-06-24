@@ -1,4 +1,6 @@
-import { HttpStatusCode } from "@angular/common/http";
+/**
+ * CoverURI interface
+ */
 
 export interface CoverURI {
     originalImageUri: string;

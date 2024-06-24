@@ -4,10 +4,18 @@ import {Book, EditBookRequest} from "../model/book";
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * BookMapperService is used to map book data
+ */
 export class BookMapperService {
 
   constructor() { }
 
+  /**
+   * Maps a book to an EditBookRequest
+   * @param book the book to be mapped
+   */
   toEditBookRequest(book: Book): EditBookRequest {
     return {
       id: book.id,
