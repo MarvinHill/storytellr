@@ -9,6 +9,7 @@ module.exports = {
       playfair: ['Playfair Display', 'serif'],
       handwriter: ["Delicious Handrawn", 'cursive'],
       courier: ['Courier New', 'monospace'],
+      quicksand: ['Quicksand', 'sans-serif'],
     }
   },
   plugins: [],

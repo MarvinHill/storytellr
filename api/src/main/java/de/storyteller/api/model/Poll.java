@@ -19,7 +19,6 @@ public class Poll {
   @Id
   private String id;
   private String owner;
-  private String bookId;
   private String question;
   private List<PollOption> options = new ArrayList<>();
 }

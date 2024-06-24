@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PollOption {
-  private String pollOptionId;
-  private String pollId;
+  private String id;
   private String content;
   private long voteCount;
 }

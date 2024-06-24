@@ -34,6 +34,7 @@ import { ParagraphComponent } from './components/blocks/paragraph/paragraph.comp
 import { LibraryComponent } from './components/library/library.component';
 import { CommentModalComponent } from './components/comment-modal/comment-modal.component';
 import { PollComponent } from './components/blocks/poll/poll.component';
+import { OptionComponent } from './components/blocks/poll/option/option.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -83,7 +84,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     LibraryComponent,
     CommentModalComponent,
     PollComponent,
-    LibraryComponent
+    LibraryComponent,
+    OptionComponent
   ],
   imports: [
     BrowserModule,

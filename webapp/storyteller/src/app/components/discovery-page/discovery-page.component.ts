@@ -5,6 +5,7 @@ import {Book} from "../../model/book";
 import { Genre } from '../../model/genre';
 import { GenreService } from '../../service/genre.service';
 import {LibraryService} from "../../service/library.service";
+import {Poll, PollOption} from "../../model/poll";
 
 @Component({
     selector: 'app-discovery-page',

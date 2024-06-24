@@ -1,34 +1,50 @@
 package de.storyteller.api.service.chapter;
 
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.storyteller.api.model.EditorTypes;
+import de.storyteller.api.repository.PollRepository;
+import de.storyteller.api.service.poll.PollServiceImpl;
+import de.storyteller.api.v1.auth.CustomAuthorizationService;
+import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.v1.dto.chapter.AddChapterRequest;
 import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.v1.dto.chapter.EditChapterRequest;
+import de.storyteller.api.v1.dto.poll.PollDTO;
+import de.storyteller.api.v1.dto.poll.PollOptionDTO;
 import de.storyteller.api.v1.mapper.ChapterMapper;
 import de.storyteller.api.model.Chapter;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
 import de.storyteller.api.model.Book;
 
+import de.storyteller.api.v1.mapper.PollMapper;
 import java.io.IOException;
 import java.util.*;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ChapterServiceImpl implements ChapterService {
-    private final ChapterRepository chapterRepository;
-    private final BookRepository bookRepository;
-    private final ChapterMapper chapterMapper;
+    protected final ChapterRepository chapterRepository;
+    protected final BookRepository bookRepository;
+    protected final ChapterMapper chapterMapper;
+    protected final PollServiceImpl pollService;
+    protected final PollMapper pollMapper;
+    protected final UserService userService;
+
     static ObjectMapper objectMapper = new ObjectMapper();
+    protected final PollRepository pollRepository;
 
     @Override
     public ChapterDTO createChapter(AddChapterRequest chapter) {
@@ -61,9 +77,84 @@ public class ChapterServiceImpl implements ChapterService {
         } catch (IOException e) {
             throw new RuntimeException("Chapter content is not valid JSON");
         }
+        chapter.setContent(processBlocks(chapter.getContent()));
 
 
         return chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
+    }
+
+    protected String processBlocks(final String chapterContent) {
+        try {
+            JsonNode jsonNode = objectMapper.readTree(chapterContent);
+            log.info("node: " + jsonNode);
+            JsonNode blocksNode = jsonNode.path("blocks");
+            if (blocksNode.isMissingNode()) {
+                log.error("No 'blocks' attribute found in chapter content");
+                throw new RuntimeException("Chapter content is not valid JSON");
+            }
+
+            // Convert blocksNode to List<JsonNode>
+            List<JsonNode> blocks = new ArrayList<>();
+            for (JsonNode block : blocksNode) {
+                blocks.add(block);
+            }
+
+            // Replace the block
+            for (int j = 0; j < blocks.size(); j++) {
+                JsonNode block = blocks.get(j);
+                if (block.has("type")) {
+                    // Check if the value of the "type" attribute is a valid enum value
+                    String chapterTypeString = block.get("type").asText();
+
+                    if(chapterTypeString.equals(EditorTypes.POLL.getType())){
+                        createOrUpdatePoll(block);
+                    }
+                }
+            }
+
+            // Convert List<JsonNode> back to JsonNode
+            JsonNode newBlocksNode = objectMapper.valueToTree(blocks);
+
+            // Replace blocksNode in jsonNode
+            ((ObjectNode) jsonNode).set("blocks", newBlocksNode);
+
+          return objectMapper.writeValueAsString(jsonNode);
+
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Chapter content is not valid JSON");
+        }
+
+    }
+
+
+    protected void createOrUpdatePoll(JsonNode block){
+        try {
+            JsonNode pollNode = block.get("data");
+            PollDTO pollDTO = objectMapper.treeToValue(pollNode.path("poll"), PollDTO.class);
+
+
+            if(pollDTO.getId() == null){
+                throw new RuntimeException("Poll data is missing id");
+            }
+            String id = pollDTO.getId();
+
+            if(pollService.pollExists(id) && pollRepository.findById(id).orElseThrow().getOwner().equals(userService.getCurrentUser())){
+                List<PollOptionDTO> currentOptions = pollService.getPoll(id).getOptions();
+                List<PollOptionDTO> newOptions = pollDTO.getOptions();
+
+                if(!currentOptions.equals(newOptions)){
+                    pollDTO = pollService.updatePollOptions(pollDTO);
+                    ((ObjectNode)block).set("data", objectMapper.valueToTree(pollDTO));
+                }
+                return;
+            }
+
+            PollDTO createdPollDto = pollService.createPoll(pollMapper.toCreateRequest(pollDTO));
+            ((ObjectNode)block).set("data", objectMapper.valueToTree(createdPollDto));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error creating poll");
+        }
     }
 
     @Override
