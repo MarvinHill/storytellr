@@ -62,21 +62,21 @@ class ChapterServiceImplTest {
     @DisplayName("isValidChapterId returns true when valid id")
     void isValidChapterId_returnsTrue_whenValidId() throws IOException {
         String validIdContent = "{\"blocks\":[{\"id\":\"1234567890\"}]}";
-        assertTrue(ChapterServiceImpl.isValidChapterId(validIdContent));
+        assertTrue(ChapterServiceImpl.isValidBlockId(validIdContent));
     }
 
     @Test
     @DisplayName("isValidChapterId returns false when id length not equal to 10")
     void isValidChapterId_returnsFalse_whenIdLengthNotEqualTo10() throws IOException {
         String invalidIdLengthContent = "{\"blocks\":[{\"id\":\"12345\"}]}";
-        assertFalse(ChapterServiceImpl.isValidChapterId(invalidIdLengthContent));
+        assertFalse(ChapterServiceImpl.isValidBlockId(invalidIdLengthContent));
     }
 
     @Test
     @DisplayName("isValidChapterId returns false when id attribute is missing")
     void isValidChapterId_returnsFalse_whenIdAttributeMissing() throws IOException {
         String idAttributeMissingContent = "{\"blocks\":[{}]}";
-        assertFalse(ChapterServiceImpl.isValidChapterId(idAttributeMissingContent));
+        assertFalse(ChapterServiceImpl.isValidBlockId(idAttributeMissingContent));
     }
 
     @Test
