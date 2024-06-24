@@ -10,12 +10,11 @@ export class PollTool {
     };
   }
 
-  // @ts-ignore
-  constructor({api, data}) {
-    console.log("API", api);
-    console.log("Data", data);
-    this.poll = data;
-    this.api = api;
+  constructor(obj : {api : any, data : Poll}) {
+    console.log("API", obj.api);
+    console.log("Data", obj.data);
+    this.poll = obj.data;
+    this.api = obj.api;
   }
 
   poll : Poll | undefined;
@@ -130,10 +129,11 @@ export class PollTool {
       return;
     }
     for(let pollOption of options){
+      console.log("test")
       this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
 
     }
-    console.log("Existing options was called")
+    console.log("Existing options was called", options.length)
   }
 
   save(blockContent: any) {

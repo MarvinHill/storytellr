@@ -131,7 +131,8 @@ public class ChapterServiceImpl implements ChapterService {
     protected void createOrUpdatePoll(JsonNode block){
         try {
             JsonNode pollNode = block.get("data");
-            PollDTO pollDTO = objectMapper.treeToValue(pollNode.path("poll"), PollDTO.class);
+
+            PollDTO pollDTO = new ObjectMapper().treeToValue(pollNode, PollDTO.class);
 
 
             if(pollDTO.getId() == null){
