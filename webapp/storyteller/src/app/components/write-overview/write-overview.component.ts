@@ -12,6 +12,10 @@ import {Genre} from "../../model/genre";
   templateUrl: './write-overview.component.html',
   styleUrl: './write-overview.component.scss'
 })
+
+/**
+ * Component to display the write overview page
+ */
 export class WriteOverviewComponent implements OnInit {
   books: Book[] = [];
   genre!: Genre;
@@ -28,12 +32,18 @@ export class WriteOverviewComponent implements OnInit {
     this.getGenre();
   }
 
+  /**
+   * Get the genre
+   */
   getGenre(){
     this.genreService.getGenres().subscribe((genres) => {
       this.genre =  genres[0];
     });
   }
 
+  /**
+   * Add a new book
+   */
   addBook() {
     const addBook: AddBookRequest = {
       title: 'New Book',
