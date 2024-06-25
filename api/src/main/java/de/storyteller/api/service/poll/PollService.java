@@ -10,4 +10,8 @@ public interface PollService {
   PollDTO createPoll(CreatePollRequest pollDTO);
 
   PollDTO updatePollOptions(PollDTO pollDTO);
+
+  PollDTO voteForPollOption(String pollId, String pollOptionId);
+
+  boolean getVoteState(String pollId);
 }
