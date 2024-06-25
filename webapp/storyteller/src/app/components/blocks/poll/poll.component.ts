@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {Poll, PollOption} from "../../../model/poll";
+import {PollService} from "../../../service/poll.service";
 
 @Component({
   selector: 'app-poll',
@@ -7,12 +8,28 @@ import {Poll, PollOption} from "../../../model/poll";
   styleUrls: ['./poll.component.css']
 })
 export class PollComponent implements OnInit {
+  @Input() pollId : string | undefined;
+  poll : Poll | undefined;
+  show : boolean = false;
+  voted: boolean = false;
 
-  @Input() poll : Poll | undefined;
-
-  constructor() { }
+  constructor(private pollService : PollService) { }
 
   ngOnInit() {
+    if(this.pollId !== undefined) {
+    this.pollService.getVoteState(this.pollId).subscribe((voted) => {
+      this.show = true;
+      this.voted = voted;
+    });
+    this.pollService.getPoll(this.pollId).subscribe((poll) => {
+        this.poll = poll;
+      });
+    }
+    else {
+      console.error("Poll Id is not defined");
+    }
+
+
     console.log("Poll Input", this.poll);
   }
 
@@ -33,6 +50,21 @@ export class PollComponent implements OnInit {
       totalVotes += option.voteCount;
     });
     return totalVotes;
+  }
+
+  voteForOption(option: PollOption) {
+    if(this.poll && !this.voted) {
+      this.pollService.vote(this.poll.id, option.id);
+      option.voteCount += 1;
+      this.voted = true;
+      if(this.pollId !== undefined) {
+        this.pollService.vote(this.pollId, option.id).subscribe((lpoll) => {
+          this.poll = lpoll;
+          console.log("Voted Poll update ", this.poll);
+        });
+      }
+
+    }
   }
 
 }

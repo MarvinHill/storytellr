@@ -1,7 +1,12 @@
 
 <div [ngClass]="calculateClasses()" >
   <div [ngClass]="calculateProgressClasses()"></div>
-  @if(text){
-    <p class="relative z-20"> {{text}} </p>
-  }
+  <div class="flex justify-between">
+    <div class="flex items center">
+        <p class="relative z-20"> {{option?.content}} </p>
+        <p class="absolute right-4 z-20"> {{option?.voteCount}} </p>
+    </div>
+  </div>
+
+
 </div>

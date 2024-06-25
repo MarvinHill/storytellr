@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import colors from "tailwindcss/colors";
+import {PollOption} from "../../../../model/poll";
 
 @Component({
   selector: 'app-option',
@@ -12,9 +13,11 @@ export class OptionComponent implements OnInit {
   randomBackgroundColor: String | undefined;
   @Input() progessValue: number | undefined;
   @Input() ind: number | undefined;
-  @Input() text: String | undefined;
+  @Input() option: PollOption | undefined;
 
   ngOnInit(): void {
+
+    console.log("Option", this.option);
 
     const randomPick = this.pickColorBasedOnIndex([
       ["bg-red-100", "border-red-300"],
@@ -32,6 +35,8 @@ export class OptionComponent implements OnInit {
     ], this.ind);
     this.randomBackgroundColor = randomPick[0];
     this.randomBorderColor = randomPick[1];
+
+    console.log("OptionInitValues: ", this.randomBorderColor, this.randomBackgroundColor, this.progessValue, this.ind);
   }
 
   calculateClasses() {
@@ -68,7 +73,7 @@ export class OptionComponent implements OnInit {
     if (this.progessValue == undefined) {
       ret += ` w-[5%]`
     } else {
-      ret += ` w-[${this.progessValue}%]`
+      ret += ` w-[${Math.floor(this.progessValue)}%]`
     }
     ret += ` ${this.randomBackgroundColor}`
 

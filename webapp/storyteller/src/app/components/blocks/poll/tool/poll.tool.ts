@@ -55,6 +55,8 @@ export class PollTool {
 
     this.addExistingOption(this.poll.options);
 
+    console.log("innerHtml1 ", this.element.querySelector("#content")!.innerHTML);
+
     const questionInput : HTMLInputElement | null = this.element.querySelector("#questionInput");
     if(questionInput){
       questionInput.value = this.poll.question;
@@ -66,15 +68,18 @@ export class PollTool {
       });
     }
 
-    this.poll.options.map(option => {
-      return this.createOptionElement(option);
-    }).forEach(newEl => {
-        this.element?.querySelector("#content")?.appendChild(newEl);
-    }
-    );
-
     this.element.querySelector("#submitButton")?.addEventListener("click", () => {
-      this.addNewOption();
+      // get the value of the input field
+      const optionInput : HTMLInputElement | null | undefined = this.element?.querySelector("#optionInput");
+      if(optionInput){
+        if(optionInput.value === ""){
+          this.addNewOption("New Option");
+        }
+        else {
+          this.addNewOption(optionInput.value);
+        }
+        optionInput.value = "";
+      }
     });
 
     return this.element;
@@ -112,9 +117,9 @@ export class PollTool {
     return newEl;
   }
 
-  addNewOption() {
+  addNewOption(content : String) {
     console.log("Editor: Add new Option")
-    let pollOption : PollOption = {content: "New Option", voteCount: 0, id: `REPLACE${Math.floor(Math.random() * 100000)}`} as PollOption;
+    let pollOption : PollOption = {content: content, voteCount: 0, id: `REPLACE${Math.floor(Math.random() * 100000)}`} as PollOption;
     this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
     this.poll?.options.push(pollOption)
     console.log("Poll", this.poll)
