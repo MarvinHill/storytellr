@@ -141,13 +141,8 @@ public class ChapterServiceImpl implements ChapterService {
             String id = pollDTO.getId();
 
             if(pollService.pollExists(id) && pollRepository.findById(id).orElseThrow().getOwner().equals(userService.getCurrentUser())){
-                List<PollOptionDTO> currentOptions = pollService.getPoll(id).getOptions();
-                List<PollOptionDTO> newOptions = pollDTO.getOptions();
-
-                if(!currentOptions.equals(newOptions)){
-                    pollDTO = pollService.updatePollOptions(pollDTO);
-                    ((ObjectNode)block).set("data", objectMapper.valueToTree(pollDTO));
-                }
+                pollDTO = pollService.updatePollOptions(pollDTO);
+                ((ObjectNode)block).set("data", objectMapper.valueToTree(pollDTO));
                 return;
             }
 
