@@ -36,7 +36,7 @@ public class PollController {
     return ResponseEntity.ok(voteState);
   }
 
-  @PreAuthorize("isAuthenticated()")
+  @PreAuthorize("permitAll()")
   @GetMapping("/{pollId}")
   public ResponseEntity<PollDTO> getPoll(@PathVariable String pollId){
 
