@@ -1,0 +1,53 @@
+<div (dragover)="onDrag($event)" (drop)="onFileSelected($event)" [class.hidden]="!(coverService.visible | async)" class="z-40 hidden fixed font-playfair w-screen h-screen left-0 top-0 flex items-center justify-center backdrop-blur-sm bg-black bg-opacity-25">
+  <div class="min-w-96 mx-4 bg-white p-4 rounded-lg">
+    <div [ngClass]="{'border-4 border-blue-500 border-dashed': isDropFileState}" class="p-4 rounded-lg">
+      <label for="file-upload" class="flex w-full cursor-pointer">
+        @if((file | async) == null) {
+          <div class="flex w-full h-full border-2 border-dashed border-black p-5 rounded-lg opacity-25 ">
+            <img src="/assets/upload-cloud.svg" alt="upload">
+            <span class="ml-3">click to upload</span>
+          </div>
+        }
+        @else {
+          
+            <div [class.hidden]="!previewLoaded" class="w-full flex flex-col justify-center items-center p-5">
+              <img [src]="(url | async)?.smImageUri" (load)="previewLoadedEvent()" class="w-[187px] h-[300px]  object-cover">
+              <p class="text-gray-300">(cover preview)</p>  
+            </div>
+            
+            @if(!previewLoaded){
+              <div class="w-full flex flex-col justify-center items-center p-5">
+                <div class="w-48 h-64 bg-gray-300 rounded animate-pulse"></div>
+                <p class="text-gray-300">(cover preview)</p>  
+              </div>
+            }
+          
+        }
+        
+      </label>
+      <p class="text-gray-300 pt-2 text-center">max 10MB, min 500x800px (1:1.6)</p>
+      <p class="text-gray-300 text-center">jpeg or png</p>
+      <input id="file-upload" type="file" class="hidden" (change)="onFileSelected($event)">
+      @if (imageIsToSmall) {
+        <p class="text-red-500 text-center">image must be at least 500x800px</p>
+      }
+      @else if (fileIsToBig) {
+        <p class="text-red-500 text-center">image must be less than 10MB</p>
+      }
+      @else if(isError){
+        <p class="text-red-500 text-center">error please try again later</p>
+      }
+      <div class="flex w-full">
+        <button (click)="closeDialog()" class="mr-auto p-2 mt-3 btn bg-red-500 text-white rounded-lg">cancle</button>
+        @if((file ) != null) {
+          <button class="ml-auto p-2 mt-3 btn bg-blue-500 text-white rounded-lg" (click)="commitImage()">save</button>
+        }
+        @else {
+          <button class="ml-auto p-2 mt-3 btn bg-blue-500 text-white rounded-lg opacity-25 pointer-events-none select-none">save</button>
+        }
+      </div>
+      </div>
+    </div>
+    
+
+</div>

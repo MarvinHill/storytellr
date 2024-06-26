@@ -1,0 +1,3 @@
+<div [ngClass]="{'cursor-pointer': clickable}" [ngClass]="{'size-full': fullSize}" class="relative rounded-xl {{getSize()}} bg-gray-300">
+    <img class="z-20 rounded-lg object-cover" [ngSrc]="getSrc()" (load)="imgLoaded()" alt="Book Cover" fill priority #img>
+</div>

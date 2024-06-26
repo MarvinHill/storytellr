@@ -1,0 +1,139 @@
+version: '3'
+services:
+
+  proxy:
+    container_name: proxy
+    image: nginx:1.25.4
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "80:80"
+    volumes:
+      - ../proxy/nginx.conf:/etc/nginx/nginx.conf
+
+  api:
+    container_name: api
+    build: ../api
+    depends_on:
+      - apidb-mongo
+    restart: unless-stopped
+    ports:
+      - "5005:5005"
+    environment:
+
+      SPRING_DATASOURCE_USERNAME: ${API_DATABASE_USER}
+      SPRING_DATASOURCE_PASSWORD: ${API_DATABASE_PASSWORD}
+      SPRING_DATA_MONGODB_HOST: ${MONGODB_HOST}
+      SPRING_DATA_MONGODB_PORT: ${MONGODB_PORT}
+      SPRING_DATA_MONGODB_DATABASE: ${API_DATABASE_NAME}
+
+      KEYCLOAK_ISSUER_URI: ${KEYCLOAK_ISSUER_URI}
+      KEYCLOAK_FRONTEND_CLIENT_ID: ${KEYCLOAK_FRONTEND_CLIENT_ID}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+
+      API_DEBUG_LEVEL: ${API_DEBUG_LEVEL}
+      BACKEND_CLIENT_SECRET: ${BACKEND_CLIENT_SECRET}
+      BACKEND_CLIENT_USERNAME: ${BACKEND_CLIENT_USERNAME}
+      KEYCLOAK_ADMIN_API_HOST_URI: ${KEYCLOAK_ADMIN_API_HOST_URI}
+    volumes:
+      - public_data:/www/html
+      - ../api/scripts:/var/scripts
+
+  webapp-prod:
+    container_name: webapp
+    profiles:
+      - "prod"
+    build: 
+      context: ../webapp
+      dockerfile: Dockerfile.production
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment: 
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+    volumes:
+      - ../webapp/nginx.conf:/etc/nginx/nginx.conf
+  
+  webapp-dev:
+    container_name: webapp
+    profiles:
+      - "dev"
+    build: 
+      context: ../webapp
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8081:80"
+    environment: 
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+    volumes:
+      - ../webapp/storyteller:/var/source
+
+  apidb-mongo:
+    container_name: apidb-mongo
+    image: mongodb/mongodb-community-server:4.4.23-ubuntu2004
+    restart: unless-stopped
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: ${API_DATABASE_USER}
+      MONGODB_INITDB_ROOT_PASSWORD: ${API_DATABASE_PASSWORD}
+      MONGODB_INITDB_DATABASE: ${API_DATABASE_NAME}
+    volumes:
+      - apidb-mongo:/data/db
+    ports:
+      - 27017:27017
+
+  keycloakdb:
+    container_name: keycloakdb
+    image: postgres:16.2-alpine3.18
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}
+      POSTGRES_USER: ${KEYCLOAK_DATABASE_USER}
+      POSTGRES_DB: ${KEYCLOAK_DATABASE_NAME}
+    volumes:
+      - keycloakdb:/var/lib/postgresql/data
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:24.0
+    restart: unless-stopped
+    command: start-dev --import-realm --proxy-headers xforwarded
+    depends_on: 
+      - keycloakdb
+    environment:
+      KC_DB: ${KEYCLOAK_DATABASE_VENDOR}
+      KC_DB_URL_DATABASE: ${KEYCLOAK_DATABASE_NAME}
+      KC_DB_SCHEMA: ${KEYCLOAK_DB_SCHEMA}
+      KC_DB_URL: ${KEYCLOAK_DB_URL}
+
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
+      KC_PROXY: edge
+
+      KC_DB_USERNAME: ${KEYCLOAK_DATABASE_USER}
+      KC_DB_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}      
+
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HTTP_RELATIVE_PATH: ${KEYCLOAK_HTTP_RELATIVE_PATH}
+    volumes:
+      - ../keycloak/providers:/opt/keycloak/providers
+      - ../keycloak/import/processed_storyteller.json:/opt/keycloak/data/import/stroyteller.json
+
+  publicdata:
+    build: ../publicdata
+    container_name: publicdata
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    volumes:
+      - ../publicdata/nginx.conf:/etc/nginx/nginx.conf
+      - public_data:/www/html
+
+volumes:
+  keycloakdb:
+  apidb:
+  apidb-mongo:
+  caddy_data:
+  caddy_config:
+  public_data:

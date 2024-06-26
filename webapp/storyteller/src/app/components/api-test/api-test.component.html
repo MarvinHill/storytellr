@@ -1,0 +1,13 @@
+<h1 class="mb-10">Test the Api</h1>
+<button class="btn mb-2" (click)="getBooks()">Send Request</button>
+@for(book of this.books | async; track book.id) {
+    <div>{{book.title}}</div>
+}
+
+<button class="btn bg-blue-500 m-2 p-2" (click)="genApi()">generate api content</button>
+<input type="file" class="file-upload mb-2 mt-10" (change)="getPreview($event)">
+@if((this.file | async) != null) {
+    <img src="{{this.file | async}}" alt="">
+}
+
+<button class="btn mb-2" (click)="createGenres()">Create Genres</button>

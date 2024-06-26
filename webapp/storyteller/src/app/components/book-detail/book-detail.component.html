@@ -1,0 +1,98 @@
+<div class="font-playfair w-full mx-auto items-center">
+  <div class="mx-auto my-12">
+    <div class="flex flex-col lg:flex-row gap-32">
+      <div class="lg:mr-0 mx-auto">
+        <div class="mx-8 lg:mx-0">
+          <app-lazy-image [cover]="book.cover" [width]="'w-72'" [size]="'lg'"></app-lazy-image>
+          <div class="w-72 mx-auto bg-gray-200 mt-4">
+            <div class="bg-black text-white px-4" [style.width.%]="progress">
+              {{ progress }}%
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col lg:ml-0 mx-auto">
+        <h1 class="text-4xl font-bold">{{ book.title || "Keine Information" }}</h1>
+        <p class="text-md mt-2 mb-7 ml-7 items-start">{{ book.authorName || "Keine Information" }}</p>
+        <div class="flex flex-row h-full">
+
+          <div class="w-24">
+            <div class="flex flex-col mr-8">
+              <div class="flex flex-row mt-2">
+              <span class="material-symbols-outlined text-amber-400">
+                star
+              </span>
+                <p>{{book.likes}}</p>
+              </div>
+              <div class="flex flex-row mt-2">
+              <span class="material-symbols-outlined">
+                visibility
+              </span>
+                <p>2500</p>
+              </div>
+            </div>
+
+            <div class="flex items-center mt-14">
+
+              <img class="hidden lg:block -ml-16 -mt-28" src="assets/images/add_library.svg" alt="Add to Library"
+                   width="156"
+                   height="86">
+
+              <div class="flex flex-col absolute">
+                @if(bookInLibrary) {
+                  <button (click)="removeFromLibrary()">
+                    <span class="material-symbols-outlined">library_add_check</span>
+                  </button>
+                } @else {
+                  <button (click)="addToLibrary()">
+                    <span class="material-symbols-outlined">library_add</span>
+                  </button>
+                }
+                @if (bookLiked){
+                  <button (click)="unlikeBook()">
+                    <span class="material-symbols-outlined text-amber-400">star</span>
+                  </button>
+                } @else {
+                  <button (click)="likeBook()">
+                    <span class="material-symbols-outlined text-gray-500">star_border</span>
+                  </button>
+                }
+
+              </div>
+              <img class="hidden lg:block mt-24" src="assets/images/like.svg" alt="Like" width="155" height="68">
+            </div>
+          </div>
+
+          <div class="flex flex-col items-end">
+            <p
+              class="text-md lg:w-72 w-72 text-center lg:text-right">{{ book.description || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." }}</p>
+            <div class="my-7 flex lg:mx-12">
+              <div class="flex flex-col items-end">
+                <div class="flex flex-row flex-wrap w-56 text-right">
+                  @for (tag of book.tags; track tag; ) {
+                    <p> {{ tag }} </p>
+                    @if (!$last) {
+                      <p class="mx-1"> - </p>
+                    }
+                  }
+
+
+                </div>
+                @if (book.adultContent) {
+                  <p class="rounded-2xl bg-gray-200 px-2 py-1 text-sm m-1">Adult Content</p>
+                }
+                @if(book.finished){
+                  <p class="rounded-2xl bg-gray-200 px-2 py-1 text-sm m-1">Finished</p>
+                }
+                <button class="bg-[#E14237] rounded-3xl w-28 h-16 -rotate-45 my-7" (click)="navigateToReadPage()">
+                  <p class="text-white text-lg rotate-45">Read</p>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

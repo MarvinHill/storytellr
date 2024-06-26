@@ -1,0 +1,65 @@
+<div class="flex flex-row items-center border border-b-2 border-l-0 border-r-0 border-t-0 z-40 font-playfair sticky">
+  <div class="flex-none mr-4">
+    <img src="assets/images/favicon.svg" alt="logo" width="40" height="40" class="ml-3">
+  </div>
+  <div class="block lg:hidden">
+    <button id="burgerMenuButton" class="focus:outline-none z-10 relative" (click)="toggleMenu()">
+      <svg class="h-6 w-6 text-gray-800" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="hidden lg:flex">
+    <button class="my-5 mx-7 z-10" [routerLink]="'/discovery'">Discover</button>
+    <button class="my-5 mx-7" [routerLink]="'/library'">Library</button>
+  </div>
+  <div class="flex z-0 grow">
+    <input type="text" placeholder="Search" class="h-10 max-w-56 mx-auto p-4 border border-gray-300 rounded-lg placeholder-padded">
+  </div>
+  <div class="flex flex-row items-center ml-auto p-3 z-10">
+    @if(keycloak.isLoggedIn()) {
+    <button class="mx-3 px-4 py-1 shadow-[0_3px_6px_rgb(0,0,0,0.2)] rounded  hidden lg:flex" [routerLink]="'/write'">
+      <span class="material-symbols-outlined text-base">
+        edit
+      </span>
+      <p class="pl-2">write</p>
+    </button>
+      <app-avatar [username]="username">
+        <app-avatar-menu-item>
+          <div class="size-full flex" (click)="logout()">
+            <img src="assets/icons/logout.svg" alt="">
+            <p class="pl-2">Logout</p>
+          </div>
+        </app-avatar-menu-item>
+      </app-avatar>
+    }
+    @else {
+      <button class="mx-3 px-4 py-1 shadow-[0_3px_6px_rgb(0,0,0,0.2)] rounded flex" (click)="login()">
+        <span class="material-symbols-outlined text-base pr-2">
+          login
+        </span>
+        <p>login</p>
+      </button>
+    }
+    
+
+  </div>
+</div>
+
+
+<div id="burgerMenu" class="lg:hidden hidden sticky bg-white">
+  <ul class="text-center">
+    <li class="border-b border-gray-300 hover:bg-gray-200">
+      <button class="my-5 mx-7" [routerLink]="'/discovery'">Discover</button>
+    </li>
+    @if(keycloak.isLoggedIn()) {
+    <li class="border-b border-gray-300  hover:bg-gray-200">
+      <button class="my-5 mx-7">Library</button>
+    </li>
+    <li class="border-b border-gray-300 hover:bg-gray-200">
+      <button class="my-5 mx-7" [routerLink]="'/write'">Write</button>
+    </li>
+    }
+  </ul>
+</div>
+
