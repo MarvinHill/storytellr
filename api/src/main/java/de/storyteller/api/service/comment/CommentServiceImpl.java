@@ -37,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = this.commentMapper.toComment(addCommentRequest);
         // Return if comments are deactivated
         Book book = this.bookRepository.findById(chapter.getBookId()).orElseThrow(() -> new RuntimeException("Book not found"));
-        if (!book.isCommentsDeactivated()) {
+        if (book.isCommentsDeactivated()) {
             throw new RuntimeException("Comments are deactivated for this book");
         }
 
@@ -56,7 +56,7 @@ public class CommentServiceImpl implements CommentService {
         Chapter chapter = this.chapterRepository.findById(chapterId).orElseThrow(() -> new RuntimeException("Chapter not found"));
         // Return if comments are deactivated
         Book book = this.bookRepository.findById(chapter.getBookId()).orElseThrow(() -> new RuntimeException("Book not found"));
-        if (!book.isCommentsDeactivated()) {
+        if (book.isCommentsDeactivated()) {
             return List.of();
         }
         return chapter.getComments().stream().map(this.commentMapper::toDTO).toList();
@@ -73,7 +73,7 @@ public class CommentServiceImpl implements CommentService {
         Chapter chapter = this.chapterRepository.findById(chapterId).orElseThrow(() -> new RuntimeException("Chapter not found"));
         // Return if comments are deactivated
         Book book = this.bookRepository.findById(chapter.getBookId()).orElseThrow(() -> new RuntimeException("Book not found"));
-        if (!book.isCommentsDeactivated()) {
+        if (book.isCommentsDeactivated()) {
             return List.of();
         }
         return chapter.getComments().stream().filter(comment -> comment.getBlockId().equals(blockId)).map(this.commentMapper::toDTO).toList();
