@@ -2,7 +2,7 @@ package de.storyteller.api.service.book;
 
 import de.storyteller.api.model.Progress;
 import de.storyteller.api.repository.ProgressRepository;
-import de.storyteller.api.service.UserService;
+import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;
@@ -123,7 +123,7 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public List<BookDTO> getBooksByAuthor() {
-        String userId = userService.getUserId();
+        String userId = userService.getCurrentUser();
         List<Book> books = bookRepository.findByAuthor(userId);
         return books.stream()
                 .map(bookMapper::toBookDTO)
@@ -185,7 +185,7 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public int getBookProgress(String bookId) {
-        Optional<Progress> progress = this.progressRepository.findByBookIdAndUser(bookId, userService.getUserId());
+        Optional<Progress> progress = this.progressRepository.findByBookIdAndUser(bookId, userService.getCurrentUser());
         return progress.map(Progress::getReadChapters).orElse(0);
     }
 
@@ -196,7 +196,7 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void increaseProgress(String bookId, int progress) {
-        Optional<Progress> progressOptional = this.progressRepository.findByBookIdAndUser(bookId, userService.getUserId());
+        Optional<Progress> progressOptional = this.progressRepository.findByBookIdAndUser(bookId, userService.getCurrentUser());
         if(progressOptional.isPresent()) {
             Progress progressObject = progressOptional.get();
             int maxChapters = getBookWithPublishedChapters(bookId).getChapterIds().size();
@@ -208,7 +208,7 @@ public class BookServiceImpl implements BookService {
         } else {
             Progress progressObject = new Progress();
             progressObject.setBookId(bookId);
-            progressObject.setUser(userService.getUserId());
+            progressObject.setUser(userService.getCurrentUser());
             progressObject.setReadChapters(1);
             this.progressRepository.save(progressObject);
         }

@@ -53,7 +53,6 @@ export class EditDetailsComponent implements OnInit{
    * @param url The new cover URI.
    */
   updateCover(url : CoverURI) {
-    console.log("updateCoverEvent",url);
     this.book.cover = url;
   }
 
@@ -88,9 +87,7 @@ export class EditDetailsComponent implements OnInit{
     this.titleEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
-      next: (resp) => {
-        console.log("Response:" + resp);
-      },
+      next: (resp) => {},
       error: (error) => {
         alert(error.message);
         this.getBookById(this.bookId);
@@ -111,9 +108,7 @@ export class EditDetailsComponent implements OnInit{
     this.descriptionEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
-      next: (resp) => {
-        console.log("Response:" + resp);
-      },
+      next: (resp) => {},
       error: (error) => {
         alert(error.message);
         this.getBookById(this.bookId);
@@ -128,9 +123,7 @@ export class EditDetailsComponent implements OnInit{
     this.catchphraseEdit = false;
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
-      next: (resp) => {
-        console.log("Response:" + resp);
-      },
+      next: (resp) => {},
       error: (error) => {
         alert(error.message);
         this.getBookById(this.bookId)
@@ -144,7 +137,6 @@ export class EditDetailsComponent implements OnInit{
   getGenres() {
     this.genreService.getAllGenres().subscribe({
       next: (resp: Genre[]) => {
-        console.log(resp);
         this.genres = resp;
       },
       error: (error: any) => {
@@ -159,9 +151,7 @@ export class EditDetailsComponent implements OnInit{
   updateGenre() {
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
-      next: (resp) => {
-        console.log("Response:" + resp);
-      },
+      next: (resp) => {},
       error: (error) => {
         alert(error.message);
         this.getBookById(this.bookId)
@@ -183,12 +173,9 @@ export class EditDetailsComponent implements OnInit{
   updateTags() {
     this.tagsEdit = false;
     this.book.tags = this.getTagsFromInput(this.newTags);
-    console.log(this.book.tags);
     let editBook = this.bookMapperService.toEditBookRequest(this.book);
     this.bookService.updateBook(editBook).subscribe({
-      next: (resp) => {
-        console.log("Response:" + resp);
-      },
+      next: (resp) => {},
       error: (error) => {
         alert(error.message);
         this.getBookById(this.bookId)

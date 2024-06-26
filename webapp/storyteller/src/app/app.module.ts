@@ -33,6 +33,8 @@ import { HeadingComponent } from './components/blocks/heading/heading.component'
 import { ParagraphComponent } from './components/blocks/paragraph/paragraph.component';
 import { LibraryComponent } from './components/library/library.component';
 import { CommentModalComponent } from './components/comment-modal/comment-modal.component';
+import { PollComponent } from './components/blocks/poll/poll.component';
+import { OptionComponent } from './components/blocks/poll/option/option.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -80,7 +82,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     HeadingComponent,
     ParagraphComponent,
     LibraryComponent,
-    CommentModalComponent
+    CommentModalComponent,
+    PollComponent,
+    LibraryComponent,
+    OptionComponent
   ],
   imports: [
     BrowserModule,

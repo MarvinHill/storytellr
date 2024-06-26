@@ -46,14 +46,17 @@ public abstract class ChapterMapper {
      * @return the mapped chapter
      */
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "content", constant = "")
+    @Mapping(target = "comments", ignore = true)
     public abstract Chapter toChapter(AddChapterRequest chapter);
 
     /**
      * Maps a EditChapterRequest to a chapter
-     * @param chapter the chapter to map
+     * @param editChapterRequest the chapter to map
      * @return the mapped chapter
      */
-    public abstract Chapter toChapter(EditChapterRequest chapter);
+    @Mapping(target = "comments", expression = "java(chapterRepository.findById(editChapterRequest.getId()).orElseThrow().getComments())")
+    public abstract Chapter toChapter(EditChapterRequest editChapterRequest);
 
     /**
      * Maps a bookId to a book

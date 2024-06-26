@@ -1,7 +1,7 @@
 package de.storyteller.api.v1.mapper;
 
 import de.storyteller.api.model.Chapter;
-import de.storyteller.api.service.UserService;
+import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.service.auth.KeycloakService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
@@ -71,7 +71,7 @@ public abstract class BookMapper {
     @Mapping(target = "genre", source = "genreId")
     @Mapping(target = "chapters", source = "chapterIds")
     @Mapping(target = "cover", expression = "java(coverUtils.defaultCover())")
-    @Mapping(target = "author", expression = "java(userService.getUserId())")
+    @Mapping(target = "author", expression = "java(userService.getCurrentUser())")
     @Mapping(target = "likes", constant = "0")
     public abstract Book toBook(AddBookRequest addBookRequest);
 

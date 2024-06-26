@@ -5,7 +5,8 @@ package de.storyteller.api.model;
  */
 public enum EditorTypes {
     HEADER("header"),
-    PARAGRAPH("paragraph");
+    PARAGRAPH("paragraph"),
+    POLL("poll");
 
     private final String type;
 

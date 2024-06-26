@@ -54,12 +54,10 @@ export class BookHeroComponent implements AfterViewInit {
 
     const palette = Palette.extract(img, {maxSwatches: 2});
     const swatches = palette.findSwatches(2, "light");
-    
+
 
     this.primaryColor = String(`rgb(${swatches[0].color.toRGB().r}, ${swatches[0].color.toRGB().g}, ${swatches[0].color.toRGB().b})`);
-    console.log("primary color", this.primaryColor)
     this.secondaryColor = String(`rgb(${swatches[1].color.toRGB().r}, ${swatches[1].color.toRGB().g}, ${swatches[1].color.toRGB().b})`);
-    console.log("secondary color", this.secondaryColor)
   }
 
   /**

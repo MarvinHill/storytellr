@@ -17,6 +17,8 @@ services:
     depends_on:
       - apidb-mongo
     restart: unless-stopped
+    ports:
+      - "5005:5005"
     environment:
 
       SPRING_DATASOURCE_USERNAME: ${API_DATABASE_USER}

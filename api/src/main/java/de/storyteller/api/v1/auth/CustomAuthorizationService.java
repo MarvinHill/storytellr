@@ -1,10 +1,12 @@
 package de.storyteller.api.v1.auth;
 
+import de.storyteller.api.service.poll.PollService;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.chapter.ChapterDTO;
 import de.storyteller.api.service.book.BookService;
 import de.storyteller.api.service.chapter.ChapterService;
 
+import de.storyteller.api.v1.dto.poll.PollDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,8 @@ public class CustomAuthorizationService {
     BookService bookService;
     ChapterService chapterService;
     AuthUtils authUtils;
+    UserService userService;
+    PollService PollService;
 
     /**
      * Check if the logged in user is the author of a book.
@@ -79,10 +83,27 @@ public class CustomAuthorizationService {
         for(BookDTO book : books){
             for(String chapter : book.getChapterIds()){
                 if(chapter.equals(chapterId)){
-                    return jwt.getSubject().equals(book.getAuthor());
+                    return jwt.getSubject().equals(book.getAuthor().toString());
                 }
             }
         }
         return false;
     }
+
+  /**
+   * Check if the logged-in user is the owner of a poll.
+   * @param pollId Id of the poll.
+   * @return if the user is the owner of the poll.
+   */
+  public boolean userOwnsPoll(String pollId) {
+      try {
+        String userId = userService.getCurrentUser();
+        PollDTO pollDTO = PollService.getPoll(pollId);
+        return pollDTO.getOwner().equals(userId);
+      }
+      catch (RuntimeException e){
+        return false;
+      }
+
+  }
 }

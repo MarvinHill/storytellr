@@ -27,7 +27,6 @@ export class WriteOverviewComponent implements OnInit {
   ngOnInit() {
     this.bookService.getBooksByAuthor().subscribe((books) => {
       this.books = books;
-      console.log(books);
     });
     this.getGenre();
   }
@@ -58,7 +57,6 @@ export class WriteOverviewComponent implements OnInit {
       finished: false,
     }
     this.bookService.addBook(addBook).subscribe((book) => {
-      console.log(book);
       this.router.navigate(['/edit-details'], {queryParams: {bookId: book.id}});
     });
 

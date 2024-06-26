@@ -27,7 +27,6 @@ export class LazyImageComponent {
    * Emit the imageLoaded event when the image is loaded
    */
   imgLoaded() {
-    console.log("loaded img", this.getSrc())
     this.imageLoaded.emit();
     this.imgElementLoaded.emit(this.image?.nativeElement);
   }
@@ -46,11 +45,11 @@ export class LazyImageComponent {
    */
   getSrc() {
     switch(this.size) {
-      case "lg": 
+      case "lg":
         if(this.cover == undefined) return "/datastore/cover-lg.png";
         if(!this.cover?.lgImageUri.startsWith("/datastore")) return "/datastore/cover-lg.png";
         return this.cover?.lgImageUri;
-      case "sm": 
+      case "sm":
         if(this.cover == undefined) return "/datastore/cover-sm.png";
         if(!this.cover?.lgImageUri.startsWith("/datastore")) return "/datastore/cover-sm.png";
         return this.cover?.smImageUri;

@@ -30,7 +30,6 @@ export class ChapterEditListComponent implements OnInit {
    */
   async getChapters() {
     for (let chapterId of this.book.chapterIds) {
-      console.log(chapterId);
       const chapter = await firstValueFrom(this.chapterService.getChapterById(chapterId));
       this.chapters.push(chapter);
     }
