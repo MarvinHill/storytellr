@@ -1,6 +1,6 @@
 # Storytellr
-Storytellr is a project for writers and readers. As a user you can write your iwn books and publosh them and read the books of other people. There should be interaction between readers and writers.
-This project was developed by Marvin Hill and Janina Dörflinger from Heilbronn Univerity for Application Projekts in SoSE 2024.
+Storytellr is a project for writers and readers. As a user you can write your own books and publish them and read the books written by other people. There should be interaction between readers and writers.
+This project was developed by Marvin Hill and Janina Dörflinger from Heilbronn University for Application Projects in SoSE 2024.
 
 ### Prefixes
 
