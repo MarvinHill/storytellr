@@ -31,6 +31,9 @@ Current existing Scopes in Storytellr
 - The **webapp folder** contains the angular frontend projekt.
 - The **api folder** contains a spring boot backend api service that is consumed by the webapp.
 
+### Cloning the Project
+- Make sure to configure `git config --global core.autocrlf false` before cloning the project.
+
 ### Build Project
 - injects client secret into keycloak conf
 `docker compose -p buildstep -f build.yml --profile dev up -d `
