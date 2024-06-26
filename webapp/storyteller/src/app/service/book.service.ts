@@ -82,7 +82,6 @@ export class BookService {
    * @param progress the current progress of the book
    */
   increaseBookProgress(bookId: string, progress: number): Observable<number> {
-    console.log("Increasing progress by" + progress);
     return this.http.put<number>(`${environment.apiUrl}/books/progress/increase/${bookId}/${progress}`, {});
   }
 }

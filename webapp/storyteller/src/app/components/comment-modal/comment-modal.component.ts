@@ -38,7 +38,6 @@ export class CommentModalComponent implements OnInit {
     this.commentService.getCommentsByBlockId(chapterId, blockId).subscribe({
       next: (comments) => {
         this.comments = comments;
-        console.log(this.comments);
       },
       error: (error) => {
         console.error(error);
@@ -68,7 +67,6 @@ export class CommentModalComponent implements OnInit {
       this.commentService.addComment(comment).subscribe(
         {
           next: (comment) => {
-            console.log(comment);
             this.commentContent = "";
             if (this.chapterId && this.blockId) {
               this.getCommentsByChapterIdAndBlockId(this.chapterId, this.blockId);

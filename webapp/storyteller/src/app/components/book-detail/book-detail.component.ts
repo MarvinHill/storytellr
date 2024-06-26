@@ -68,7 +68,6 @@ export class BookDetailComponent implements OnInit{
   addToLibrary() {
     this.libraryService.addBookToLibrary(this.bookId).subscribe({
       next: (resp: Book) => {
-        console.log("Book added" + resp);
         this.updateView();
       },
       error: (error: any) => {
@@ -83,7 +82,6 @@ export class BookDetailComponent implements OnInit{
   isBookInLibrary(){
     this.libraryService.isBookInLibrary(this.bookId).subscribe({
       next: (resp: boolean) => {
-        console.log("Book in library: " + resp);
         this.bookInLibrary = resp;
       },
       error: (error: any) => {
@@ -98,7 +96,6 @@ export class BookDetailComponent implements OnInit{
   removeFromLibrary() {
     this.libraryService.removeBookFromLibrary(this.bookId).subscribe({
       next: (resp: Book) => {
-        console.log(resp);
         this.updateView();
       },
       error: (error: any) => {
@@ -113,7 +110,6 @@ export class BookDetailComponent implements OnInit{
   likeBook() {
     this.libraryService.likeBook(this.bookId).subscribe({
       next: (resp: Book) => {
-        console.log(resp);
         this.updateView();
       },
       error: (error: any) => {
@@ -128,7 +124,6 @@ export class BookDetailComponent implements OnInit{
   unlikeBook() {
     this.libraryService.unlikeBook(this.bookId).subscribe({
       next: (resp: Book) => {
-        console.log(resp);
         this.updateView();
       },
       error: (error: any) => {

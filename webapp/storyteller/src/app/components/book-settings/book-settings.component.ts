@@ -40,10 +40,8 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
   updatePublic() {
     this.book.public = this.settingsForm.get('public')?.value;
     this.bookMapperService.toEditBookRequest(this.book);
-    console.log(this.book);
     this.bookService.updateBook(this.book).subscribe({
       next: (resp) => {
-        console.log("Response:" + resp);
       },
       error: (error) => {
         console.error(error.message);
@@ -57,10 +55,8 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
   updateAdultContent() {
     this.book.adultContent = this.settingsForm.get('adultContent')?.value;
     this.bookMapperService.toEditBookRequest(this.book);
-    console.log(this.book);
     this.bookService.updateBook(this.book).subscribe({
       next: (resp) => {
-        console.log("Response:" + resp);
       },
       error: (error) => {
         console.error(error.message);
@@ -74,10 +70,8 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
   updateFinished() {
     this.book.finished = this.settingsForm.get('finished')?.value;
     this.bookMapperService.toEditBookRequest(this.book);
-    console.log(this.book);
     this.bookService.updateBook(this.book).subscribe({
       next: (resp) => {
-        console.log("Response:" + resp);
       },
       error: (error) => {
         console.error(error.message);
@@ -91,10 +85,8 @@ export class BookSettingsComponent implements OnInit, AfterContentInit{
   updateCommentsDeactivated() {
     this.book.commentsDeactivated = this.settingsForm.get('commentsDeactivated')?.value;
     this.bookMapperService.toEditBookRequest(this.book);
-    console.log(this.book);
     this.bookService.updateBook(this.book).subscribe({
       next: (resp) => {
-        console.log("Response:" + resp);
       },
       error: (error) => {
         console.error(error.message);

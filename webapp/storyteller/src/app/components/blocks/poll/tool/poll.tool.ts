@@ -11,8 +11,6 @@ export class PollTool {
   }
 
   constructor(obj : {api : any, data : Poll}) {
-    console.log("API", obj.api);
-    console.log("Data", obj.data);
     this.poll = obj.data;
     this.api = obj.api;
   }
@@ -46,16 +44,9 @@ export class PollTool {
      <input id="optionInput" type="text" class="w-96 p-2 mt-2" placeholder="Option Text">
     </div>
     `
-    console.log("Poll", this.poll);
-
-    // for (const pollOption of this.poll.options) {
-    //   this.addExistingOption(pollOption);
-    //   stop
-    // }
 
     this.addExistingOption(this.poll.options);
 
-    console.log("innerHtml1 ", this.element.querySelector("#content")!.innerHTML);
 
     const questionInput : HTMLInputElement | null = this.element.querySelector("#questionInput");
     if(questionInput){
@@ -63,7 +54,6 @@ export class PollTool {
       questionInput.addEventListener("input", (event) => {
         if(this.poll){
           this.poll.question = (event.target as HTMLInputElement).value;
-          console.log("Poll", this.poll);
         }
       });
     }
@@ -110,7 +100,6 @@ export class PollTool {
           const index = this.api.blocks.getCurrentBlockIndex()
           this.api.blocks.insert("paragraph", {text: " "}, {}, index + 1, false);
           this.api.blocks.delete(index + 1);
-          console.log(this.poll.options);
         }
       });
     }
@@ -118,27 +107,19 @@ export class PollTool {
   }
 
   addNewOption(content : String) {
-    console.log("Editor: Add new Option")
     let pollOption : PollOption = {content: content, voteCount: 0, id: `REPLACE${Math.floor(Math.random() * 100000)}`} as PollOption;
     this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
     this.poll?.options.push(pollOption)
-    console.log("Poll", this.poll)
   }
 
   addExistingOption(options : PollOption[]) {
-    // console.log("Editor: Add existing Option")
-    // let pollOption : PollOption = {content: option.content, voteCount: option.voteCount, id: option.id} as PollOption;
-    // this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
-    // console.log("Poll", this.poll)
     if(options.length == 0){
       return;
     }
     for(let pollOption of options){
-      console.log("test")
       this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
 
     }
-    console.log("Existing options was called", options.length)
   }
 
   save(blockContent: any) {

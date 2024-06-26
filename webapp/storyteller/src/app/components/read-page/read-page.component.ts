@@ -138,7 +138,6 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          console.log('intersecting');
           this.getNextChapter();
         }
       });

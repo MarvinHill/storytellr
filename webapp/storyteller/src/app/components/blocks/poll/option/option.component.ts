@@ -17,7 +17,6 @@ export class OptionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("Option", this.option);
 
     const randomPick = this.pickColorBasedOnIndex([
       ["bg-red-100", "border-red-300"],
@@ -36,7 +35,6 @@ export class OptionComponent implements OnInit {
     this.randomBackgroundColor = randomPick[0];
     this.randomBorderColor = randomPick[1];
 
-    console.log("OptionInitValues: ", this.randomBorderColor, this.randomBackgroundColor, this.progessValue, this.ind);
   }
 
   calculateClasses() {

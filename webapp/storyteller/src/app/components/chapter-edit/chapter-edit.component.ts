@@ -29,7 +29,6 @@ export class ChapterEditComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.chapterId = params['chapterId'];
       this.chapterService.getChapterById(this.chapterId).subscribe((chapter: Chapter) => {
-        console.log(chapter)
         this.chapter = chapter;
       });
     });
@@ -43,7 +42,6 @@ export class ChapterEditComponent implements OnInit{
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
-        console.log(resp);
       },
       error: (error: any) => {
         console.error(error.message);
@@ -64,7 +62,6 @@ export class ChapterEditComponent implements OnInit{
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
-        console.log(resp);
         setTimeout(() => {
           this.saving = false;
           this.saved = true;
@@ -87,7 +84,6 @@ export class ChapterEditComponent implements OnInit{
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
-        console.log(resp);
       },
       error: (error: any) => {
         console.error(error.message);
@@ -103,7 +99,6 @@ export class ChapterEditComponent implements OnInit{
     const editChapter = this.chapterMapperService.mapChapterToEditChapterRequest(this.chapter);
     this.chapterService.updateChapter(editChapter).subscribe({
       next: (resp: Chapter) => {
-        console.log(resp);
       },
       error: (error: any) => {
         console.error(error.message);

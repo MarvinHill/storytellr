@@ -36,9 +36,6 @@ export class PollComponent implements OnInit {
     else {
       console.error("Poll Id is not defined");
     }
-
-
-    console.log("Poll Input", this.poll);
   }
 
   calculateProgress( option: PollOption | undefined): number {
@@ -68,7 +65,6 @@ export class PollComponent implements OnInit {
       if(this.pollId !== undefined) {
         this.pollService.vote(this.pollId, option.id).subscribe((lpoll) => {
           this.poll = lpoll;
-          console.log("Voted Poll update ", this.poll);
         });
       }
 

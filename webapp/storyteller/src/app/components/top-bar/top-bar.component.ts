@@ -28,10 +28,8 @@ export class TopBarComponent implements AfterViewChecked{
    */
   toggleMenu() {
     const burgerMenu = document.getElementById("burgerMenu");
-    console.log(burgerMenu);
     if(burgerMenu){
       burgerMenu.classList.toggle("hidden");
-      console.log(burgerMenu.classList)
     }
   }
 
@@ -47,11 +45,9 @@ export class TopBarComponent implements AfterViewChecked{
    * Login the user
    */
   login(){
-    console.log("login user")
     this.keycloak.login({
       redirectUri: window.location.href
     }).then(()=>{
-      console.log("get Username after login")
       this.updateUsername()
     });
   }
