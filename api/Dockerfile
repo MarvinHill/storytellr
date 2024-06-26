@@ -12,4 +12,4 @@ RUN apk add imagemagick
 RUN apk add libjpeg-turbo
 
 WORKDIR /var/api
-CMD java -jar api.jar
+CMD java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar api.jar 

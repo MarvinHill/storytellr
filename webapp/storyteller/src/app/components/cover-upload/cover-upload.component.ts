@@ -44,7 +44,6 @@ export class CoverUploadComponent implements OnInit {
    */
   private updateURL(file : File | null) {
     if(file == null || file == undefined) {
-      console.log("file is", file);
       return;
     }
     this.coverService.previewCover(file).subscribe( {
@@ -70,18 +69,16 @@ export class CoverUploadComponent implements OnInit {
     this.imageIsToSmall = false;
 
     // Prevent Browser from opening the file
-    event.stopPropagation();    
+    event.stopPropagation();
     event.preventDefault();
 
     if(event.target?.files != null){
-      console.log("first selected file", event.target.files[0]);
       this.file.next(event.target?.files[0]);
       this.checkImageSize(event.target.files[0]);
       this.checkFileIsToBig(event.target.files[0]);
-      
+
     }
     else if (event.dataTransfer?.files != null){
-      console.log("second selected file", event.dataTransfer?.files[0]);
       this.file.next(event.dataTransfer?.files[0]);
       this.checkImageSize(event.dataTransfer?.files[0]);
       this.checkFileIsToBig(event.dataTransfer?.files[0]);
@@ -105,7 +102,7 @@ export class CoverUploadComponent implements OnInit {
         resolve(this.imageIsToSmall)
       }
     })
-    
+
     img.src = URL.createObjectURL(file)
     return promise;
   }
@@ -119,7 +116,7 @@ export class CoverUploadComponent implements OnInit {
     if(this.fileIsToBig) this.file.next(null);
     return this.fileIsToBig;
   }
-  
+
   /**
    * Handles the drag event and updates the state accordingly.
    *
@@ -127,8 +124,8 @@ export class CoverUploadComponent implements OnInit {
    */
   public onDrag(event: DragEvent) {
     // Prevent Browser from opening the file
-    event.stopPropagation();    
-    event.preventDefault(); 
+    event.stopPropagation();
+    event.preventDefault();
 
     clearTimeout(this.fileDragOverTimeout);
     this.fileDragOverTimeout = setTimeout(() => {
@@ -149,7 +146,7 @@ export class CoverUploadComponent implements OnInit {
    * Sets the previewLoaded flag to true.
    *
    * @param {void} None
-   * @return {void} 
+   * @return {void}
    */
   public previewLoadedEvent() {
     this.previewLoaded = true;
@@ -181,7 +178,7 @@ export class CoverUploadComponent implements OnInit {
           const currentUrl : CoverURI | null = this.url.getValue();
           if(currentUrl != null){
             this.urlChanged.emit(currentUrl);
-          } 
+          }
           console.debug("result, committing cover", result)
           this.isError = false;
         },

@@ -28,7 +28,7 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
 
   @ViewChild("bookContainerWrapper") wrapper: ElementRef | undefined;
   @ViewChild("element") element: ElementRef | undefined;
-  
+
   constructor(private renderer: Renderer2, private access : AccessService) { }
   ngAfterViewChecked(): void {
     this.recSize();
@@ -55,11 +55,9 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
    */
   async openBookDetails(){
     if(this.book == null || this.book == undefined){
-      console.log("book is null or undefined");
       return
     }
 
-    console.log("current route", window.location.href)
 
     if(this.edit){
       this.access.toBookEditPage(this.book);
@@ -75,7 +73,7 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
   recSize(){
 
     if(this.wrapper == undefined || this.element == undefined) return;
-    
+
     const style = getComputedStyle(this.wrapper.nativeElement);
     const height = this.wrapper.nativeElement.clientHeight - parseInt(style.paddingTop) - parseInt(style.paddingBottom);
     const width = this.wrapper.nativeElement.clientWidth - parseInt(style.paddingLeft) - parseInt(style.paddingBottom);
@@ -93,5 +91,5 @@ export class BookDisplayComponent implements AfterViewInit, AfterViewChecked {
     this.renderer.setStyle(this.element.nativeElement, 'width', `${width}px`);
   }
 
-  
+
 }
