@@ -90,6 +90,11 @@ public class CustomAuthorizationService {
         return false;
     }
 
+  /**
+   * Check if the logged-in user is the owner of a poll.
+   * @param pollId Id of the poll.
+   * @return if the user is the owner of the poll.
+   */
   public boolean userOwnsPoll(String pollId) {
       try {
         String userId = userService.getCurrentUser();

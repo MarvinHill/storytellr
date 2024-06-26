@@ -101,7 +101,11 @@ public class ChapterServiceImpl implements ChapterService {
         return chapterMapper.toChapterDTO(chapterRepository.save(chapterMapper.toChapter(chapter)));
     }
 
-
+    /**
+     * Process the blocks of a chapter content
+     * @param chapterContent the content of the chapter
+     * @return the updated chapter content
+     */
     protected String processBlocks(final String chapterContent) {
         try {
             JsonNode jsonNode = objectMapper.readTree(chapterContent);
@@ -146,7 +150,10 @@ public class ChapterServiceImpl implements ChapterService {
 
     }
 
-
+    /**
+     * Create or update a poll
+     * @param block the block to create or update
+     */
     protected void createOrUpdatePoll(JsonNode block){
         try {
             JsonNode pollNode = block.get("data");

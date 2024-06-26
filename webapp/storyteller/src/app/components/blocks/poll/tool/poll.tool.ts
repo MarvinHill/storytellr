@@ -1,7 +1,16 @@
 import {Poll, PollOption} from "../../../../model/poll";
 import {isEmpty} from "rxjs";
 
+/**
+ * PollTool is a class that represents a tool for creating and managing polls.
+ * It provides methods for rendering the poll, creating new options, and saving the poll.
+ */
 export class PollTool {
+
+  /**
+   * Returns the toolbox configuration for the PollTool.
+   * @returns {Object} The toolbox configuration.
+   */
   static get toolbox() {
     return {
       title: 'Community Question',
@@ -10,6 +19,10 @@ export class PollTool {
     };
   }
 
+  /**
+   * Constructor for the PollTool.
+   * @param {Object} obj - The object containing the api and data for the PollTool.
+   */
   constructor(obj : {api : any, data : Poll}) {
     this.poll = obj.data;
     this.api = obj.api;
@@ -19,6 +32,10 @@ export class PollTool {
   api : any
   element : HTMLElement | undefined;
 
+  /**
+   * Renders the PollTool.
+   * @returns {HTMLElement | undefined} The HTML element for the PollTool.
+   */
   render() {
     if(this.poll === undefined || this.poll.id === undefined ) {
       this.poll = {owner:"", question:"NEW QUESTION1", options:[], id:""} as Poll;
@@ -75,6 +92,11 @@ export class PollTool {
     return this.element;
   }
 
+  /**
+   * Creates an HTML element for an option.
+   * @param {PollOption} option - The option to create an HTML element for.
+   * @returns {HTMLElement} The HTML element for the option.
+   */
   createOptionElement(option: PollOption) {
     const templateOption = `
         <div class="flex w-full">
@@ -106,12 +128,20 @@ export class PollTool {
     return newEl;
   }
 
+  /**
+   * Adds a new option to the PollTool.
+   * @param {String} content - The content for the new option.
+   */
   addNewOption(content : String) {
     let pollOption : PollOption = {content: content, voteCount: 0, id: `REPLACE${Math.floor(Math.random() * 100000)}`} as PollOption;
     this.element?.querySelector("#content")?.appendChild(this.createOptionElement(pollOption));
     this.poll?.options.push(pollOption)
   }
 
+  /**
+   * Adds existing options to the PollTool.
+   * @param {PollOption[]} options - The existing options to add to the PollTool.
+   */
   addExistingOption(options : PollOption[]) {
     if(options.length == 0){
       return;
@@ -122,6 +152,11 @@ export class PollTool {
     }
   }
 
+  /**
+   * Saves the poll.
+   * @param {any} blockContent - The content of the block to save.
+   * @returns {Poll | undefined} The saved poll.
+   */
   save(blockContent: any) {
     return this.poll
   }

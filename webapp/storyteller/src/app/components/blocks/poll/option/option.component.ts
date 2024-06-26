@@ -2,6 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import colors from "tailwindcss/colors";
 import {PollOption} from "../../../../model/poll";
 
+/**
+ * OptionComponent is a component that represents a single option in a poll.
+ * It is responsible for displaying the option and its associated data.
+ */
 @Component({
   selector: 'app-option',
   templateUrl: './option.component.html',
@@ -37,10 +41,20 @@ export class OptionComponent implements OnInit {
 
   }
 
+  /**
+   * Calculate the classes for the option component.
+   * @returns {String} The classes for the option component.
+   */
   calculateClasses() {
     return "relative overflow-hidden shadow p-4 mt-2 rounded-3xl font-semibold border " + ` ${this.randomBorderColor}`
   }
 
+  /**
+   * Pick a color based on the index of the option.
+   * @param {String[][]} colors - The array of colors.
+   * @param {number | undefined} index - The index of the option.
+   * @returns {String[]} The picked color.
+   */
   pickColorBasedOnIndex(colors: String[][], index: number | undefined): String[] {
     const len = colors.length;
     let pickedIndex;
@@ -54,6 +68,10 @@ export class OptionComponent implements OnInit {
     return colors[pickedIndex];
   }
 
+  /**
+   * Calculate the progress classes for the option component.
+   * @returns {String} The progress classes for the option component.
+   */
   calculateProgressClasses(): String {
     let ret = "absolute left-0 top-0 bottom-0 h-full " + this.randomBackgroundColor;
 
