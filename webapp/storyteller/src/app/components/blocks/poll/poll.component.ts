@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {Poll, PollOption} from "../../../model/poll";
 import {PollService} from "../../../service/poll.service";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-poll',
@@ -13,14 +14,21 @@ export class PollComponent implements OnInit {
   show : boolean = false;
   voted: boolean = false;
 
-  constructor(private pollService : PollService) { }
+  constructor(private pollService : PollService, private keycloak: KeycloakService) { }
 
   ngOnInit() {
     if(this.pollId !== undefined) {
-    this.pollService.getVoteState(this.pollId).subscribe((voted) => {
-      this.show = true;
-      this.voted = voted;
-    });
+      if(this.keycloak.isLoggedIn()){
+        this.pollService.getVoteState(this.pollId).subscribe((voted) => {
+          this.show = true;
+          this.voted = voted;
+        });
+      }
+      else {
+        this.show = true;
+        this.voted = true;
+      }
+
     this.pollService.getPoll(this.pollId).subscribe((poll) => {
         this.poll = poll;
       });
