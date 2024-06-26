@@ -49,9 +49,11 @@ public class PollServiceImpl implements PollService {
     }
 
     Poll poll = pollRepository.findById(pollDTO.getId()).orElseThrow();
+    if(pollDTO.getQuestion() != null){
+      poll.setQuestion(pollDTO.getQuestion());
+    }
     if(pollDTO.getOptions() != null){
       poll.setOptions(pollDTO.getOptions().stream().map(pollMapper::toPollOptionWithVoteReset).collect(Collectors.toList()));
-
     }
     return pollMapper.toPollDTO(pollRepository.save(poll));
   }
