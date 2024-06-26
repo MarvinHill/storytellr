@@ -1,19 +1,20 @@
 package de.storyteller.api.service.auth;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+/**
+ * This class is an implementation of the KeycloakService. It provides methods to get information about users from the keycloak api
+ */
 @Service("KeycloakService")
 @RequiredArgsConstructor
 @Slf4j
@@ -24,6 +25,11 @@ public class KeycloakServiceImpl implements  KeycloakService{
 
   private final TokenService tokenService;
 
+  /**
+   * This method returns the username of a user with the given id.
+   * @param id the id of the user
+   * @return the username of the user
+   */
   @Override
   public String getUsername(String id) {
 

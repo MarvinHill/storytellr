@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-
+/**
+ * Mapper for comments
+ */
 @Component
 public class CommentMapper {
 
@@ -21,6 +23,11 @@ public class CommentMapper {
     @Autowired
     @Qualifier("CachedKeycloakService")
     protected KeycloakService keycloakService;
+    /**
+     * Maps an AddCommentRequest to a Comment
+     * @param addCommentRequest the AddCommentRequest to map
+     * @return the mapped Comment
+     */
     public Comment toComment(AddCommentRequest addCommentRequest) {
         Comment comment = new Comment();
         comment.setContent(addCommentRequest.getContent());
@@ -31,6 +38,12 @@ public class CommentMapper {
         comment.setCreatedAt(LocalDateTime.now());
         return comment;
     }
+
+    /**
+     * Maps a Comment to a CommentDTO
+     * @param comment the Comment to map
+     * @return the mapped CommentDTO
+     */
     public CommentDTO toDTO(Comment comment) {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setContent(comment.getContent());

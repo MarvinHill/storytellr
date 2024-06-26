@@ -1,6 +1,5 @@
 package de.storyteller.api.service.tools;
 
-import java.io.File;
 import java.io.IOException;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
@@ -9,6 +8,10 @@ import org.im4java.core.Info;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+
+/**
+ * Service for editing images.
+ */
 @Slf4j
 @Service
 public class MagickImageEditService implements ImageEditService {
@@ -24,18 +27,44 @@ public class MagickImageEditService implements ImageEditService {
     cmd.setSearchPath(LIB_PATH);
   }
 
+  /**
+   * Scale an image to a small size.
+   * @param inFile Input file.
+   * @param outFile Output file.
+   * @throws IOException if an I/O error occurs.
+   * @throws InterruptedException if the process is interrupted.
+   * @throws IM4JavaException if an error occurs during image processing.
+   */
   @Override
   public void scaleToSm(String inFile, String outFile)
       throws IOException, InterruptedException, IM4JavaException {
     scaleImage(cmd, SM_HEIGHT, inFile, outFile);
   }
 
+  /**
+   * Crop an image to a large size.
+   * @param inFile Input file.
+   * @param outFile Output file.
+   * @throws IOException if an I/O error occurs.
+   * @throws InterruptedException if the process is interrupted.
+   * @throws IM4JavaException if an error occurs during image processing.
+   */
   @Override
   public void cropToLg(String inFile, String outFile)
       throws IOException, InterruptedException, IM4JavaException {
     cropImage(cmd, LG_HEIGHT, inFile, outFile);
   }
 
+  /**
+   * Crop an image to a large size.
+   * @param cmd ConvertCmd
+   * @param DEST_HEIGHT Destination height
+   * @param inputFilePath Input file path
+   * @param outputFilePath Output file path
+   * @throws IM4JavaException if an error occurs during image processing.
+   * @throws IOException if an I/O error occurs.
+   * @throws InterruptedException if the process is interrupted.
+   */
   public void cropImage(ConvertCmd cmd, int DEST_HEIGHT, String inputFilePath,
                         String outputFilePath)
       throws IM4JavaException, IOException, InterruptedException {
@@ -56,6 +85,16 @@ public class MagickImageEditService implements ImageEditService {
     cmd.run(op, inputFilePath, outputFilePath);
   }
 
+  /**
+   * Scale an image to a small size.
+   * @param cmd ConvertCmd
+   * @param DEST_HEIGHT Destination height
+   * @param inputFilePath Input file path
+   * @param outputFilePath Output file path
+   * @throws IOException if an I/O error occurs.
+   * @throws InterruptedException if the process is interrupted.
+   * @throws IM4JavaException if an error occurs during image processing.
+   */
   private void scaleImage(ConvertCmd cmd, int DEST_HEIGHT, String inputFilePath,
                      String outputFilePath)
       throws IOException, InterruptedException, IM4JavaException {

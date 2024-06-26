@@ -1,5 +1,8 @@
 package de.storyteller.api.model;
 
+/**
+ * Enum for the different types blocks for the editor
+ */
 public enum EditorTypes {
     HEADER("header"),
     PARAGRAPH("paragraph"),

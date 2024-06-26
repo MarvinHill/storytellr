@@ -6,6 +6,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for getting user information.
+ */
 @Service
 public class AuthUtils {
   public Map<String, Object> getClaims() throws ParseException {

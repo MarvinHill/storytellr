@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model class for a comment
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

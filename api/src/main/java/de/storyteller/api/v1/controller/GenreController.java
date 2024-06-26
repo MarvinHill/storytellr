@@ -13,7 +13,6 @@ import java.util.List;
 
 /**
  * Controller for handling genre related requests
- * @version 1.0
  */
 @RequiredArgsConstructor
 @RestController
@@ -32,6 +31,11 @@ public class GenreController {
         return ResponseEntity.ok(genreService.getAllGenres());
     }
 
+    /**
+     * Get a genre by its id
+     * @param id Id of the genre
+     * @return Genre
+     */
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}")
     public ResponseEntity<GenreDTO> getGenreById(@PathVariable String id) {

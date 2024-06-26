@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
+/**
+ * Request object to add a comment
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

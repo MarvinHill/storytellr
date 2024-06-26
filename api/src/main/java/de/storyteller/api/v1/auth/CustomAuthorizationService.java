@@ -18,6 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for getting user information.
+ */
 @AllArgsConstructor
 @Service("sAuthService")
 @Slf4j
@@ -28,15 +31,24 @@ public class CustomAuthorizationService {
     UserService userService;
     PollService PollService;
 
+    /**
+     * Check if the logged in user is the author of a book.
+     * @param bookId Id of the book.
+     * @return if the user is the author of the book.
+     */
     public boolean userOwnsBook(String bookId){
       Optional<BookDTO> bookDTO = bookService.getBookById(bookId);
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       if(bookDTO.isEmpty() || authentication == null) return false;
       Jwt jwt = (Jwt) authentication.getPrincipal();
 
-      return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
+      return jwt.getSubject().equals(bookDTO.get().getAuthor());
     }
 
+    /**
+     * Check if the logged in user is an admin.
+     * @return if the user is an admin.
+     */
     public boolean isAdmin(){
       try {
         Map<String, Object> claims = authUtils.getClaims();
@@ -56,18 +68,11 @@ public class CustomAuthorizationService {
       return false;
     }
 
-//    public boolean userIsAuthorOfChapter(String chapterId){
-//      Optional<ChapterDTO> chapterDTO = chapterService.getChapterById(chapterId);
-//      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//      if(chapterDTO.isEmpty() || authentication == null) return false;
-//      Jwt jwt = (Jwt) authentication.getPrincipal();
-//
-//      Optional<BookDTO> bookDTO = bookService.getBookById(chapterDTO.get().getBookId());
-//      if(bookDTO.isEmpty()) return false;
-//
-//      return jwt.getSubject().equals(bookDTO.get().getAuthor().toString());
-//    }
-
+    /**
+     * Check if the logged in user is the author of a chapter.
+     * @param chapterId Id of the chapter.
+     * @return if the user is the author of the chapter.
+     */
     public boolean userIsAuthorOfChapter(String chapterId){
       Optional<ChapterDTO> chapterDTO = chapterService.getChapterById(chapterId);
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -83,10 +88,6 @@ public class CustomAuthorizationService {
             }
         }
         return false;
-    }
-
-    public boolean testLog(){
-      return true;
     }
 
   public boolean userOwnsPoll(String pollId) {

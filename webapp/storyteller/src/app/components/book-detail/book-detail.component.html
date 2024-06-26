@@ -76,7 +76,14 @@
                     }
                   }
 
+
                 </div>
+                @if (book.adultContent) {
+                  <p class="rounded-2xl bg-gray-200 px-2 py-1 text-sm m-1">Adult Content</p>
+                }
+                @if(book.finished){
+                  <p class="rounded-2xl bg-gray-200 px-2 py-1 text-sm m-1">Finished</p>
+                }
                 <button class="bg-[#E14237] rounded-3xl w-28 h-16 -rotate-45 my-7" (click)="navigateToReadPage()">
                   <p class="text-white text-lg rotate-45">Read</p>
                 </button>

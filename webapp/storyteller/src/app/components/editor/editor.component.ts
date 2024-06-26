@@ -13,6 +13,10 @@ import { PollTool } from '../blocks/poll/tool/poll.tool';
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss',
 })
+
+/**
+ * Component for editing a chapter
+ */
 export class EditorComponent implements OnInit{
   editor: any;
   @Input() chapter!: Chapter;
@@ -22,6 +26,9 @@ export class EditorComponent implements OnInit{
 
   }
 
+  /**
+   * Initialize the editor with the header tool and render the content of the chapter
+   */
   ngOnInit() {
 
     this.editor = new EditorJS({
@@ -45,6 +52,9 @@ export class EditorComponent implements OnInit{
     });
   }
 
+  /**
+   * Save the content of the editor and emit the content to the parent component
+   */
   async saveContent() {
       const savedData = await this.editor.save();
       this.contentEmitter.emit(JSON.stringify(savedData));

@@ -7,6 +7,10 @@ import {LibraryService} from "../../service/library.service";
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
+
+/**
+ * Library component to display the list of books saved in the library
+ */
 export class LibraryComponent implements OnInit{
   books: Book[] = [];
 

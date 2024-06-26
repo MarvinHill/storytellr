@@ -68,6 +68,11 @@ public class BookController {
     }
 
 
+    /**
+     * Get a book with all published chapters
+     * @param id Id of the book
+     * @return Book with all published chapters
+     */
     @PreAuthorize("permitAll()")
     @GetMapping("/{id}/published")
     public ResponseEntity<BookDTO> getBookWithPublishedChapters(@PathVariable String id){
@@ -85,12 +90,22 @@ public class BookController {
         return ResponseEntity.ok(bookService.getAllChapters(id));
     }
 
+    /**
+     * Get all books of the logged in user
+     * @return List of books of the logged in user
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/user")
     public ResponseEntity<List<BookDTO>> getBooksByAuthor(){
         return ResponseEntity.ok(bookService.getBooksByAuthor());
     }
 
+    /**
+     * Increase the progress of a book for the logged in user
+     * @param id Id of the book
+     * @param progress Progress to be added
+     * @return Ok if the progress was increased
+     */
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/progress/increase/{id}/{progress}")
     public ResponseEntity<?> increaseProgress(@PathVariable String id, @PathVariable int progress){
@@ -98,6 +113,11 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Get the progress of a book for the logged in user
+     * @param id Id of the book
+     * @return Progress of the book
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/progress/{id}")
     public ResponseEntity<Integer> getBookProgress(@PathVariable String id){

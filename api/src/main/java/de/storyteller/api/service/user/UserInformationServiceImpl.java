@@ -5,13 +5,12 @@ import java.net.ConnectException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestTemplate;
 
+/**
+ * Service for getting user information.
+ */
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -21,6 +20,12 @@ public class UserInformationServiceImpl implements  UserInformationService{
   RestClient keycloakServiceAccount;
   TokenService tokenService;
 
+  /**
+   * Get the name of a user by their id.
+   * @param id User id.
+   * @return User name.
+   * @throws ConnectException if the there is a connection error.
+   */
   @Override
   public String idToName(String id) throws ConnectException {
     return "";

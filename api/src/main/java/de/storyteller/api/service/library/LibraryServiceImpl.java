@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * Implementation of the LibraryService.
+ */
 @RequiredArgsConstructor
 @Service
 public class LibraryServiceImpl implements LibraryService {
@@ -19,6 +22,10 @@ public class LibraryServiceImpl implements LibraryService {
     private final BookMapper bookMapper;
     private final BookService bookService;
 
+    /**
+     * Get all books from the library of the logged in user.
+     * @return List of books in the library.
+     */
     @Override
     public List<BookDTO> getAllBooksFromLibrary() {
         String userId = userService.getCurrentUser();
@@ -34,6 +41,11 @@ public class LibraryServiceImpl implements LibraryService {
         }
     }
 
+    /**
+     * Add a book to the library of the logged in user.
+     * @param bookId Id of the book to add.
+     * @return Updated library.
+     */
     @Override
     public Library addBookToLibrary(String bookId) {
         String userId = userService.getCurrentUser();
@@ -55,6 +67,11 @@ public class LibraryServiceImpl implements LibraryService {
         }
     }
 
+    /**
+     * Remove a book from the library of the logged in user.
+     * @param bookId Id of the book to remove.
+     * @return Updated library.
+     */
     @Override
     public Library removeBookFromLibrary(String bookId) {
         String userId = userService.getCurrentUser();
@@ -69,6 +86,11 @@ public class LibraryServiceImpl implements LibraryService {
         throw new RuntimeException("Library not found");
     }
 
+    /**
+     * Check if a book is in the library of the logged in user.
+     * @param bookId Id of the book to check.
+     * @return True if the book is in the library, false otherwise.
+     */
     @Override
     public boolean containsBook(String bookId) {
         String userId = userService.getCurrentUser();
@@ -80,6 +102,10 @@ public class LibraryServiceImpl implements LibraryService {
         return false;
     }
 
+    /**
+     * Get a list of random books from the library of the logged in user.
+     * @return List of random books.
+     */
     @Override
     public List<BookDTO> getRandomBooks() {
         String userId = userService.getCurrentUser();
@@ -94,6 +120,11 @@ public class LibraryServiceImpl implements LibraryService {
         throw new RuntimeException("Library not found");
     }
 
+    /**
+     * Like a book
+     * @param bookId Id of the book to like
+     * @return Updated library
+     */
     @Override
     public Library likeBook(String bookId) {
         String userId = userService.getCurrentUser();
@@ -118,6 +149,11 @@ public class LibraryServiceImpl implements LibraryService {
 
     }
 
+    /**
+     * Unlike a book
+     * @param bookId Id of the book to unlike
+     * @return Updated library
+     */
     @Override
     public Library unlikeBook(String bookId) {
         String userId = userService.getCurrentUser();
@@ -132,6 +168,11 @@ public class LibraryServiceImpl implements LibraryService {
         throw new RuntimeException("Library not found");
     }
 
+    /**
+     * Check if a book is liked
+     * @param bookId Id of the book to check
+     * @return True if the book is liked, false otherwise
+     */
     @Override
     public boolean isBookLiked(String bookId) {
         String userId = userService.getCurrentUser();

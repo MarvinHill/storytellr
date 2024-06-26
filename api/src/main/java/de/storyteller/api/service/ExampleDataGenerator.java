@@ -14,6 +14,9 @@ import de.storyteller.api.v1.dto.genre.AddGenreRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for generating example data.
+ */
 @Service
 public class ExampleDataGenerator {
   @Autowired
@@ -24,6 +27,9 @@ public class ExampleDataGenerator {
   @Autowired
   GenreService genreService;
 
+  /**
+   * Generate example data.
+   */
   public void generate(){
     genreRepository.save(new Genre("1b8b0883-596d-42b0-be60-b8793f22a572","Fantasy"));
     for (int i = 0; i < 10; i++) {
@@ -42,6 +48,9 @@ public class ExampleDataGenerator {
     }
   }
 
+  /**
+   * Generate genres.
+   */
   public void generateGenres(){
     genreService.createGenre(new AddGenreRequest("Fantasy"));
     genreService.createGenre(new AddGenreRequest("Distopian"));

@@ -1,5 +1,8 @@
 import { Comment } from './comment';
 
+/**
+ * Chapter model class
+ */
 export interface Chapter{
     id: string;
     chapterTitle: string;

@@ -5,6 +5,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss'
 })
+
+/**
+ * Component to display a pagination
+ */
 export class PaginationComponent{
 
   @Output() pageChanged : EventEmitter<number> = new EventEmitter<number>();
@@ -16,6 +20,9 @@ export class PaginationComponent{
   state : "first" | "last" | "middle" = "first";
 
 
+  /**
+   * Navigate to the previous page
+   */
   previousPage(){
     this.state = "middle";
     if(this.currentPage > 1){
@@ -27,6 +34,9 @@ export class PaginationComponent{
     }
   }
 
+  /**
+   * Navigate to the next page
+   */
   nextPage(){
     this.state = "middle";
     if(this.pageCount == undefined) return

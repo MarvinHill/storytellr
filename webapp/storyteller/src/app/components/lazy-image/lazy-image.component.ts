@@ -7,6 +7,10 @@ import { CoverURI } from '../../model/cover';
   templateUrl: './lazy-image.component.html',
   styleUrl: './lazy-image.component.scss',
 })
+
+/**
+ * Component to display an image with lazy loading
+ */
 export class LazyImageComponent {
 
   @Output() imageLoaded = new EventEmitter();
@@ -19,17 +23,27 @@ export class LazyImageComponent {
   @Input() width : string | undefined = "w-32";
   @Input() fullSize : boolean = false;
 
+  /**
+   * Emit the imageLoaded event when the image is loaded
+   */
   imgLoaded() {
     console.log("loaded img", this.getSrc())
     this.imageLoaded.emit();
     this.imgElementLoaded.emit(this.image?.nativeElement);
   }
 
+  /**
+   * Get the size of the image
+   * @returns the size of the image
+   */
   getSize() {
     if(this.fullSize) return "";
     return "aspect-[1/1.6] " + this.width;
   }
 
+  /**
+   * Get the source of the image
+   */
   getSrc() {
     switch(this.size) {
       case "lg": 

@@ -7,6 +7,10 @@ import { KeycloakService } from 'keycloak-angular';
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.scss'
 })
+
+/**
+ * Component to display the top bar of the application
+ */
 export class TopBarComponent implements AfterViewChecked{
 
   protected username : string | undefined;
@@ -19,6 +23,9 @@ export class TopBarComponent implements AfterViewChecked{
     }
   }
 
+  /**
+   * Toggle the burger menu
+   */
   toggleMenu() {
     const burgerMenu = document.getElementById("burgerMenu");
     console.log(burgerMenu);
@@ -28,11 +35,17 @@ export class TopBarComponent implements AfterViewChecked{
     }
   }
 
+  /**
+   * Logout the user
+   */
   logout(){
     this.router.navigate(['/discovery']);
     setTimeout(()=>{this.keycloak.logout()})
   }
 
+  /**
+   * Login the user
+   */
   login(){
     console.log("login user")
     this.keycloak.login({
@@ -43,6 +56,9 @@ export class TopBarComponent implements AfterViewChecked{
     });
   }
 
+  /**
+   * Update the username in the top bar
+   */
   async updateUsername(){
     if(this.keycloak.isLoggedIn()){
       this.username = await this.keycloak.loadUserProfile().then((profile)=>{

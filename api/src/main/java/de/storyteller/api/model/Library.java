@@ -9,6 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Model class for a library
+ */
 @Document(collection = "library")
 @Data
 @NoArgsConstructor
