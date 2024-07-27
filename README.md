@@ -1,8 +1,9 @@
 # Storytellr
-Storytellr is a project for writers and readers. As a user you can write your own books and publish them and read the books written by other people. There should be interaction between readers and writers.
-This project was developed by Marvin Hill and Janina Dörflinger from Heilbronn University for Application Projects in SoSE 2024.
-
-### Prefixes
+Storytellr is a project for writers and readers. As a user you can write books, publish them and read the books of other people. There should be interaction between readers and writers. 
+This project was developed by Marvin Hill and Janina Dörflinger from Heilbronn University for Application Projekts in SoSE 2024.
+## Showcase
+## Features
+## Branch Prefixes
 
 - feature/
 - bug/
@@ -35,7 +36,7 @@ Current existing Scopes in Storytellr
 - Make sure to configure `git config --global core.autocrlf false` before cloning the project.
 
 ### Build Project
-- injects client secret into keycloak conf
+- injects client secret from env file into keycloak conf
 `docker compose -p buildstep -f build.yml --profile dev up -d `
 
 ### Local Development
