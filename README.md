@@ -3,6 +3,18 @@ Storytellr is a project for writers and readers. As a user you can write books, 
 This project was developed by Marvin Hill and Janina Dörflinger from Heilbronn University for Application Projekts in SoSE 2024.
 ## Showcase
 ## Features
+- Account sign in / sign out with keycloak
+- Create a book on the platform
+- Upload a cover-image
+- Create chapters
+- Editor js integration to write the chapters
+- Read chapters with a endless scroll view
+- Book details page with description, author name etc.
+- Browse Books on the Landing-Page
+- Set book or chapter public
+- Community polls component that can be used in any chapter
+- Chapter read progress
+- Library for users to save books, to read later or to find books again faster
 ## Branch Prefixes
 
 - feature/
