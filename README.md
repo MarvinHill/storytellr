@@ -2,6 +2,7 @@
 Storytellr is a project for writers and readers. As a user you can write books, publish them and read the books of other people. There should be interaction between readers and writers. 
 This project was developed by Marvin Hill and Janina Dörflinger from Heilbronn University for Application Projekts in SoSE 2024.
 ## Showcase
+![image](https://github.com/user-attachments/assets/42470b77-e060-4772-8ba0-027fc0c51158)
 ![image](https://github.com/user-attachments/assets/180837b4-1c90-4217-a638-1523fe7cf75b)
 ![image](https://github.com/user-attachments/assets/28970442-0d0b-48dc-8964-f4e725097c5e)
 ![image](https://github.com/user-attachments/assets/045170b0-d980-4cac-851f-022ba4c38323)
