@@ -2,6 +2,7 @@ package de.storyteller.api.service.book;
 
 import de.storyteller.api.model.Progress;
 import de.storyteller.api.repository.ProgressRepository;
+import de.storyteller.api.service.auth.AuthProviderConnectionException;
 import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;

@@ -1,5 +1,6 @@
 package de.storyteller.api.service.book;
 
+import de.storyteller.api.service.auth.AuthProviderConnectionException;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
 import de.storyteller.api.v1.dto.book.BookDTO;
 import de.storyteller.api.v1.dto.book.EditBookRequest;

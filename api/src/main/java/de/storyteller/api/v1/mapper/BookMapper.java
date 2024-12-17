@@ -1,6 +1,10 @@
 package de.storyteller.api.v1.mapper;
 
+import static de.storyteller.api.util.AuthExceptionHandler.handleAuthNameCall;
+
 import de.storyteller.api.model.Chapter;
+import de.storyteller.api.service.auth.AuthProviderConnectionException;
+import de.storyteller.api.util.AuthExceptionHandler;
 import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.service.auth.KeycloakService;
 import de.storyteller.api.v1.dto.book.AddBookRequest;
@@ -43,6 +47,9 @@ public abstract class BookMapper {
     protected CoverUtils coverUtils;
     @Autowired
     protected UserService userService;
+    @Autowired
+    protected AuthExceptionHandler exceptionHandler;
+
     /**
      * Maps a book to a bookDTO
      * @param book the book to map
@@ -50,7 +57,7 @@ public abstract class BookMapper {
      */
     @Mapping(target = "genreId", source = "genre.id")
     @Mapping(target = "chapterIds", source = "chapters")
-    @Mapping(target = "authorName", expression = "java(keycloakService.getUsername(book.getAuthor()))")
+    @Mapping(target = "authorName", expression = "java( exceptionHandler.handleAuthNameCall((String author)->{ return keycloakService.getUsername(author);}, book.getAuthor()))")
     public abstract BookDTO toBookDTO(Book book);
 
     /**

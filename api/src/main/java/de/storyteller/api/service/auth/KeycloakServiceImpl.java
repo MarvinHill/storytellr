@@ -33,8 +33,6 @@ public class KeycloakServiceImpl implements  KeycloakService{
   @Override
   public String getUsername(String id) throws AuthProviderConnectionException {
     try {
-
-
     String token = tokenService.getToken();
 
     RestClient client = RestClient.create();

@@ -2,6 +2,7 @@ package de.storyteller.api.v1.controller;
 
 
 import de.storyteller.api.service.ExampleDataGenerator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller for handling mock data generation
  */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/mock")
 public class MockDataController {
-    @Autowired
-    ExampleDataGenerator exampleDataGenerator;
+
+    private final ExampleDataGenerator exampleDataGenerator;
 
     /**
      * Generate mock data if the user is authenticated and has the authority to generate mock data
