@@ -31,9 +31,9 @@ public class KeycloakServiceImpl implements  KeycloakService{
    * @return the username of the user
    */
   @Override
-  public String getUsername(String id) {
-
+  public String getUsername(String id) throws AuthProviderConnectionException {
     try {
+
 
     String token = tokenService.getToken();
 
@@ -52,8 +52,8 @@ public class KeycloakServiceImpl implements  KeycloakService{
       return json.get("username").asText();
     }
     catch (Exception e){
-      log.error(e.getMessage());
-      return "";
+      log.error("Error while getting username from keycloak", e);
+      throw new AuthProviderConnectionException("Error while getting username from keycloak", e);
     }
   }
 }

@@ -5,6 +5,7 @@ import de.storyteller.api.model.Chapter;
 import de.storyteller.api.model.Comment;
 import de.storyteller.api.repository.BookRepository;
 import de.storyteller.api.repository.ChapterRepository;
+import de.storyteller.api.service.auth.AuthProviderConnectionException;
 import de.storyteller.api.v1.dto.comment.AddCommentRequest;
 import de.storyteller.api.v1.dto.comment.CommentDTO;
 import de.storyteller.api.v1.mapper.CommentMapper;
@@ -32,7 +33,8 @@ public class CommentServiceImpl implements CommentService {
      * @return the added comment
      */
     @Override
-    public CommentDTO addComment(AddCommentRequest addCommentRequest) {
+    public CommentDTO addComment(AddCommentRequest addCommentRequest)
+        throws AuthProviderConnectionException {
         Chapter chapter = this.chapterRepository.findById(addCommentRequest.getChapterId()).orElseThrow(() -> new RuntimeException("Chapter not found"));
         Comment comment = this.commentMapper.toComment(addCommentRequest);
         // Return if comments are deactivated

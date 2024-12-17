@@ -1,6 +1,7 @@
 package de.storyteller.api.v1.mapper;
 
 import de.storyteller.api.model.Comment;
+import de.storyteller.api.service.auth.AuthProviderConnectionException;
 import de.storyteller.api.v1.auth.UserService;
 import de.storyteller.api.service.auth.KeycloakService;
 import de.storyteller.api.v1.dto.comment.AddCommentRequest;
@@ -28,7 +29,7 @@ public class CommentMapper {
      * @param addCommentRequest the AddCommentRequest to map
      * @return the mapped Comment
      */
-    public Comment toComment(AddCommentRequest addCommentRequest) {
+    public Comment toComment(AddCommentRequest addCommentRequest) throws AuthProviderConnectionException {
         Comment comment = new Comment();
         comment.setContent(addCommentRequest.getContent());
         comment.setAuthorId(userService.getCurrentUser());

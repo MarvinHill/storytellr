@@ -10,5 +10,5 @@ public interface KeycloakService {
   * @param id the id of the user
   * @return the username of the user
   */
-  String getUsername(String id);
+  String getUsername(String id) throws AuthProviderConnectionException;
 }

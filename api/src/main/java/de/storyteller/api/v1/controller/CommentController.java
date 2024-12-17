@@ -1,5 +1,6 @@
 package de.storyteller.api.v1.controller;
 
+import de.storyteller.api.service.auth.AuthProviderConnectionException;
 import de.storyteller.api.v1.dto.comment.AddCommentRequest;
 import de.storyteller.api.v1.dto.comment.CommentDTO;
 import de.storyteller.api.service.comment.CommentService;
@@ -49,7 +50,12 @@ public class CommentController {
      */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/add")
-    public ResponseEntity<CommentDTO> addComment(@RequestBody AddCommentRequest addCommentRequest) {
-        return ResponseEntity.ok(commentService.addComment(addCommentRequest));
+    public ResponseEntity<?> addComment(@RequestBody AddCommentRequest addCommentRequest) {
+      try {
+        CommentDTO createdComment = commentService.addComment(addCommentRequest);
+        return ResponseEntity.ok(createdComment);
+      } catch (AuthProviderConnectionException e) {
+          return ResponseEntity.internalServerError().build();
+      }
     }
 }

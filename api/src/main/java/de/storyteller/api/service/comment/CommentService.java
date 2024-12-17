@@ -1,5 +1,6 @@
 package de.storyteller.api.service.comment;
 
+import de.storyteller.api.service.auth.AuthProviderConnectionException;
 import de.storyteller.api.v1.dto.comment.AddCommentRequest;
 import de.storyteller.api.v1.dto.comment.CommentDTO;
 
@@ -14,7 +15,8 @@ public interface CommentService {
      * @param addCommentRequest the request containing the comment
      * @return the added comment
      */
-    CommentDTO addComment(AddCommentRequest addCommentRequest);
+    CommentDTO addComment(AddCommentRequest addCommentRequest)
+        throws AuthProviderConnectionException;
 
     /**
      * Get all comments for a chapter

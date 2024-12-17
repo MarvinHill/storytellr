@@ -29,7 +29,7 @@ public class CachedKeycloakServiceImpl implements  KeycloakService{
    * @return the username of the user
    */
   @Override
-  public String getUsername(String id) {
+  public String getUsername(String id) throws AuthProviderConnectionException {
     if(cache.containsKey(id) && cache.get(id).timestamp.plusMinutes(cacheTimeMin).isAfter(LocalDateTime.now())){
       return cache.get(id).author;
     }
