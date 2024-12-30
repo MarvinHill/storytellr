@@ -16,7 +16,7 @@ public class AuthExceptionHandler {
 
   public static String handleAuthNameCall(Function<String, String> func, String author) {
     try {
-      return func.apply("test");
+      return func.apply(author);
     } catch (Exception e) {
       return "";
     }
