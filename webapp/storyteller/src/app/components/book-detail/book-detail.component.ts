@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BookService} from "../../service/book.service";
 import {Book} from "../../model/book";
 import {LibraryService} from "../../service/library.service";
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-book-detail',
@@ -21,7 +22,7 @@ export class BookDetailComponent implements OnInit{
   readChapter: number = 0;
   bookLiked: boolean = false;
 
-  constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router, private libraryService: LibraryService) {}
+  constructor(protected keycloak : KeycloakService ,private route: ActivatedRoute, private bookService: BookService, private router: Router, private libraryService: LibraryService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
