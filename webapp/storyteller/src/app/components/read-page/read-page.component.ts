@@ -15,6 +15,7 @@ import {switchMap} from "rxjs";
 import {CommentService} from "../../service/comment.service";
 import {Comment} from "../../model/comment";
 import {CommentModalComponent} from "../comment-modal/comment-modal.component";
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-read-page',
@@ -39,7 +40,7 @@ export class ReadPageComponent implements OnInit, AfterViewInit, AfterViewChecke
   modalContainerRef!: ViewContainerRef;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private chapterService: ChapterService,
-              private commentService: CommentService, private injector: Injector,) {
+              private commentService: CommentService, private injector: Injector, protected keycloak : KeycloakService,) {
   }
 
   ngOnInit() {
